@@ -68,6 +68,16 @@ const defaultControls = {
     size: 'Medium',
     label: '텍스트',
   },
+  Radio: {
+    state: 'Unselected',
+    size: 'Medium',
+    style: 'Default',
+  },
+  RadioInput: {
+    state: 'Unselected',
+    size: 'Medium',
+    label: '텍스트',
+  },
 }
 
 export default function App() {

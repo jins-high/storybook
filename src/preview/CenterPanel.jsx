@@ -16,6 +16,7 @@ import { Toggle }   from '../components/Toggle.jsx'
 import { Checkbox }      from '../components/Checkbox.jsx'
 import { CheckboxInput } from '../components/CheckboxInput.jsx'
 import { Radio }         from '../components/Radio.jsx'
+import { RadioInput }    from '../components/RadioInput.jsx'
 import { HeroBanner }       from '../components/HeroBanner.jsx'
 import { OrderHistoryCard } from '../components/OrderHistoryCard.jsx'
 import * as Icons      from '../icons/icons.jsx'
@@ -254,6 +255,8 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'Tooltip' && <TooltipPreview c={controls.Tooltip} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Checkbox' && <CheckboxPreview c={controls.Checkbox} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'CheckboxInput' && <CheckboxInputPreview c={controls.CheckboxInput} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Radio' && <RadioPreview c={controls.Radio} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'RadioInput' && <RadioInputPreview c={controls.RadioInput} />}
       </InspectorLayer>
     </div>
   )
@@ -1162,55 +1165,76 @@ function CheckboxInputPreview({ c, onChange = () => {} }) {
 }
 
 function RadioPreview({ c }) {
+  const states = ['Selected', 'Unselected', 'Disabled', 'UncheckedDisabled']
+  const sizes = ['Small', 'Medium']
+  const styles = ['Default', 'Thin']
   return (
     <ComponentCanvas
       subtitle="Radio — current controls applied"
       hero={
         <Radio
-          checked={c.checked}
-          disabled={c.disabled}
+          state={c.state}
           size={c.size}
-          label={c.label || '라디오'}
+          style={c.style}
         />
       }
       allVariants={
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-
-          {/* States */}
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>States</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <Radio checked={false} label="Unchecked" />
-              <Radio checked={true}  label="Checked" />
-              <Radio checked={false} disabled label="Disabled (unchecked)" />
-              <Radio checked={true}  disabled label="Disabled (checked)" />
-            </div>
-          </div>
-
-          {/* Sizes */}
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>Sizes</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {Radio.sizes.map(size => (
-                <div key={size} style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                  <Radio size={size} checked={false} label={`size=${size} unchecked`} />
-                  <Radio size={size} checked={true}  label={`size=${size} checked`} />
+          {styles.map(st => (
+            <div key={st}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-icon-normal)', textTransform: 'uppercase', marginBottom: '12px' }}>
+                {st}
+              </div>
+              {sizes.map(size => (
+                <div key={size} style={{ marginBottom: '16px' }}>
+                  <div style={{ fontSize: '11px', fontWeight: 500, color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>
+                    {size}
+                  </div>
+                  <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+                    {states.map(state => (
+                      <div key={state} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                        <Radio state={state} size={size} style={st} />
+                        <span style={{ fontSize: '10px', color: 'var(--text-icon-assistive)' }}>{state}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
+          ))}
+        </div>
+      }
+    />
+  )
+}
 
-          {/* Radio group example */}
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>Radio group (example)</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <Radio checked={true}  label="옵션 1" />
-              <Radio checked={false} label="옵션 2" />
-              <Radio checked={false} label="옵션 3" />
-              <Radio checked={false} disabled label="옵션 4 (비활성)" />
+function RadioInputPreview({ c }) {
+  const states = ['Selected', 'Unselected', 'Disabled', 'UncheckedDisabled']
+  const sizes = ['Small', 'Medium']
+  return (
+    <ComponentCanvas
+      subtitle="RadioInput — current controls applied"
+      hero={
+        <RadioInput
+          state={c.state}
+          size={c.size}
+          label={c.label}
+        />
+      }
+      allVariants={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {sizes.map(size => (
+            <div key={size}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-icon-normal)', textTransform: 'uppercase', marginBottom: '12px' }}>
+                {size}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {states.map(state => (
+                  <RadioInput key={state} state={state} size={size} label={`${state}`} />
+                ))}
+              </div>
             </div>
-          </div>
-
+          ))}
         </div>
       }
     />
@@ -1699,9 +1723,10 @@ function TooltipVariant({ placement, align, text }) {
   return (
     <div style={{
       position: 'relative',
-      margin: isHorizontal ? '8px 0' : '0',
-      marginLeft: placement === 'left' ? '100px' : undefined,
-      marginRight: placement === 'right' ? '100px' : undefined,
+      marginTop: isHorizontal ? '8px' : '0',
+      marginBottom: isHorizontal ? '8px' : '0',
+      marginLeft: placement === 'left' ? '100px' : '0',
+      marginRight: placement === 'right' ? '100px' : '0',
     }}>
       <div style={{
         width: '56px',
