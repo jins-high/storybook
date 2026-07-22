@@ -17,6 +17,41 @@ const defaultControls = {
     ariaLabel:      '',
     iconName:       'IconChevronRight',
   },
+  TextButton: {
+    size:           'md',
+    color:          'primary',
+    hasLeadingIcon:  false,
+    hasTrailingIcon: false,
+    state:          'default',
+    label:          '텍스트버튼',
+    iconName:       'IconChevronRight',
+  },
+  ActionsActionArea: {
+    variant:        'Vertical',
+    combination:    'MainOnly',
+    slot:           false,
+  },
+  Chip: {
+    variant:        'outline',
+    size:           'md',
+    state:          'default',
+    hasLeadingIcon: false,
+    hasTrailingIcon: false,
+    label:          'Chip',
+  },
+  Tab: {
+    tabs: [
+      { id: 'tab-1', label: '탭', enabled: true, state: 'active' },
+      { id: 'tab-2', label: '탭', enabled: true, state: 'default' },
+      { id: 'tab-3', label: '탭', enabled: true, state: 'default' },
+      { id: 'tab-4', label: '탭', enabled: true, state: 'default' },
+      { id: 'tab-5', label: '탭', enabled: true, state: 'default' },
+      { id: 'tab-6', label: '탭', enabled: true, state: 'default' },
+    ],
+  },
+  Snackbar: {
+    message: '스낵바 메시지입니다.',
+  },
 }
 
 export default function App() {

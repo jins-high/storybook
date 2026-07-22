@@ -3,7 +3,12 @@ import { palette }                         from '../tokens/palette.js'
 import { themeTokenMap, modes }             from '../tokens/theme.js'
 import { typography, fontModes }            from '../tokens/typography.js'
 import { spacing, radiusDefault, radiusStatic } from '../tokens/spacing.js'
-import { Button }   from '../components/Button.jsx'
+import { Button }              from '../components/Button.jsx'
+import { TextButton }          from '../components/TextButton.jsx'
+import { ActionsActionArea }   from '../components/ActionsActionArea.jsx'
+import { Chip }                from '../components/Chip.jsx'
+import { Tab }                 from '../components/Tab.jsx'
+import { Snackbar }            from '../components/Snackbar.jsx'
 import { Badge }    from '../components/Badge.jsx'
 import { Input }    from '../components/Input.jsx'
 import { Toggle }   from '../components/Toggle.jsx'
@@ -241,6 +246,11 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'foundation' && selectedItem.name === 'Font'       && <FontPreview />}
         {selectedItem.type === 'foundation' && selectedItem.name === 'Icons'      && <IconsPreview />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Button'     && <ButtonPreview   c={controls.Button} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'TextButton' && <TextButtonPreview c={controls.TextButton} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'ActionsActionArea' && <ActionsActionAreaPreview c={controls.ActionsActionArea} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Chip' && <ChipPreview c={controls.Chip} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Tab' && <TabPreview c={controls.Tab} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Snackbar' && <SnackbarPreview c={controls.Snackbar} />}
       </InspectorLayer>
     </div>
   )
@@ -649,6 +659,7 @@ function ComponentCanvas({ subtitle, hero, allVariants }) {
           justifyContent:  'center',
           minHeight:       '80px',
           padding:         '24px',
+          width:           '500px',
           backgroundColor: 'var(--surface-base)',
           borderRadius:    '12px',
           border:          '1px solid var(--preview-hero-border)',
@@ -1324,5 +1335,228 @@ function IconsPreview() {
         </Section>
       ))}
     </div>
+  )
+}
+
+function TextButtonPreview({ c }) {
+  const IconComp = Icons[c.iconName ?? 'IconChevronRight']
+  const needsIcon = c.hasLeadingIcon || c.hasTrailingIcon
+  const iconNode = needsIcon && IconComp ? <IconComp size={c.size === 'md' ? 20 : 16} /> : undefined
+
+  return (
+    <ComponentCanvas
+      subtitle="Text Button — current controls applied"
+      hero={
+        <TextButton
+          size={c.size}
+          color={c.color}
+          hasLeadingIcon={c.hasLeadingIcon}
+          hasTrailingIcon={c.hasTrailingIcon}
+          state={c.state}
+          label={c.label || '텍스트버튼'}
+          icon={iconNode}
+        />
+      }
+      allVariants={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {['primary', 'assistive'].map(color => (
+            <div key={color}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
+                {color.charAt(0).toUpperCase() + color.slice(1)}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['sm', 'md'].map(size => (
+                  <div key={size} style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <TextButton size={size} color={color} state="default" label={`${size} default`} />
+                    <TextButton size={size} color={color} state="pressed" label={`${size} pressed`} />
+                    <TextButton size={size} color={color} state="disabled" label={`${size} disabled`} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  )
+}
+
+function ActionsActionAreaPreview({ c }) {
+  return (
+    <ComponentCanvas
+      subtitle="Actions Area — current controls applied"
+      hero={
+        <ActionsActionArea
+          variant={c.variant}
+          combination={c.combination}
+          slot={c.slot}
+        />
+      }
+      allVariants={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {['Vertical', 'Horizontal'].map(variant => (
+            <div key={variant}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
+                {variant}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['MainOnly', 'WithAlternative', 'WithAssistive', 'Cancle'].map(combo => (
+                  <div key={combo} style={{ marginBottom: '8px' }}>
+                    <div style={{ fontSize: '10px', color: 'var(--text-icon-disabled)', marginBottom: '6px' }}>
+                      {combo}
+                    </div>
+                    <ActionsActionArea
+                      variant={variant}
+                      combination={combo}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  )
+}
+
+function ChipPreview({ c }) {
+  return (
+    <ComponentCanvas
+      subtitle="Chip — current controls applied"
+      hero={
+        <Chip
+          variant={c.variant}
+          size={c.size}
+          state={c.state}
+          hasLeadingIcon={c.hasLeadingIcon}
+          hasTrailingIcon={c.hasTrailingIcon}
+          label={c.label}
+        />
+      }
+      allVariants={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {['solid', 'outline'].map(variant => (
+            <div key={variant}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
+                {variant.charAt(0).toUpperCase() + variant.slice(1)}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {['lg', 'md', 'sm'].map(size => (
+                  <div key={size}>
+                    <div style={{ fontSize: '10px', fontWeight: 500, color: 'var(--text-icon-disabled)', marginBottom: '8px' }}>
+                      {size === 'lg' ? 'Large' : size === 'md' ? 'Medium' : 'Small'}
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                      {['default', 'active', 'pressed', 'disabled'].map(state => (
+                        <Chip
+                          key={state}
+                          variant={variant}
+                          size={size}
+                          state={state}
+                          label={state}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  )
+}
+
+function TabPreview({ c }) {
+  const displayTabs = c.tabs
+    .filter(tab => tab.enabled)
+    .map(tab => ({ id: tab.id, label: tab.label }))
+
+  const activeTab = c.tabs.find(tab => tab.state === 'active')?.id || c.tabs[0]?.id
+
+  return (
+    <ComponentCanvas
+      subtitle="Tab — current controls applied"
+      hero={
+        <Tab
+          tabs={displayTabs}
+          activeTab={activeTab}
+          onTabChange={() => {}}
+          disabledTabs={[]}
+        />
+      }
+      allVariants={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
+              모든 탭 활성화
+            </div>
+            <Tab
+              tabs={c.tabs.filter(t => t.enabled).map(t => ({ id: t.id, label: t.label }))}
+              activeTab={c.tabs.find(t => t.state === 'active')?.id || 'tab-1'}
+              onTabChange={() => {}}
+              disabledTabs={[]}
+            />
+          </div>
+
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
+              일부 탭 비활성화
+            </div>
+            <Tab
+              tabs={c.tabs.filter(t => t.enabled).map(t => ({ id: t.id, label: t.label }))}
+              activeTab={c.tabs.find(t => t.enabled && t.state === 'active')?.id || displayTabs[0]?.id}
+              onTabChange={() => {}}
+              disabledTabs={c.tabs.filter(t => !t.enabled).map(t => t.id)}
+            />
+          </div>
+
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
+              탭 상태별 표현
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {['default', 'active', 'disabled'].map(state => (
+                <div key={state}>
+                  <div style={{ fontSize: '10px', color: 'var(--text-icon-disabled)', marginBottom: '6px' }}>
+                    {state}
+                  </div>
+                  <Tab
+                    tabs={[
+                      { id: `ex-${state}`, label: '탭' },
+                      { id: `ex-${state}-2`, label: '탭' },
+                      { id: `ex-${state}-3`, label: '탭' },
+                    ]}
+                    activeTab={state === 'active' ? `ex-${state}` : undefined}
+                    onTabChange={() => {}}
+                    disabledTabs={state === 'disabled' ? [`ex-${state}`, `ex-${state}-2`] : []}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      }
+    />
+  )
+}
+
+function SnackbarPreview({ c }) {
+  return (
+    <ComponentCanvas
+      subtitle="Snackbar — current controls applied"
+      allVariants={
+        <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-base)', borderRadius: '8px', position: 'relative' }}>
+          <Snackbar
+            message={c.message}
+            visible={true}
+            onClose={() => {}}
+            duration={5000}
+          />
+        </div>
+      }
+    />
   )
 }

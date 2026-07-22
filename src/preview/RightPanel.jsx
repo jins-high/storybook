@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import { themeTokenMap } from '../tokens/theme.js'
-import { Button }   from '../components/Button.jsx'
+import { Button }              from '../components/Button.jsx'
+import { TextButton }          from '../components/TextButton.jsx'
+import { ActionsActionArea }   from '../components/ActionsActionArea.jsx'
+import { Chip }                from '../components/Chip.jsx'
+import { Tab }                 from '../components/Tab.jsx'
+import { Snackbar }            from '../components/Snackbar.jsx'
 import { Badge }    from '../components/Badge.jsx'
 import { Input }    from '../components/Input.jsx'
 import { Toggle }   from '../components/Toggle.jsx'
@@ -55,7 +60,12 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
       <div style={sectionStyle}>
         <div style={sectionTitleStyle}>Controls</div>
         {type === 'foundation' && <FoundationControls name={name} />}
-        {type === 'component'  && name === 'Button'   && <ButtonControls   c={controls.Button}   onChange={v => onChange('Button', v)} />}
+        {type === 'component'  && name === 'Button'     && <ButtonControls     c={controls.Button}     onChange={v => onChange('Button', v)} />}
+        {type === 'component'  && name === 'TextButton' && <TextButtonControls c={controls.TextButton} onChange={v => onChange('TextButton', v)} />}
+        {type === 'component'  && name === 'ActionsActionArea' && <ActionsActionAreaControls c={controls.ActionsActionArea} onChange={v => onChange('ActionsActionArea', v)} />}
+        {type === 'component'  && name === 'Chip' && <ChipControls c={controls.Chip} onChange={v => onChange('Chip', v)} />}
+        {type === 'component'  && name === 'Tab' && <TabControls c={controls.Tab} onChange={v => onChange('Tab', v)} />}
+        {type === 'component'  && name === 'Snackbar' && <SnackbarControls c={controls.Snackbar} onChange={v => onChange('Snackbar', v)} />}
       </div>
 
       <div style={{ height: '1px', backgroundColor: 'var(--border-normal)' }} />
@@ -65,7 +75,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         <div style={{ ...sectionStyle, paddingBottom: '8px' }}>
           <div style={sectionTitleStyle}>Code</div>
         </div>
-        {type === 'component' && name === 'Button' && (
+        {type === 'component' && (name === 'Button' || name === 'TextButton' || name === 'ActionsActionArea' || name === 'Chip' || name === 'Tab' || name === 'Snackbar') && (
           <>
             <ComponentCode  name={name} controls={controls[name]} />
             <TokenUsageTable name={name} controls={controls[name]} />
@@ -632,6 +642,52 @@ function ButtonControls({ c, onChange }) {
   )
 }
 
+function TextButtonControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="COLOR">
+        <SegmentedControl
+          options={TextButton.colors}
+          value={c.color}
+          onChange={v => onChange({ ...c, color: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="SIZE">
+        <SegmentedControl
+          options={TextButton.sizes}
+          value={c.size}
+          onChange={v => onChange({ ...c, size: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="CONTENT">
+        <ToggleSwitch label="HasLeadingIcon"  value={c.hasLeadingIcon}  onChange={v => onChange({ ...c, hasLeadingIcon: v })} />
+        <ToggleSwitch label="HasTrailingIcon" value={c.hasTrailingIcon} onChange={v => onChange({ ...c, hasTrailingIcon: v })} />
+      </ControlGroup>
+
+      {(c.hasLeadingIcon || c.hasTrailingIcon) && (
+        <ControlGroup label="ICON">
+          <IconPicker
+            value={c.iconName ?? 'IconChevronRight'}
+            onChange={v => onChange({ ...c, iconName: v })}
+          />
+        </ControlGroup>
+      )}
+
+      <ControlGroup label="STATE">
+        <SegmentedControl
+          options={TextButton.states}
+          value={c.state}
+          onChange={v => onChange({ ...c, state: v })}
+        />
+      </ControlGroup>
+
+      <TextInput label="LABEL" value={c.label} onChange={v => onChange({ ...c, label: v })} />
+    </>
+  )
+}
+
 function BadgeControls({ c, onChange }) {
   return (
     <>
@@ -900,6 +956,33 @@ function ComponentCode({ name, controls: c }) {
       lines.push(`/>`)
       return lines.join('\n')
     },
+    TextButton: () => {
+      const lines = [
+        `import { TextButton } from '@/components/TextButton'`,
+        ``,
+        `<TextButton`,
+        `  size="${c.size}"`,
+        `  color="${c.color}"`,
+      ]
+      if (c.hasLeadingIcon)  lines.push(`  hasLeadingIcon`)
+      if (c.hasTrailingIcon) lines.push(`  hasTrailingIcon`)
+      if (c.state !== 'default') lines.push(`  state="${c.state}"`)
+      lines.push(`  label="${c.label || '텍스트버튼'}"`)
+      lines.push(`/>`)
+      return lines.join('\n')
+    },
+    ActionsActionArea: () => {
+      const lines = [
+        `import { ActionsActionArea } from '@/components/ActionsActionArea'`,
+        ``,
+        `<ActionsActionArea`,
+        `  variant="${c.variant}"`,
+        `  combination="${c.combination}"`,
+      ]
+      if (c.slot) lines.push(`  slot={true}`)
+      lines.push(`/>`)
+      return lines.join('\n')
+    },
   }
 
   return (
@@ -917,7 +1000,8 @@ function TokenUsageTable({ name, controls: c }) {
   if (!c) return null
 
   let tokenMap = {}
-  if (name === 'Button')   tokenMap = Button.tokenUsage(c.variant, c.color)
+  if (name === 'Button')     tokenMap = Button.tokenUsage(c.variant, c.color)
+  if (name === 'TextButton') tokenMap = TextButton.tokenUsage(c.color, c.state)
 
   const isLight = (hex) => {
     if (!hex || hex.startsWith('rgba')) return false
@@ -1148,4 +1232,174 @@ const sectionTitleStyle = {
   letterSpacing: '0.06em',
   textTransform: 'uppercase',
   marginBottom:  '14px',
+}
+
+function ActionsActionAreaControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="VARIANT">
+        <SegmentedControl
+          options={ActionsActionArea.variants}
+          value={c.variant}
+          onChange={v => onChange({ ...c, variant: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="COMBINATION">
+        <SegmentedControl
+          options={ActionsActionArea.combinations}
+          value={c.combination}
+          onChange={v => onChange({ ...c, combination: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="CONTENT">
+        <ToggleSwitch label="Slot Content"  value={c.slot}  onChange={v => onChange({ ...c, slot: v })} />
+      </ControlGroup>
+    </>
+  )
+}
+
+function ChipControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="VARIANT">
+        <SegmentedControl
+          options={Chip.variants}
+          value={c.variant}
+          onChange={v => onChange({ ...c, variant: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="SIZE">
+        <SegmentedControl
+          options={Chip.sizes}
+          value={c.size}
+          onChange={v => onChange({ ...c, size: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="STATE">
+        <SegmentedControl
+          options={Chip.states}
+          value={c.state}
+          onChange={v => onChange({ ...c, state: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="CONTENT">
+        <ToggleSwitch label="HasLeadingIcon"  value={c.hasLeadingIcon}  onChange={v => onChange({ ...c, hasLeadingIcon: v })} />
+        <ToggleSwitch label="HasTrailingIcon" value={c.hasTrailingIcon} onChange={v => onChange({ ...c, hasTrailingIcon: v })} />
+      </ControlGroup>
+
+      <TextInput label="LABEL" value={c.label} onChange={v => onChange({ ...c, label: v })} />
+    </>
+  )
+}
+
+function SnackbarControls({ c, onChange }) {
+  return (
+    <>
+      <TextInput
+        label="MESSAGE"
+        value={c.message}
+        onChange={v => onChange({ ...c, message: v })}
+      />
+    </>
+  )
+}
+
+function TabControls({ c, onChange }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {c.tabs.map((tab, idx) => (
+        <div
+          key={tab.id}
+          style={{
+            padding: '12px',
+            backgroundColor: 'var(--surface-light-subtle)',
+            borderRadius: '6px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-icon-normal)' }}>
+              탭 {idx + 1}
+            </span>
+            <ToggleSwitch
+              label=""
+              value={tab.enabled}
+              onChange={v => {
+                const newTabs = [...c.tabs]
+                newTabs[idx] = { ...tab, enabled: v }
+                onChange({ ...c, tabs: newTabs })
+              }}
+            />
+          </div>
+
+          {tab.enabled && (
+            <>
+              <div>
+                <label style={{ fontSize: '11px', color: 'var(--text-icon-assistive)' }}>상태</label>
+                <div style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
+                  {['default', 'active', 'disabled'].map(state => (
+                    <button
+                      key={state}
+                      onClick={() => {
+                        const newTabs = [...c.tabs]
+                        newTabs[idx] = { ...tab, state }
+                        onChange({ ...c, tabs: newTabs })
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '4px 8px',
+                        fontSize: '11px',
+                        borderRadius: '4px',
+                        border: tab.state === state ? '1px solid var(--border-primary)' : '1px solid var(--border-light)',
+                        backgroundColor: tab.state === state ? 'var(--surface-primary-subtle)' : 'var(--surface-base)',
+                        color: tab.state === state ? 'var(--text-icon-primary)' : 'var(--text-icon-normal)',
+                        cursor: 'pointer',
+                        fontWeight: tab.state === state ? 600 : 400,
+                      }}
+                    >
+                      {state}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', display: 'block', marginBottom: '4px' }}>
+                  라벨
+                </label>
+                <input
+                  type="text"
+                  value={tab.label}
+                  onChange={e => {
+                    const newTabs = [...c.tabs]
+                    newTabs[idx] = { ...tab, label: e.target.value }
+                    onChange({ ...c, tabs: newTabs })
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '4px 8px',
+                    fontSize: '11px',
+                    borderRadius: '4px',
+                    border: '1px solid var(--border-light)',
+                    backgroundColor: 'var(--surface-base)',
+                    color: 'var(--text-icon-normal)',
+                    fontFamily: 'var(--font-family)',
+                    boxSizing: 'border-box',
+                  }}
+                  placeholder="탭 라벨"
+                />
+              </div>
+            </>
+          )}
+        </div>
+      ))}
+    </div>
+  )
 }

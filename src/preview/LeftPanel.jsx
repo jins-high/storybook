@@ -9,7 +9,12 @@ const FOUNDATIONS = [
 ]
 
 const COMPONENTS = [
-  { id: 'Button',   label: 'Button',   icon: '⬡' },
+  { id: 'Button',           label: 'Button',            icon: '⬡' },
+  { id: 'TextButton',       label: 'Text Button',       icon: '⊕' },
+  { id: 'ActionsActionArea', label: 'Actions Area',      icon: '⧉' },
+  { id: 'Chip',             label: 'Chip',              icon: '●' },
+  { id: 'Tab',              label: 'Tab',               icon: '≡' },
+  { id: 'Snackbar',         label: 'Snackbar',          icon: '⌬' },
 ]
 
 const COMPOSE_COMPONENTS = [

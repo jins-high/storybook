@@ -4,7 +4,15 @@
       "Bash(npm run *)",
       "Bash(claude mcp *)",
       "mcp__e300514a-0aec-49c2-9b59-604ec1e5d166__get_variable_defs",
-      "Bash(git init *)"
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "mcp__e300514a-0aec-49c2-9b59-604ec1e5d166__get_design_context",
+      "Bash(awk '/^function TextButtonControls/,/^}$/' /Users/psj/Documents/White-label-design-system/src/preview/RightPanel.jsx)",
+      "mcp__e300514a-0aec-49c2-9b59-604ec1e5d166__get_metadata"
     ]
   }
 }
