@@ -117,15 +117,6 @@ export default function App() {
               })}
             </div>
           </div>
-
-          {/* Token layer indicator */}
-          <div className="header-token-info">
-            <span className="token-layer">palette</span>
-            <span className="token-arrow">→</span>
-            <span className="token-layer">theme</span>
-            <span className="token-arrow">→</span>
-            <span className="token-layer active">mode</span>
-          </div>
         </div>
       </header>
 

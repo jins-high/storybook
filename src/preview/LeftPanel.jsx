@@ -50,17 +50,6 @@ export function LeftPanel({ selectedItem, onSelect }) {
 
   return (
     <aside style={panelStyle}>
-      {/* Header */}
-      <div style={headerStyle}>
-        <div style={logoStyle}>📖</div>
-        <div>
-          <div style={{ fontSize: '13px', fontWeight: 600, color: '#FFFFFF', letterSpacing: '0.02em' }}>
-            Story Book
-          </div>
-          <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '2px' }}>Component Library</div>
-        </div>
-      </div>
-
       <div style={{ flex: 1, overflowY: 'auto' }}>
         {/* Foundations section */}
         <div style={sectionStyle}>
