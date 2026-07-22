@@ -163,10 +163,8 @@ function InspectorLayer({ children, onInspect }) {
       // wrapper/background click → deselect visually, keep right panel
       selectedElRef.current = null; setSelectRect(null); return
     }
-    selectedElRef.current = target
-    setSelectRect(relRect(target))
-    setHoverRect(null); setHoverLabel(null)
-    onInspect(extractElInfo(target, containerRef.current))
+    // Prevent inspector focus — only controls are updated
+    return
   }
 
   useEffect(() => {
