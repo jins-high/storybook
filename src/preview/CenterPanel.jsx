@@ -1635,8 +1635,8 @@ function TooltipVariant({ placement, align, text }) {
         onClick={() => setVisible(!visible)}
         style={{
           padding: '6px 10px',
-          backgroundColor: 'var(--primary-bgsolid)',
-          color: 'var(--text-icon-base)',
+          backgroundColor: 'var(--surface-heavy-solid)',
+          color: '#FFFFFF',
           border: 'none',
           borderRadius: '4px',
           cursor: 'pointer',
