@@ -1631,50 +1631,48 @@ function SnackbarPreview({ c }) {
 function TooltipPreview({ c }) {
   const placements = ['top', 'bottom', 'left', 'right']
   const aligns = ['start', 'center', 'end']
-  const heroRef = useRef(null)
 
   return (
     <ComponentCanvas
       subtitle="Tooltip — current controls applied"
       hero={
         <div
-          ref={heroRef}
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
-            height: '120px',
-            position: 'relative',
+            height: '160px',
           }}
         >
-          <div style={{ position: 'absolute', width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-light-subtle)', borderRadius: '8px' }}>
-            Target
+          {/* 앵커 래퍼 — 툴팁은 이 박스를 기준으로 배치된다 */}
+          <div style={{ position: 'relative' }}>
+            <div style={{ width: '80px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-light-subtle)', borderRadius: '8px', fontSize: '13px', color: 'var(--text-icon-normal)' }}>
+              Target
+            </div>
+            <Tooltip
+              visible={c.visible}
+              placement={c.placement}
+              align={c.align}
+              text={c.text}
+            />
           </div>
-          <Tooltip
-            visible={c.visible}
-            placement={c.placement}
-            align={c.align}
-            text={c.text}
-            onClose={() => {}}
-            targetRef={heroRef}
-          />
         </div>
       }
       allVariants={
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px', backgroundColor: 'var(--surface-base)', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '24px', backgroundColor: 'var(--surface-base)', borderRadius: '8px' }}>
           {placements.map(placement => (
-            <div key={placement} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div key={placement} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-icon-normal)', textTransform: 'uppercase' }}>
                 {placement}
               </div>
-              <div style={{ display: 'flex', gap: '40px', alignItems: 'center', justifyContent: 'flex-start', flexWrap: 'wrap', minHeight: '80px', padding: '16px', backgroundColor: 'var(--surface-light-subtle)', borderRadius: '6px', position: 'relative' }}>
+              <div style={{ display: 'flex', gap: '64px', alignItems: 'center', justifyContent: 'flex-start', flexWrap: 'wrap', padding: '56px 32px', backgroundColor: 'var(--surface-light-subtle)', borderRadius: '6px' }}>
                 {aligns.map(align => (
                   <TooltipVariant
                     key={`${placement}-${align}`}
                     placement={placement}
                     align={align}
-                    text={c.text}
+                    text="툴팁 텍스트"
                   />
                 ))}
               </div>
@@ -1687,35 +1685,29 @@ function TooltipPreview({ c }) {
 }
 
 function TooltipVariant({ placement, align, text }) {
-  const [visible, setVisible] = useState(false)
-  const targetRef = useRef(null)
-
+  // 검수용 매트릭스 — 말풍선을 항상 표시
   return (
-    <div style={{ position: 'relative', minWidth: '60px' }}>
-      <button
-        ref={targetRef}
-        onClick={() => setVisible(!visible)}
-        style={{
-          padding: '6px 10px',
-          backgroundColor: 'var(--surface-heavy-solid)',
-          color: '#FFFFFF',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          fontSize: '11px',
-          fontWeight: 500,
-          whiteSpace: 'nowrap',
-        }}
-      >
+    <div style={{ position: 'relative' }}>
+      <div style={{
+        width: '56px',
+        height: '32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'var(--surface-heavy-solid)',
+        color: '#FFFFFF',
+        borderRadius: '4px',
+        fontSize: '11px',
+        fontWeight: 500,
+        whiteSpace: 'nowrap',
+      }}>
         {align}
-      </button>
+      </div>
       <Tooltip
-        visible={visible}
+        visible={true}
         placement={placement}
         align={align}
         text={text}
-        onClose={() => setVisible(false)}
-        targetRef={targetRef}
       />
     </div>
   )
