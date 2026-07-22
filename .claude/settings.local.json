@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(claude mcp *)",
+      "mcp__e300514a-0aec-49c2-9b59-604ec1e5d166__get_variable_defs",
+      "Bash(git init *)"
+    ]
+  }
+}

@@ -1,0 +1,542 @@
+/**
+ * Design Token CSS Custom Properties
+ * Source: Figma Foundation page, node 265-2169 (Tokens) + 10456-10039 (Semantic)
+ *
+ * 3-layer structure:
+ *   Layer 1  Palette : --neutral/*, --overlay-black/*, --overlay-white/*
+ *                      --hasamdong/*, --compose/*, --tenpersent/*
+ *                      --blue/*, --green/*, --red/*, --orange/*
+ *   Layer 2  Semantic: --primary/*, --text-icon/*, --surface/*,
+ *                      --border/*, --dimmer/*, --status/*
+ *   Layer 3  Mode    : [data-brand-mode] overrides per Figma mode
+ *
+ * Figma variable modes (exactly 3):
+ *   hasamdong     → [data-brand-mode="hasamdong"]
+ *   Compose-dark  → [data-brand-mode="compose-dark"]
+ *   Compose-light → [data-brand-mode="compose-light"]
+ */
+
+
+/* ══════════════════════════════════════════════════════════
+   LAYER 1 — PALETTE
+   ══════════════════════════════════════════════════════════ */
+:root {
+
+  /* Dimension/* ───────────────────────────────────────── */
+  --dimension-0:    0px;
+  --dimension-2:    2px;
+  --dimension-4:    4px;
+  --dimension-6:    6px;
+  --dimension-8:    8px;
+  --dimension-10:   10px;
+  --dimension-12:   12px;
+  --dimension-16:   16px;
+  --dimension-20:   20px;
+  --dimension-24:   24px;
+  --dimension-28:   28px;
+  --dimension-32:   32px;
+  --dimension-36:   36px;
+  --dimension-40:   40px;
+  --dimension-44:   44px;
+  --dimension-48:   48px;
+  --dimension-52:   52px;
+  --dimension-56:   56px;
+  --dimension-full: 999px;
+
+  /* Neutral/* ──────────────────────────────────────────── */
+  --neutral-white:  #ffffff;
+  --neutral-20:     #f8f8f8;
+  --neutral-50:     #f2f2f2;
+  --neutral-100:    #e3e4e5;
+  --neutral-150:    #d7d8d9;
+  --neutral-200:    #c8cacc;
+  --neutral-300:    #adb0b2;
+  --neutral-400:    #939699;
+  --neutral-500:    #797d80;
+  --neutral-600:    #606366;
+  --neutral-700:    #474a4d;
+  --neutral-800:    #2f3133;
+  --neutral-900:    #17181a;
+  --neutral-950:    #0b0c0d;
+  --neutral-black:  #000000;
+
+  /* Overlay-Black/* ────────────────────────────────────── */
+  --overlay-black-10: rgba(47,49,51,0.12);
+  --overlay-black-20: rgba(47,49,51,0.16);
+  --overlay-black-30: rgba(47,49,51,0.20);
+  --overlay-black-40: rgba(0,0,0,0.40);
+
+  /* Overlay-White/* ────────────────────────────────────── */
+  --overlay-white-10: rgba(200,202,204,0.16);
+  --overlay-white-20: rgba(200,202,204,0.32);
+  --overlay-white-30: rgba(200,202,204,0.48);
+  --overlay-white-40: rgba(200,202,204,0.64);
+
+  /* Brand/Hasamdong/* ──────────────────────────────────── */
+  --hasamdong-20:   #fffbf7;
+  --hasamdong-50:   #fff6ed;
+  --hasamdong-100:  #ffead4;
+  --hasamdong-200:  #ffd1a8;
+  --hasamdong-300:  #ffb170;
+  --hasamdong-400:  #ff8437;
+  --hasamdong-500:  #ff6d1f;
+  --hasamdong-600:  #f04707;
+  --hasamdong-700:  #c73308;
+  --hasamdong-800:  #9e290e;
+  --hasamdong-900:  #7f250e;
+  --hasamdong-950:  #450f07;
+
+  /* Brand/Compose/* ────────────────────────────────────── */
+  --compose-20:   #fffdf5;
+  --compose-50:   #fefae8;
+  --compose-100:  #fff5c2;
+  --compose-200:  #ffe889;
+  --compose-300:  #ffce32;
+  --compose-400:  #ffbb0d;
+  --compose-500:  #ef9b00;
+  --compose-600:  #cc7b02;
+  --compose-700:  #a35505;
+  --compose-800:  #86430d;
+  --compose-900:  #723711;
+  --compose-950:  #431b05;
+
+  /* Brand/Tenpersent/* ────────────────────────────────── */
+  --tenpersent-20:   #faf9f7;
+  --tenpersent-50:   #f6f3f0;
+  --tenpersent-100:  #e8e0d9;
+  --tenpersent-200:  #d2c5b6;
+  --tenpersent-300:  #b8a18c;
+  --tenpersent-400:  #a3846c;
+  --tenpersent-500:  #8c6c58;
+  --tenpersent-600:  #7f5e4f;
+  --tenpersent-700:  #674941;
+  --tenpersent-800:  #583f3b;
+  --tenpersent-900:  #4d3836;
+  --tenpersent-950:  #2b1e1d;
+
+  /* Blue/* ─────────────────────────────────────────────── */
+  --blue-20:   #f7fcff;
+  --blue-50:   #edf8ff;
+  --blue-100:  #d6efff;
+  --blue-200:  #b5e4ff;
+  --blue-300:  #83d5ff;
+  --blue-400:  #48bcff;
+  --blue-500:  #1e9aff;
+  --blue-600:  #067aff;
+  --blue-700:  #0066ff;
+  --blue-800:  #084ec5;
+  --blue-900:  #0d469b;
+  --blue-950:  #0e2b5d;
+
+  /* Green/* ────────────────────────────────────────────── */
+  --green-20:   #f5fff5;
+  --green-50:   #e7ffe6;
+  --green-100:  #cbfdca;
+  --green-200:  #9bfc9a;
+  --green-300:  #60f661;
+  --green-400:  #30eb33;
+  --green-500:  #12dd19;
+  --green-600:  #09a711;
+  --green-700:  #0c7f14;
+  --green-800:  #106417;
+  --green-900:  #125519;
+  --green-950:  #042f09;
+
+  /* Red/* ──────────────────────────────────────────────── */
+  --red-20:   #fffafb;
+  --red-50:   #fff0f3;
+  --red-100:  #ffdde4;
+  --red-200:  #ffc2ce;
+  --red-300:  #ff97ac;
+  --red-400:  #ff5b7c;
+  --red-500:  #ff2955;
+  --red-600:  #f9093a;
+  --red-700:  #e50331;
+  --red-800:  #ad0729;
+  --red-900:  #8f0d27;
+  --red-950:  #4e0111;
+
+  /* Orange/* ───────────────────────────────────────────── */
+  --orange-20:   #fffef7;
+  --orange-50:   #fef8ec;
+  --orange-100:  #fbecca;
+  --orange-200:  #f7d890;
+  --orange-300:  #f3bf56;
+  --orange-400:  #f0a82f;
+  --orange-500:  #e98717;
+  --orange-600:  #ce6411;
+  --orange-700:  #ab4512;
+  --orange-800:  #8b3715;
+  --orange-900:  #732d14;
+  --orange-950:  #421506;
+
+
+  /* ══════════════════════════════════════════════════════════
+     LAYER 2 — SEMANTIC
+     Default: Hasamdong (light)
+     ══════════════════════════════════════════════════════════ */
+
+  /* Primary ───────────────────────────────────────────── */
+  --primary-text-icon: var(--hasamdong-600);
+  --primary-bgsolid:   var(--hasamdong-500);
+  --primary-bgsubtle:  var(--hasamdong-50);
+  --primary-bdsolid:   var(--hasamdong-400);
+  --primary-bdsubtle:  var(--hasamdong-100);
+
+  /* Color/Text&Icon/* ─────────────────────────────────── */
+  --text-icon-strong:        var(--neutral-black);
+  --text-icon-normal:        var(--neutral-900);
+  --text-icon-alternative:   var(--neutral-700);
+  --text-icon-assistive:     var(--neutral-500);
+  --text-icon-disabled:      var(--neutral-300);
+  --text-icon-subtle:        var(--neutral-200);
+  --text-icon-base:          var(--neutral-white);
+  --text-icon-base-sub:      var(--neutral-100);
+  --text-icon-primary:       var(--hasamdong-600);
+  --text-icon-primary-strong: var(--hasamdong-700);
+  --text-icon-info:          var(--blue-700);
+  --text-icon-success:       var(--green-600);
+  --text-icon-error:         var(--red-600);
+  --text-icon-caution:       var(--orange-600);
+
+  /* Color/Surface/* ───────────────────────────────────── */
+  --surface-light-solid:    var(--neutral-700);
+  --surface-light-subtle:   var(--neutral-20);
+  --surface-normal-solid:   var(--neutral-900);
+  --surface-normal-subtle:  var(--neutral-50);
+  --surface-heavy-solid:    var(--neutral-black);
+  --surface-heavy-subtle:   var(--neutral-100);
+  --surface-base:           var(--neutral-white);
+  --surface-primary-solid:  var(--hasamdong-500);
+  --surface-primary-subtle: var(--hasamdong-50);
+  --surface-info-solid:     var(--blue-500);
+  --surface-info-subtle:    var(--blue-50);
+  --surface-success-solid:  var(--green-500);
+  --surface-success-subtle: var(--green-50);
+  --surface-error-solid:    var(--red-500);
+  --surface-error-subtle:   var(--red-50);
+  --surface-caution-solid:  var(--orange-500);
+  --surface-caution-subtle: var(--orange-50);
+
+  /* Color/Border/* ────────────────────────────────────── */
+  --border-light:           var(--overlay-black-10);
+  --border-normal:          var(--overlay-black-20);
+  --border-heavy:           var(--overlay-black-30);
+  --border-primary-solid:   var(--hasamdong-400);
+  --border-primary-subtle:  var(--hasamdong-100);
+  --border-info-solid:      var(--blue-400);
+  --border-info-subtle:     var(--blue-100);
+  --border-success-solid:   var(--green-400);
+  --border-success-subtle:  var(--green-100);
+  --border-error-solid:     var(--red-400);
+  --border-error-subtle:    var(--red-100);
+  --border-caution-solid:   var(--orange-400);
+  --border-caution-subtle:  var(--orange-100);
+
+  /* Color/Dimmer/* ────────────────────────────────────── */
+  --dimmer-strong: #000000cc;
+  --dimmer-normal: var(--overlay-black-40);
+
+  /* Status/* — legacy aliases mapping to surface/border/text-icon ── */
+  --status-info-text-icon:     var(--text-icon-info);
+  --status-info-bgsolid:       var(--surface-info-solid);
+  --status-info-bgsubtle:      var(--surface-info-subtle);
+  --status-info-bdsolid:       var(--border-info-solid);
+  --status-info-bdsubtle:      var(--border-info-subtle);
+
+  --status-success-text-icon:  var(--text-icon-success);
+  --status-success-bgsolid:    var(--surface-success-solid);
+  --status-success-bgsubtle:   var(--surface-success-subtle);
+  --status-success-bdsolid:    var(--border-success-solid);
+  --status-success-bdsubtle:   var(--border-success-subtle);
+
+  --status-error-text-icon:    var(--text-icon-error);
+  --status-error-bgsolid:      var(--surface-error-solid);
+  --status-error-bgsubtle:     var(--surface-error-subtle);
+  --status-error-bdsolid:      var(--border-error-solid);
+  --status-error-bdsubtle:     var(--border-error-subtle);
+
+  --status-caution-text-icon:  var(--text-icon-caution);
+  --status-caution-bgsolid:    var(--surface-caution-solid);
+  --status-caution-bgsubtle:   var(--surface-caution-subtle);
+  --status-caution-bdsolid:    var(--border-caution-solid);
+  --status-caution-bdsubtle:   var(--border-caution-subtle);
+
+  /* Spacing ───────────────────────────────────────────── */
+  --spacing-container-padding: var(--dimension-16);
+  --spacing-100:  var(--dimension-2);
+  --spacing-200:  var(--dimension-4);
+  --spacing-300:  var(--dimension-8);
+  --spacing-400:  var(--dimension-12);
+  --spacing-500:  var(--dimension-16);
+  --spacing-600:  var(--dimension-20);
+  --spacing-700:  var(--dimension-24);
+  --spacing-800:  var(--dimension-32);
+  --spacing-900:  var(--dimension-40);
+  --spacing-1000: var(--dimension-48);
+  --spacing-1100: var(--dimension-56);
+
+  /* Radius(Default) ───────────────────────────────────── */
+  --radius-default-100:     var(--dimension-2);
+  --radius-default-200:      var(--dimension-4);
+  --radius-default-300:     var(--dimension-6);
+  --radius-default-400:      var(--dimension-10);
+  --radius-default-500:     var(--dimension-12);
+  --radius-default-600:      var(--dimension-16);
+  --radius-default-circle: var(--dimension-full);
+
+  /* Radius(Fixed) ─────────────────────────────────────── */
+  --radius-fixed-100:      var(--dimension-4);
+  --radius-fixed-200:     var(--dimension-6);
+  --radius-fixed-circle: var(--dimension-full);
+
+  /* Typography ─────────────────────────────────────────── */
+  --font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Preview app chrome ────────────────────────────────── */
+  --preview-hero-border: #eeeeee;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   LAYER 3 — BRAND MODES
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Hasamdong — warm orange, light ─────────────────────── */
+[data-brand-mode="hasamdong"] {
+  --primary-text-icon: var(--hasamdong-600);
+  --primary-bgsolid:   var(--hasamdong-500);
+  --primary-bgsubtle:  var(--hasamdong-50);
+  --primary-bdsolid:   var(--hasamdong-400);
+  --primary-bdsubtle:  var(--hasamdong-100);
+
+  --text-icon-primary: var(--hasamdong-600);
+
+  --surface-primary-solid:  var(--hasamdong-500);
+  --surface-primary-subtle: var(--hasamdong-50);
+
+  --border-primary-solid:   var(--hasamdong-400);
+  --border-primary-subtle:  var(--hasamdong-100);
+
+  --spacing-container-padding: var(--dimension-16);
+  --radius-default-100:     var(--dimension-2);
+  --radius-default-200:      var(--dimension-4);
+  --radius-default-300:     var(--dimension-6);
+  --radius-default-400:      var(--dimension-10);
+  --radius-default-500:     var(--dimension-12);
+  --radius-default-600:      var(--dimension-16);
+  --radius-default-circle: var(--dimension-full);
+}
+
+/* ── Compose-dark — compose brand, dark ─────────────────── */
+[data-brand-mode="compose-dark"] {
+
+  /* Primary */
+  --primary-text-icon: var(--blue-400);
+  --primary-bgsolid:   var(--compose-300);
+  --primary-bgsubtle:  var(--compose-950);
+  --primary-bdsolid:   var(--blue-500);
+  --primary-bdsubtle:  var(--compose-500);
+
+  /* Text&Icon dark */
+  --text-icon-strong:        var(--neutral-white);
+  --text-icon-normal:        var(--neutral-50);
+  --text-icon-alternative:   var(--neutral-200);
+  --text-icon-assistive:     var(--neutral-400);
+  --text-icon-disabled:      var(--neutral-600);
+  --text-icon-subtle:        var(--neutral-700);
+  --text-icon-base:          var(--neutral-black);
+  --text-icon-base-sub:      var(--neutral-800);
+  --text-icon-primary:       var(--blue-400);
+  --text-icon-primary-strong: var(--blue-500);
+  --text-icon-info:          var(--blue-400);
+  --text-icon-success:       var(--green-400);
+  --text-icon-error:         var(--red-400);
+  --text-icon-caution:       var(--orange-400);
+
+  /* Surface dark */
+  --surface-light-solid:    var(--neutral-white);
+  --surface-light-subtle:   var(--neutral-50);
+  --surface-normal-solid:   var(--neutral-200);
+  --surface-normal-subtle:  var(--neutral-400);
+  --surface-heavy-solid:    var(--neutral-600);
+  --surface-heavy-subtle:   var(--neutral-700);
+  --surface-base:           var(--neutral-black);
+  --surface-primary-solid:  var(--compose-300);
+  --surface-primary-subtle: var(--compose-950);
+  --surface-info-solid:     var(--blue-600);
+  --surface-info-subtle:    var(--blue-950);
+  --surface-success-solid:  var(--green-600);
+  --surface-success-subtle: var(--green-950);
+  --surface-error-solid:    var(--red-600);
+  --surface-error-subtle:   var(--red-950);
+  --surface-caution-solid:  var(--orange-600);
+  --surface-caution-subtle: var(--orange-950);
+
+  /* Border dark */
+  --border-light:           var(--overlay-white-10);
+  --border-normal:          var(--overlay-white-20);
+  --border-heavy:           var(--overlay-white-30);
+  --border-primary-solid:   var(--blue-500);
+  --border-primary-subtle:  var(--compose-500);
+  --border-info-solid:      var(--blue-500);
+  --border-info-subtle:     var(--blue-900);
+  --border-success-solid:   var(--green-500);
+  --border-success-subtle:  var(--green-900);
+  --border-error-solid:     var(--red-500);
+  --border-error-subtle:    var(--red-900);
+  --border-caution-solid:   var(--orange-500);
+  --border-caution-subtle:  var(--orange-900);
+
+  /* Dimmer dark */
+  --dimmer-strong: #ffffff99;
+  --dimmer-normal: var(--overlay-white-40);
+
+  /* Status re-mapped */
+  --status-info-text-icon:    var(--text-icon-info);
+  --status-info-bgsolid:      var(--surface-info-solid);
+  --status-info-bgsubtle:     var(--surface-info-subtle);
+  --status-info-bdsolid:      var(--border-info-solid);
+  --status-info-bdsubtle:     var(--border-info-subtle);
+
+  --status-success-text-icon: var(--text-icon-success);
+  --status-success-bgsolid:   var(--surface-success-solid);
+  --status-success-bgsubtle:  var(--surface-success-subtle);
+  --status-success-bdsolid:   var(--border-success-solid);
+  --status-success-bdsubtle:  var(--border-success-subtle);
+
+  --status-error-text-icon:   var(--text-icon-error);
+  --status-error-bgsolid:     var(--surface-error-solid);
+  --status-error-bgsubtle:    var(--surface-error-subtle);
+  --status-error-bdsolid:     var(--border-error-solid);
+  --status-error-bdsubtle:    var(--border-error-subtle);
+
+  --status-caution-text-icon: var(--text-icon-caution);
+  --status-caution-bgsolid:   var(--surface-caution-solid);
+  --status-caution-bgsubtle:  var(--surface-caution-subtle);
+  --status-caution-bdsolid:   var(--border-caution-solid);
+  --status-caution-bdsubtle:  var(--border-caution-subtle);
+
+  --preview-hero-border: #444444;
+
+  --spacing-container-padding: var(--dimension-20);
+  --radius-default-100:     var(--dimension-4);
+  --radius-default-200:      var(--dimension-8);
+  --radius-default-300:     var(--dimension-12);
+  --radius-default-400:      var(--dimension-16);
+  --radius-default-500:     var(--dimension-20);
+  --radius-default-600:      var(--dimension-24);
+  --radius-default-circle: var(--dimension-full);
+}
+
+/* ── Compose-light — compose brand, light ───────────────── */
+[data-brand-mode="compose-light"] {
+
+  /* Primary */
+  --primary-text-icon: var(--blue-700);
+  --primary-bgsolid:   var(--compose-300);
+  --primary-bgsubtle:  var(--compose-50);
+  --primary-bdsolid:   var(--blue-400);
+  --primary-bdsubtle:  var(--compose-400);
+
+  /* Text&Icon — same as hasamdong except primary */
+  --text-icon-strong:        var(--neutral-black);
+  --text-icon-normal:        var(--neutral-900);
+  --text-icon-alternative:   var(--neutral-700);
+  --text-icon-assistive:     var(--neutral-500);
+  --text-icon-disabled:      var(--neutral-300);
+  --text-icon-subtle:        var(--neutral-200);
+  --text-icon-base:          var(--neutral-white);
+  --text-icon-base-sub:      var(--neutral-100);
+  --text-icon-primary:       var(--blue-700);
+  --text-icon-primary-strong: var(--blue-800);
+  --text-icon-info:          var(--blue-700);
+  --text-icon-success:       var(--green-600);
+  --text-icon-error:         var(--red-600);
+  --text-icon-caution:       var(--orange-600);
+
+  /* Surface — light mode, same as hasamdong */
+  --surface-light-solid:    var(--neutral-700);
+  --surface-light-subtle:   var(--neutral-20);
+  --surface-normal-solid:   var(--neutral-900);
+  --surface-normal-subtle:  var(--neutral-50);
+  --surface-heavy-solid:    var(--neutral-black);
+  --surface-heavy-subtle:   var(--neutral-100);
+  --surface-base:           var(--neutral-white);
+  --surface-primary-solid:  var(--compose-300);
+  --surface-primary-subtle: var(--compose-50);
+  --surface-info-solid:     var(--blue-500);
+  --surface-info-subtle:    var(--blue-50);
+  --surface-success-solid:  var(--green-500);
+  --surface-success-subtle: var(--green-50);
+  --surface-error-solid:    var(--red-500);
+  --surface-error-subtle:   var(--red-50);
+  --surface-caution-solid:  var(--orange-500);
+  --surface-caution-subtle: var(--orange-50);
+
+  /* Border */
+  --border-light:           var(--overlay-black-10);
+  --border-normal:          var(--overlay-black-20);
+  --border-heavy:           var(--overlay-black-30);
+  --border-primary-solid:   var(--blue-400);
+  --border-primary-subtle:  var(--compose-400);
+  --border-info-solid:      var(--blue-400);
+  --border-info-subtle:     var(--blue-100);
+  --border-success-solid:   var(--green-400);
+  --border-success-subtle:  var(--green-100);
+  --border-error-solid:     var(--red-400);
+  --border-error-subtle:    var(--red-100);
+  --border-caution-solid:   var(--orange-400);
+  --border-caution-subtle:  var(--orange-100);
+
+  /* Dimmer */
+  --dimmer-strong: #000000cc;
+  --dimmer-normal: var(--overlay-black-40);
+
+  /* Status re-mapped */
+  --status-info-text-icon:    var(--text-icon-info);
+  --status-info-bgsolid:      var(--surface-info-solid);
+  --status-info-bgsubtle:     var(--surface-info-subtle);
+  --status-info-bdsolid:      var(--border-info-solid);
+  --status-info-bdsubtle:     var(--border-info-subtle);
+
+  --status-success-text-icon: var(--text-icon-success);
+  --status-success-bgsolid:   var(--surface-success-solid);
+  --status-success-bgsubtle:  var(--surface-success-subtle);
+  --status-success-bdsolid:   var(--border-success-solid);
+  --status-success-bdsubtle:  var(--border-success-subtle);
+
+  --status-error-text-icon:   var(--text-icon-error);
+  --status-error-bgsolid:     var(--surface-error-solid);
+  --status-error-bgsubtle:    var(--surface-error-subtle);
+  --status-error-bdsolid:     var(--border-error-solid);
+  --status-error-bdsubtle:    var(--border-error-subtle);
+
+  --status-caution-text-icon: var(--text-icon-caution);
+  --status-caution-bgsolid:   var(--surface-caution-solid);
+  --status-caution-bgsubtle:  var(--surface-caution-subtle);
+  --status-caution-bdsolid:   var(--border-caution-solid);
+  --status-caution-bdsubtle:  var(--border-caution-subtle);
+
+  --spacing-container-padding: var(--dimension-16);
+  --radius-default-100:     var(--dimension-2);
+  --radius-default-200:      var(--dimension-4);
+  --radius-default-300:     var(--dimension-6);
+  --radius-default-400:      var(--dimension-10);
+  --radius-default-500:     var(--dimension-12);
+  --radius-default-600:      var(--dimension-16);
+  --radius-default-circle: var(--dimension-full);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   LAYER 3 — FONT MODES
+   ══════════════════════════════════════════════════════════ */
+
+[data-font-mode="suit"] {
+  --font-family: "SUIT Variable", SUIT, -apple-system, sans-serif;
+}
+
+[data-font-mode="gmarket"] {
+  --font-family: "GmarketSans", "Gmarket Sans", sans-serif;
+}
