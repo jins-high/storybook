@@ -63,7 +63,7 @@ const defaultControls = {
 export default function App() {
   const [selectedItem, setSelectedItem] = useState({ type: 'component', name: 'Button' })
   const [controls, setControls]         = useState(defaultControls)
-  const [brandMode, setBrandMode]       = useState('compose-dark')
+  const [brandMode, setBrandMode]       = useState('compose-light')
   const [inspectedEl, setInspectedEl]   = useState(null)
 
   const activeMode = modes[brandMode]
@@ -91,7 +91,8 @@ export default function App() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', fontWeight: 500 }}>Brand</span>
             <div style={{ display: 'flex', gap: '4px' }}>
-              {Object.entries(modes).map(([key, mode]) => {
+              {['compose-light', 'compose-dark', 'hasamdong'].map(key => {
+                const mode = modes[key]
                 const isActive = brandMode === key
                 return (
                   <button
