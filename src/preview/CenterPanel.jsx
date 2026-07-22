@@ -1569,10 +1569,36 @@ function SnackbarPreview({ c }) {
 function TooltipPreview({ c }) {
   const placements = ['top', 'bottom', 'left', 'right']
   const aligns = ['start', 'center', 'end']
+  const heroRef = useRef(null)
 
   return (
     <ComponentCanvas
-      subtitle="Tooltip — 12 variants (4 placements × 3 alignments)"
+      subtitle="Tooltip — current controls applied"
+      hero={
+        <div
+          ref={heroRef}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            height: '120px',
+            position: 'relative',
+          }}
+        >
+          <div style={{ position: 'absolute', width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-light-subtle)', borderRadius: '8px' }}>
+            Target
+          </div>
+          <Tooltip
+            visible={c.visible}
+            placement={c.placement}
+            align={c.align}
+            text={c.text}
+            onClose={() => {}}
+            targetRef={heroRef}
+          />
+        </div>
+      }
       allVariants={
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px', backgroundColor: 'var(--surface-base)', borderRadius: '8px' }}>
           {placements.map(placement => (
