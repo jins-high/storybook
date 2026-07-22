@@ -9,6 +9,7 @@ import { ActionsActionArea }   from '../components/ActionsActionArea.jsx'
 import { Chip }                from '../components/Chip.jsx'
 import { Tab }                 from '../components/Tab.jsx'
 import { Snackbar }            from '../components/Snackbar.jsx'
+import { Tooltip }             from '../components/Tooltip.jsx'
 import { Badge }    from '../components/Badge.jsx'
 import { Input }    from '../components/Input.jsx'
 import { Toggle }   from '../components/Toggle.jsx'
@@ -251,6 +252,7 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'Chip' && <ChipPreview c={controls.Chip} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Tab' && <TabPreview c={controls.Tab} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Snackbar' && <SnackbarPreview c={controls.Snackbar} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Tooltip' && <TooltipPreview c={controls.Tooltip} />}
       </InspectorLayer>
     </div>
   )
@@ -1558,5 +1560,65 @@ function SnackbarPreview({ c }) {
         </div>
       }
     />
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// TOOLTIP PREVIEW
+// ═══════════════════════════════════════════════════════════
+function TooltipPreview({ c }) {
+  const targetRef = useRef(null)
+
+  return (
+    <ComponentCanvas
+      subtitle="Tooltip — click to show/hide"
+      allVariants={
+        <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-base)', borderRadius: '8px', position: 'relative', gap: '40px', flexWrap: 'wrap', padding: '40px' }}>
+          {['top', 'bottom', 'left', 'right'].map(placement => (
+            <TooltipDemo key={placement} placement={placement} text={c.text} />
+          ))}
+          <Tooltip
+            visible={c.visible}
+            placement={c.placement}
+            text={c.text}
+            onClose={() => {}}
+            targetRef={targetRef}
+          />
+        </div>
+      }
+    />
+  )
+}
+
+function TooltipDemo({ placement, text }) {
+  const [visible, setVisible] = useState(false)
+  const targetRef = useRef(null)
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <button
+        ref={targetRef}
+        onClick={() => setVisible(!visible)}
+        style={{
+          padding: '8px 12px',
+          backgroundColor: 'var(--primary-bgsolid)',
+          color: 'var(--text-icon-base)',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: 'pointer',
+          fontSize: '12px',
+          fontWeight: 500,
+        }}
+      >
+        {placement}
+      </button>
+      <Tooltip
+        visible={visible}
+        placement={placement}
+        text={text}
+        onClose={() => setVisible(false)}
+        targetRef={targetRef}
+      />
+    </div>
   )
 }

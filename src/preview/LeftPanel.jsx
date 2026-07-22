@@ -15,6 +15,7 @@ const COMPONENTS = [
   { id: 'Chip',             label: 'Chip',              icon: '●' },
   { id: 'Tab',              label: 'Tab',               icon: '≡' },
   { id: 'Snackbar',         label: 'Snackbar',          icon: '⌬' },
+  { id: 'Tooltip',          label: 'Tooltip',           icon: '💬' },
 ]
 
 const COMPOSE_COMPONENTS = [

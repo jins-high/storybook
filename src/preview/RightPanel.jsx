@@ -6,6 +6,7 @@ import { ActionsActionArea }   from '../components/ActionsActionArea.jsx'
 import { Chip }                from '../components/Chip.jsx'
 import { Tab }                 from '../components/Tab.jsx'
 import { Snackbar }            from '../components/Snackbar.jsx'
+import { Tooltip }             from '../components/Tooltip.jsx'
 import { Badge }    from '../components/Badge.jsx'
 import { Input }    from '../components/Input.jsx'
 import { Toggle }   from '../components/Toggle.jsx'
@@ -66,6 +67,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'Chip' && <ChipControls c={controls.Chip} onChange={v => onChange('Chip', v)} />}
         {type === 'component'  && name === 'Tab' && <TabControls c={controls.Tab} onChange={v => onChange('Tab', v)} />}
         {type === 'component'  && name === 'Snackbar' && <SnackbarControls c={controls.Snackbar} onChange={v => onChange('Snackbar', v)} />}
+        {type === 'component'  && name === 'Tooltip' && <TooltipControls c={controls.Tooltip} onChange={v => onChange('Tooltip', v)} />}
       </div>
 
       <div style={{ height: '1px', backgroundColor: 'var(--border-normal)' }} />
@@ -1305,6 +1307,60 @@ function SnackbarControls({ c, onChange }) {
         value={c.message}
         onChange={v => onChange({ ...c, message: v })}
       />
+    </>
+  )
+}
+
+function TooltipControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="PLACEMENT">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['top', 'bottom', 'left', 'right'].map(placement => (
+            <button
+              key={placement}
+              onClick={() => onChange({ ...c, placement })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.placement === placement ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.placement === placement ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.placement === placement ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {placement}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <TextInput
+        label="TEXT"
+        value={c.text}
+        onChange={v => onChange({ ...c, text: v })}
+      />
+      <ControlGroup label="VISIBILITY">
+        <button
+          onClick={() => onChange({ ...c, visible: !c.visible })}
+          style={{
+            padding: '8px 12px',
+            borderRadius: '6px',
+            border: 'none',
+            backgroundColor: c.visible ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+            color: 'var(--text-icon-base)',
+            fontSize: '12px',
+            fontWeight: 500,
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+            width: '100%',
+          }}
+        >
+          {c.visible ? 'Hide' : 'Show'}
+        </button>
+      </ControlGroup>
     </>
   )
 }

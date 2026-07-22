@@ -52,6 +52,11 @@ const defaultControls = {
   Snackbar: {
     message: '스낵바 메시지입니다.',
   },
+  Tooltip: {
+    placement: 'top',
+    text: '도움말 텍스트입니다.',
+    visible: false,
+  },
 }
 
 export default function App() {
