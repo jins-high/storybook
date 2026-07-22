@@ -1666,7 +1666,17 @@ function TooltipPreview({ c }) {
               <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-icon-normal)', textTransform: 'uppercase' }}>
                 {placement}
               </div>
-              <div style={{ display: 'flex', gap: '64px', alignItems: 'center', justifyContent: 'flex-start', flexWrap: 'wrap', padding: '56px 32px', backgroundColor: 'var(--surface-light-subtle)', borderRadius: '6px' }}>
+              <div style={{
+                display: 'flex',
+                flexDirection: placement === 'left' || placement === 'right' ? 'column' : 'row',
+                gap: placement === 'left' || placement === 'right' ? '24px' : '64px',
+                alignItems: placement === 'left' || placement === 'right' ? 'flex-start' : 'center',
+                justifyContent: 'flex-start',
+                flexWrap: 'wrap',
+                padding: '56px 32px',
+                backgroundColor: 'var(--surface-light-subtle)',
+                borderRadius: '6px',
+              }}>
                 {aligns.map(align => (
                   <TooltipVariant
                     key={`${placement}-${align}`}
@@ -1685,9 +1695,14 @@ function TooltipPreview({ c }) {
 }
 
 function TooltipVariant({ placement, align, text }) {
-  // 검수용 매트릭스 — 말풍선을 항상 표시
+  const isHorizontal = placement === 'left' || placement === 'right'
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{
+      position: 'relative',
+      margin: isHorizontal ? '8px 0' : '0',
+      marginLeft: placement === 'left' ? '100px' : undefined,
+      marginRight: placement === 'right' ? '100px' : undefined,
+    }}>
       <div style={{
         width: '56px',
         height: '32px',
