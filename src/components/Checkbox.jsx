@@ -38,7 +38,8 @@ export function Checkbox({
 
   const isDisabled = state === 'Disabled' || state === 'UncheckedDisabled'
   const isIndeterminate = state === 'Indeterminate'
-  const isChecked = state === 'Checked'
+  // 'Disabled'는 checked-disabled 변형이므로 체크마크를 표시한다
+  const isChecked = state === 'Checked' || state === 'Disabled'
 
   const handleClick = () => {
     if (isDisabled) return
@@ -46,19 +47,20 @@ export function Checkbox({
     if (state === 'Unchecked') nextState = 'Checked'
     else if (state === 'Checked') nextState = 'Unchecked'
     else if (state === 'Indeterminate') nextState = 'Unchecked'
-    else if (state === 'UncheckedDisabled') nextState = 'UncheckedDisabled'
     else nextState = 'Unchecked'
     onChange(nextState)
   }
 
-  const bgColor = isDisabled
-    ? 'var(--surface-disabled)'
+  const bgColor = state === 'UncheckedDisabled'
+    ? 'var(--surface-normal-subtle)'
+    : state === 'Disabled'
+    ? 'var(--surface-heavy-subtle)'
     : isChecked || isIndeterminate
     ? 'var(--primary-bgsolid)'
     : 'var(--surface-base)'
 
   const borderColor = isDisabled
-    ? 'var(--border-disabled)'
+    ? 'var(--border-normal)'
     : isChecked || isIndeterminate
     ? 'var(--primary-bgsolid)'
     : 'var(--border-normal)'
@@ -75,8 +77,7 @@ export function Checkbox({
     flexShrink: 0,
     cursor: isDisabled ? 'not-allowed' : 'pointer',
     transition: 'background-color 0.15s, border-color 0.15s',
-    color: isDisabled ? 'var(--text-icon-disabled)' : 'var(--text-icon-base)',
-    opacity: isDisabled ? 0.6 : 1,
+    color: 'var(--text-icon-base)',
   }
 
   return (
