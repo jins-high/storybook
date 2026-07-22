@@ -63,8 +63,7 @@ export function Snackbar({
           lineHeight: '1.5',
           maxWidth: '320px',
           pointerEvents: 'auto',
-          wordBreak: 'break-word',
-          whiteSpace: 'pre-wrap',
+          whiteSpace: 'nowrap',
           // Enter animation: slide up from bottom, Exit: slide out upward
           animation: isExiting
             ? 'slideOut 0.3s ease-out forwards'

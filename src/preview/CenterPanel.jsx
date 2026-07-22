@@ -1598,15 +1598,25 @@ function TabPreview({ c }) {
 }
 
 function SnackbarPreview({ c }) {
+  // 반복 루프: 서서히 등장 → 5초 유지 → 서서히 사라짐 → 1초 대기 → 반복
+  const [visible, setVisible] = useState(true)
+
+  // Snackbar가 스스로 5초 후 slideOut → onClose 호출
+  // onClose에서 1초 대기 후 다시 표시
+  const handleClose = () => {
+    setVisible(false)
+    setTimeout(() => setVisible(true), 1000)
+  }
+
   return (
     <ComponentCanvas
-      subtitle="Snackbar — current controls applied"
+      subtitle="Snackbar — 등장 · 5초 유지 · 사라짐 · 1초 대기 반복"
       allVariants={
-        <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-base)', borderRadius: '8px', position: 'relative' }}>
+        <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-base)', borderRadius: '8px', position: 'relative', overflow: 'hidden' }}>
           <Snackbar
             message={c.message}
-            visible={true}
-            onClose={() => {}}
+            visible={visible}
+            onClose={handleClose}
             duration={5000}
           />
         </div>
