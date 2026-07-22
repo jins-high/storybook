@@ -3,6 +3,7 @@
 // Props:
 //   visible      : boolean (표시 여부)
 //   placement    : 'top' | 'bottom' | 'left' | 'right' (위치)
+//   align        : 'start' | 'center' | 'end' (화살표 정렬, top/bottom에만 적용)
 //   text         : string (표시할 텍스트)
 //   onClose      : function (닫힐 때 호출)
 //   targetRef    : ref (앵커 요소)
@@ -12,51 +13,13 @@ import { useEffect, useState, useRef } from 'react'
 export function Tooltip({
   visible = false,
   placement = 'top',
+  align = 'center',
   text = '',
   onClose = () => {},
   targetRef = null,
 }) {
   const [isExiting, setIsExiting] = useState(false)
-  const [position, setPosition] = useState({ top: 0, left: 0 })
   const tooltipRef = useRef(null)
-
-  // 위치 계산
-  useEffect(() => {
-    if (!visible || !targetRef?.current) return
-
-    const target = targetRef.current
-    const tooltip = tooltipRef.current
-    const targetRect = target.getBoundingClientRect()
-
-    if (!tooltip) return
-
-    const tooltipRect = tooltip.getBoundingClientRect()
-    const gap = 8 // 툴팁과 타겟 사이 거리
-
-    let top = 0
-    let left = 0
-
-    switch (placement) {
-      case 'top':
-        top = targetRect.top - tooltipRect.height - gap
-        left = targetRect.left + targetRect.width / 2 - tooltipRect.width / 2
-        break
-      case 'bottom':
-        top = targetRect.bottom + gap
-        left = targetRect.left + targetRect.width / 2 - tooltipRect.width / 2
-        break
-      case 'left':
-        top = targetRect.top + targetRect.height / 2 - tooltipRect.height / 2
-        left = targetRect.left - tooltipRect.width - gap
-        break
-      case 'right':
-        top = targetRect.top + targetRect.height / 2 - tooltipRect.height / 2
-        left = targetRect.right + gap
-        break
-    }
-
-    setPosition({ top, left })
-  }, [visible, placement, targetRef])
 
   // 클릭 외부 감지
   useEffect(() => {
@@ -78,13 +41,19 @@ export function Tooltip({
 
   if (!visible && !isExiting) return null
 
+  // 화살표 위치 계산
+  let arrowPos = '50%'
+  if (placement === 'top' || placement === 'bottom') {
+    if (align === 'start') arrowPos = '12px'
+    else if (align === 'end') arrowPos = 'calc(100% - 12px)'
+    else arrowPos = '50%'
+  }
+
   return (
     <div
       ref={tooltipRef}
       style={{
-        position: 'fixed',
-        top: `${position.top}px`,
-        left: `${position.left}px`,
+        position: 'absolute',
         pointerEvents: 'auto',
         zIndex: 9999,
         animation: isExiting
@@ -95,9 +64,9 @@ export function Tooltip({
       <div
         style={{
           backgroundColor: 'var(--surface-heavy-solid)',
-          color: 'var(--text-icon-base)',
+          color: '#FFFFFF',
           padding: 'var(--spacing-300) var(--spacing-400)',
-          borderRadius: 'var(--radius-default-200)',
+          borderRadius: '12px',
           fontSize: '13px',
           fontWeight: 400,
           fontFamily: 'var(--font-family)',
@@ -106,7 +75,6 @@ export function Tooltip({
           wordBreak: 'break-word',
           maxWidth: '280px',
           position: 'relative',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
         }}
       >
         {text}
@@ -115,36 +83,28 @@ export function Tooltip({
         <div
           style={{
             position: 'absolute',
-            width: 0,
-            height: 0,
-            borderStyle: 'solid',
+            width: '8px',
+            height: '8px',
+            backgroundColor: 'var(--surface-heavy-solid)',
             ...(placement === 'top' && {
-              bottom: '-6px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              borderWidth: '6px 6px 0 6px',
-              borderColor: 'var(--surface-heavy-solid) transparent transparent transparent',
+              bottom: '-4px',
+              left: arrowPos,
+              transform: 'translateX(-50%) rotate(45deg)',
             }),
             ...(placement === 'bottom' && {
-              top: '-6px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              borderWidth: '0 6px 6px 6px',
-              borderColor: 'transparent transparent var(--surface-heavy-solid) transparent',
+              top: '-4px',
+              left: arrowPos,
+              transform: 'translateX(-50%) rotate(45deg)',
             }),
             ...(placement === 'left' && {
-              right: '-6px',
+              right: '-4px',
               top: '50%',
-              transform: 'translateY(-50%)',
-              borderWidth: '6px 0 6px 6px',
-              borderColor: 'transparent transparent transparent var(--surface-heavy-solid)',
+              transform: 'translateY(-50%) rotate(45deg)',
             }),
             ...(placement === 'right' && {
-              left: '-6px',
+              left: '-4px',
               top: '50%',
-              transform: 'translateY(-50%)',
-              borderWidth: '6px 6px 6px 0',
-              borderColor: 'transparent var(--surface-heavy-solid) transparent transparent',
+              transform: 'translateY(-50%) rotate(45deg)',
             }),
           }}
         />

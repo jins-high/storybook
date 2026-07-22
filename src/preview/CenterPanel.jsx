@@ -1567,54 +1567,64 @@ function SnackbarPreview({ c }) {
 // TOOLTIP PREVIEW
 // ═══════════════════════════════════════════════════════════
 function TooltipPreview({ c }) {
-  const targetRef = useRef(null)
+  const placements = ['top', 'bottom', 'left', 'right']
+  const aligns = ['start', 'center', 'end']
 
   return (
     <ComponentCanvas
-      subtitle="Tooltip — click to show/hide"
+      subtitle="Tooltip — 12 variants (4 placements × 3 alignments)"
       allVariants={
-        <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-base)', borderRadius: '8px', position: 'relative', gap: '40px', flexWrap: 'wrap', padding: '40px' }}>
-          {['top', 'bottom', 'left', 'right'].map(placement => (
-            <TooltipDemo key={placement} placement={placement} text={c.text} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px', backgroundColor: 'var(--surface-base)', borderRadius: '8px' }}>
+          {placements.map(placement => (
+            <div key={placement} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-icon-normal)', textTransform: 'uppercase' }}>
+                {placement}
+              </div>
+              <div style={{ display: 'flex', gap: '40px', alignItems: 'center', justifyContent: 'flex-start', flexWrap: 'wrap', minHeight: '80px', padding: '16px', backgroundColor: 'var(--surface-light-subtle)', borderRadius: '6px', position: 'relative' }}>
+                {aligns.map(align => (
+                  <TooltipVariant
+                    key={`${placement}-${align}`}
+                    placement={placement}
+                    align={align}
+                    text={c.text}
+                  />
+                ))}
+              </div>
+            </div>
           ))}
-          <Tooltip
-            visible={c.visible}
-            placement={c.placement}
-            text={c.text}
-            onClose={() => {}}
-            targetRef={targetRef}
-          />
         </div>
       }
     />
   )
 }
 
-function TooltipDemo({ placement, text }) {
+function TooltipVariant({ placement, align, text }) {
   const [visible, setVisible] = useState(false)
   const targetRef = useRef(null)
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', minWidth: '60px' }}>
       <button
         ref={targetRef}
         onClick={() => setVisible(!visible)}
         style={{
-          padding: '8px 12px',
+          padding: '6px 10px',
           backgroundColor: 'var(--primary-bgsolid)',
           color: 'var(--text-icon-base)',
           border: 'none',
-          borderRadius: '6px',
+          borderRadius: '4px',
           cursor: 'pointer',
-          fontSize: '12px',
+          fontSize: '11px',
           fontWeight: 500,
+          whiteSpace: 'nowrap',
         }}
       >
-        {placement}
+        {align}
       </button>
       <Tooltip
         visible={visible}
         placement={placement}
+        align={align}
         text={text}
         onClose={() => setVisible(false)}
         targetRef={targetRef}

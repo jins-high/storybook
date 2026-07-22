@@ -54,6 +54,7 @@ const defaultControls = {
   },
   Tooltip: {
     placement: 'top',
+    align: 'center',
     text: '도움말 텍스트입니다.',
     visible: false,
   },

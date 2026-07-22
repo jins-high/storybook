@@ -1337,6 +1337,29 @@ function TooltipControls({ c, onChange }) {
           ))}
         </div>
       </ControlGroup>
+      <ControlGroup label="ALIGN">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['start', 'center', 'end'].map(align => (
+            <button
+              key={align}
+              onClick={() => onChange({ ...c, align })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.align === align ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.align === align ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.align === align ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {align}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
       <TextInput
         label="TEXT"
         value={c.text}
