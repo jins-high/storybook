@@ -13,8 +13,9 @@ import { Tooltip }             from '../components/Tooltip.jsx'
 import { Badge }    from '../components/Badge.jsx'
 import { Input }    from '../components/Input.jsx'
 import { Toggle }   from '../components/Toggle.jsx'
-import { Checkbox } from '../components/Checkbox.jsx'
-import { Radio }    from '../components/Radio.jsx'
+import { Checkbox }      from '../components/Checkbox.jsx'
+import { CheckboxInput } from '../components/CheckboxInput.jsx'
+import { Radio }         from '../components/Radio.jsx'
 import { HeroBanner }       from '../components/HeroBanner.jsx'
 import { OrderHistoryCard } from '../components/OrderHistoryCard.jsx'
 import * as Icons      from '../icons/icons.jsx'
@@ -253,6 +254,8 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'Tab' && <TabPreview c={controls.Tab} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Snackbar' && <SnackbarPreview c={controls.Snackbar} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Tooltip' && <TooltipPreview c={controls.Tooltip} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Checkbox' && <CheckboxPreview c={controls.Checkbox} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'CheckboxInput' && <CheckboxInputPreview c={controls.CheckboxInput} />}
       </InspectorLayer>
     </div>
   )
@@ -1066,39 +1069,90 @@ function TogglePreview({ c }) {
   )
 }
 
-function CheckboxPreview({ c }) {
+function CheckboxPreview({ c, onChange = () => {} }) {
   return (
     <ComponentCanvas
-      subtitle="Checkbox — current controls applied"
+      subtitle="Checkbox — Control/CheckBox"
       hero={
         <Checkbox
-          checked={c.checked}
-          indeterminate={c.indeterminate}
-          disabled={c.disabled}
+          state={c.state}
           size={c.size}
-          label={c.indeterminate ? 'Indeterminate' : c.checked ? 'Checked' : 'Unchecked'}
+          style={c.style}
+          onChange={onChange}
         />
       }
       allVariants={
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <div>
             <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>States</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <Checkbox checked={false}                 label="Unchecked" />
-              <Checkbox checked={true}                  label="Checked" />
-              <Checkbox indeterminate                   label="Indeterminate" />
-              <Checkbox checked={false} disabled        label="Disabled (unchecked)" />
-              <Checkbox checked={true}  disabled        label="Disabled (checked)" />
+              <Checkbox state="Unchecked" />
+              <Checkbox state="Checked" />
+              <Checkbox state="Indeterminate" />
+              <Checkbox state="Disabled" />
+              <Checkbox state="UncheckedDisabled" />
             </div>
           </div>
           <div>
             <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>Sizes</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {['lg', 'md', 'sm'].map(size => (
+              {['Small', 'Medium'].map(size => (
                 <div key={size} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                  <Checkbox size={size} checked={false} label={`size=${size}`} />
-                  <Checkbox size={size} checked={true} />
-                  <Checkbox size={size} indeterminate />
+                  <Checkbox size={size} state="Unchecked" />
+                  <Checkbox size={size} state="Checked" />
+                  <Checkbox size={size} state="Indeterminate" />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>Styles</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {['Default', 'Thin'].map(style => (
+                <div key={style} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                  <Checkbox style={style} state="Unchecked" />
+                  <Checkbox style={style} state="Checked" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      }
+    />
+  )
+}
+
+function CheckboxInputPreview({ c, onChange = () => {} }) {
+  return (
+    <ComponentCanvas
+      subtitle="Checkbox Input — Input/CheckBox"
+      hero={
+        <CheckboxInput
+          state={c.state}
+          size={c.size}
+          label={c.label}
+          onChange={(newState) => onChange({ state: newState, size: c.size, label: c.label })}
+        />
+      }
+      allVariants={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>States</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <CheckboxInput state="Unchecked" label="Unchecked" />
+              <CheckboxInput state="Checked" label="Checked" />
+              <CheckboxInput state="Indeterminate" label="Indeterminate" />
+              <CheckboxInput state="Disabled" label="Disabled" />
+              <CheckboxInput state="UncheckedDisabled" label="Disabled (unchecked)" />
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>Sizes</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {['Small', 'Medium'].map(size => (
+                <div key={size} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                  <CheckboxInput size={size} state="Unchecked" label="Unchecked" />
+                  <CheckboxInput size={size} state="Checked" label="Checked" />
                 </div>
               ))}
             </div>

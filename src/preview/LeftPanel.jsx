@@ -16,6 +16,8 @@ const COMPONENTS = [
   { id: 'Tab',              label: 'Tab',               icon: '≡' },
   { id: 'Snackbar',         label: 'Snackbar',          icon: '⌬' },
   { id: 'Tooltip',          label: 'Tooltip',           icon: '💬' },
+  { id: 'Checkbox',         label: 'Checkbox',          icon: '☑' },
+  { id: 'CheckboxInput',    label: 'Checkbox Input',    icon: '☑' },
 ]
 
 const COMPOSE_COMPONENTS = [

@@ -68,6 +68,8 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'Tab' && <TabControls c={controls.Tab} onChange={v => onChange('Tab', v)} />}
         {type === 'component'  && name === 'Snackbar' && <SnackbarControls c={controls.Snackbar} onChange={v => onChange('Snackbar', v)} />}
         {type === 'component'  && name === 'Tooltip' && <TooltipControls c={controls.Tooltip} onChange={v => onChange('Tooltip', v)} />}
+        {type === 'component'  && name === 'Checkbox' && <CheckboxControls c={controls.Checkbox} onChange={v => onChange('Checkbox', v)} />}
+        {type === 'component'  && name === 'CheckboxInput' && <CheckboxInputControls c={controls.CheckboxInput} onChange={v => onChange('CheckboxInput', v)} />}}
       </div>
 
       <div style={{ height: '1px', backgroundColor: 'var(--border-normal)' }} />
@@ -762,17 +764,74 @@ function ToggleControls({ c, onChange }) {
 function CheckboxControls({ c, onChange }) {
   return (
     <>
-      <ControlGroup label="SIZE">
-        <SegmentedControl
-          options={['lg', 'md', 'sm']}
-          value={c.size}
-          onChange={v => onChange({ ...c, size: v })}
-        />
-      </ControlGroup>
       <ControlGroup label="STATE">
-        <ToggleSwitch label="Checked"       value={c.checked}       onChange={v => onChange({ ...c, checked: v, indeterminate: false })} />
-        <ToggleSwitch label="Indeterminate" value={c.indeterminate} onChange={v => onChange({ ...c, indeterminate: v, checked: false })} />
-        <ToggleSwitch label="Disabled"      value={c.disabled}      onChange={v => onChange({ ...c, disabled: v })} />
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Unchecked', 'Checked', 'Indeterminate', 'Disabled', 'UncheckedDisabled'].map(state => (
+            <button
+              key={state}
+              onClick={() => onChange({ ...c, state })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.state === state ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {state}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <ControlGroup label="SIZE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Small', 'Medium'].map(size => (
+            <button
+              key={size}
+              onClick={() => onChange({ ...c, size })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.size === size ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <ControlGroup label="STYLE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Default', 'Thin'].map(style => (
+            <button
+              key={style}
+              onClick={() => onChange({ ...c, style })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.style === style ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.style === style ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.style === style ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {style}
+            </button>
+          ))}
+        </div>
       </ControlGroup>
     </>
   )
@@ -1480,5 +1539,63 @@ function TabControls({ c, onChange }) {
         </div>
       ))}
     </div>
+  )
+}
+
+function CheckboxInputControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="STATE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Unchecked', 'Checked', 'Indeterminate', 'Disabled', 'UncheckedDisabled'].map(state => (
+            <button
+              key={state}
+              onClick={() => onChange({ ...c, state })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.state === state ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {state}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <ControlGroup label="SIZE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Small', 'Medium'].map(size => (
+            <button
+              key={size}
+              onClick={() => onChange({ ...c, size })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.size === size ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <TextInput
+        label="LABEL"
+        value={c.label}
+        onChange={v => onChange({ ...c, label: v })}
+      />
+    </>
   )
 }

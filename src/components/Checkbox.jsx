@@ -1,118 +1,94 @@
-/**
- * Checkbox Component
- *
- * CSS variable names match Figma exactly:
- *   --primary-bgsolid       → Primary/BgSolid
- *   --text-icon-base      → Text&Icon/Static   (ampersand)
- *   --text-icon-normal      → Text&Icon/Normal
- *   --text-icon-disabled    → Text&Icon/Disabled
- *   --surface-base      → Backcround/White   (Figma typo)
- *   --surface-heavy-subtle       → Backcround/Dark
- *   --border-heavy           → Border/Dark
- *   --border-light          → Border/Light
- *   --radius/surface/*      → Radius/Surface/*
- */
+// Checkbox — 모바일오더 라이브러리 / Figma node 9476-17111
+// 체크박스 컨트롤 (State, Size, Style 지원)
+// Props:
+//   state     : 'Checked' | 'Unchecked' | 'Indeterminate' | 'Disabled' | 'UncheckedDisabled'
+//   size      : 'Small' | 'Medium'
+//   style     : 'Default' | 'Thin'
+//   onChange  : function (새로운 state)
 
 const sizeConfig = {
-  lg: { box: 20, check: 12, radius: 'var(--radius-fixed-200)', fontSize: '16px' },
-  md: { box: 16, check: 10, radius: 'var(--radius-fixed-100)',  fontSize: '14px' },
-  sm: { box: 14, check: 8,  radius: 'var(--radius-fixed-100)',  fontSize: '12px' },
+  Small:  { box: 16, check: 10, strokeWidth: 1.5 },
+  Medium: { box: 20, check: 12, strokeWidth: 2 },
 }
 
-function CheckIcon({ size }) {
+function CheckIcon({ size, strokeWidth }) {
   return (
     <svg width={size} height={size} viewBox="0 0 10 10" fill="none">
-      <path d="M1.5 5L4 7.5L8.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M1.5 5L4 7.5L8.5 2.5" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function DashIcon({ size }) {
+function DashIcon({ size, strokeWidth }) {
   return (
     <svg width={size} height={size} viewBox="0 0 10 10" fill="none">
-      <path d="M2 5H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M2 5H8" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" />
     </svg>
   )
 }
 
 export function Checkbox({
-  checked = false,
-  indeterminate = false,
-  disabled = false,
-  size = 'md',
-  label = '',
-  onChange,
-  style = {},
+  state = 'Unchecked',
+  size = 'Medium',
+  style = 'Default',
+  onChange = () => {},
 }) {
-  const cfg = sizeConfig[size] ?? sizeConfig.md
-  const isActive = checked || indeterminate
+  const cfg = sizeConfig[size] ?? sizeConfig.Medium
+  const strokeWidth = style === 'Thin' ? 1.5 : cfg.strokeWidth
+
+  const isDisabled = state === 'Disabled' || state === 'UncheckedDisabled'
+  const isIndeterminate = state === 'Indeterminate'
+  const isChecked = state === 'Checked'
+
+  const handleClick = () => {
+    if (isDisabled) return
+    let nextState
+    if (state === 'Unchecked') nextState = 'Checked'
+    else if (state === 'Checked') nextState = 'Unchecked'
+    else if (state === 'Indeterminate') nextState = 'Unchecked'
+    else if (state === 'UncheckedDisabled') nextState = 'UncheckedDisabled'
+    else nextState = 'Unchecked'
+    onChange(nextState)
+  }
+
+  const bgColor = isDisabled
+    ? 'var(--surface-disabled)'
+    : isChecked || isIndeterminate
+    ? 'var(--primary-bgsolid)'
+    : 'var(--surface-base)'
+
+  const borderColor = isDisabled
+    ? 'var(--border-disabled)'
+    : isChecked || isIndeterminate
+    ? 'var(--primary-bgsolid)'
+    : 'var(--border-normal)'
 
   const boxStyle = {
-    width:           `${cfg.box}px`,
-    height:          `${cfg.box}px`,
-    borderRadius:    cfg.radius,
-    border:          isActive && !disabled
-      ? 'none'
-      : `1.5px solid ${disabled ? 'var(--border-light)' : 'var(--border-heavy)'}`,
-    backgroundColor: disabled
-      ? 'var(--surface-heavy-subtle)'
-      : isActive
-      ? 'var(--primary-bgsolid)'
-      : 'var(--surface-base)',
-    display:         'flex',
-    alignItems:      'center',
-    justifyContent:  'center',
-    flexShrink:      0,
-    cursor:          disabled ? 'not-allowed' : 'pointer',
-    transition:      'background-color 0.15s, border-color 0.15s',
-    color:           disabled ? 'var(--text-icon-disabled)' : 'var(--text-icon-base)',
+    width: `${cfg.box}px`,
+    height: `${cfg.box}px`,
+    borderRadius: '4px',
+    border: `1.5px solid ${borderColor}`,
+    backgroundColor: bgColor,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    transition: 'background-color 0.15s, border-color 0.15s',
+    color: isDisabled ? 'var(--text-icon-disabled)' : 'var(--text-icon-base)',
+    opacity: isDisabled ? 0.6 : 1,
   }
 
   return (
-    <div
+    <button
       data-inspect="Checkbox"
-      style={{
-        display:    'inline-flex',
-        alignItems: 'center',
-        gap:        '8px',
-        cursor:     disabled ? 'not-allowed' : 'pointer',
-        fontFamily: 'var(--font-family)',
-        userSelect: 'none',
-        ...style,
-      }}
-      onClick={() => !disabled && onChange?.(!checked)}
-      role="checkbox"
-      aria-checked={indeterminate ? 'mixed' : checked}
-      aria-disabled={disabled}
-      tabIndex={disabled ? -1 : 0}
-      onKeyDown={e => e.key === ' ' && !disabled && onChange?.(!checked)}
+      onClick={handleClick}
+      disabled={isDisabled}
+      style={boxStyle}
+      aria-label={`Checkbox ${state}`}
     >
-      <div style={boxStyle}>
-        {indeterminate && <DashIcon size={cfg.check} />}
-        {!indeterminate && checked && <CheckIcon size={cfg.check} />}
-      </div>
-      {label && (
-        <span style={{
-          fontSize:      cfg.fontSize,
-          fontWeight:    400,
-          letterSpacing: '-0.25px',
-          lineHeight:    1.35,
-          color:         disabled ? 'var(--text-icon-disabled)' : 'var(--text-icon-normal)',
-        }}>
-          {label}
-        </span>
-      )}
-    </div>
+      {isIndeterminate && <DashIcon size={cfg.check} strokeWidth={strokeWidth} />}
+      {!isIndeterminate && isChecked && <CheckIcon size={cfg.check} strokeWidth={strokeWidth} />}
+    </button>
   )
 }
-
-Checkbox.tokenUsage = (checked, indeterminate) => {
-  const isActive = checked || indeterminate
-  return {
-    box:    isActive ? 'primary/bgsolid' : 'backcround/white',
-    icon:   isActive ? 'text&icon/static' : '—',
-    border: isActive ? '—' : 'border/dark',
-  }
-}
-
-Checkbox.sizes = ['lg', 'md', 'sm']

@@ -58,6 +58,16 @@ const defaultControls = {
     text: '도움말 텍스트입니다.',
     visible: false,
   },
+  Checkbox: {
+    state: 'Unchecked',
+    size: 'Medium',
+    style: 'Default',
+  },
+  CheckboxInput: {
+    state: 'Unchecked',
+    size: 'Medium',
+    label: '텍스트',
+  },
 }
 
 export default function App() {
