@@ -58,6 +58,14 @@ export function Radio({
 
   const wrapperStyle = {
     padding: style === 'Thin' ? '2px 0' : '2px',
+    border: 'none',
+    outline: 'none',
+    backgroundColor: 'transparent',
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    lineHeight: 0,
+    appearance: 'none',
+    WebkitAppearance: 'none',
+    fontFamily: 'inherit',
   }
 
   return (

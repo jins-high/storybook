@@ -72,6 +72,8 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'CheckboxInput' && <CheckboxInputControls c={controls.CheckboxInput} onChange={v => onChange('CheckboxInput', v)} />}
         {type === 'component'  && name === 'Radio' && <RadioControls c={controls.Radio} onChange={v => onChange('Radio', v)} />}
         {type === 'component'  && name === 'RadioInput' && <RadioInputControls c={controls.RadioInput} onChange={v => onChange('RadioInput', v)} />}
+        {type === 'component'  && name === 'Checkmark' && <CheckmarkControls c={controls.Checkmark} onChange={v => onChange('Checkmark', v)} />}
+        {type === 'component'  && name === 'CheckmarkInput' && <CheckmarkInputControls c={controls.CheckmarkInput} onChange={v => onChange('CheckmarkInput', v)} />}
       </div>
 
       <div style={{ height: '1px', backgroundColor: 'var(--border-normal)' }} />
@@ -921,6 +923,140 @@ function RadioInputControls({ c, onChange }) {
       <ControlGroup label="STATE">
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
           {['Unselected', 'Selected', 'Disabled', 'UncheckedDisabled'].map(state => (
+            <button
+              key={state}
+              onClick={() => onChange({ ...c, state })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.state === state ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {state}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <ControlGroup label="SIZE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Small', 'Medium'].map(size => (
+            <button
+              key={size}
+              onClick={() => onChange({ ...c, size })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.size === size ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <TextInput
+        label="LABEL"
+        value={c.label}
+        onChange={v => onChange({ ...c, label: v })}
+      />
+    </>
+  )
+}
+
+function CheckmarkControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="STATE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Checked', 'Unchecked', 'Disabled'].map(state => (
+            <button
+              key={state}
+              onClick={() => onChange({ ...c, state })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.state === state ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {state}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <ControlGroup label="SIZE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Small', 'Medium'].map(size => (
+            <button
+              key={size}
+              onClick={() => onChange({ ...c, size })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.size === size ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+      <ControlGroup label="STYLE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Default', 'Thin'].map(st => (
+            <button
+              key={st}
+              onClick={() => onChange({ ...c, style: st })}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: c.style === st ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
+                color: c.style === st ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                fontSize: '12px',
+                fontWeight: c.style === st ? 600 : 400,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              {st}
+            </button>
+          ))}
+        </div>
+      </ControlGroup>
+    </>
+  )
+}
+
+function CheckmarkInputControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="STATE">
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {['Checked', 'Unchecked', 'Disabled'].map(state => (
             <button
               key={state}
               onClick={() => onChange({ ...c, state })}

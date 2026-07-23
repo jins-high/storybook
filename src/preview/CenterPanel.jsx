@@ -17,6 +17,8 @@ import { Checkbox }      from '../components/Checkbox.jsx'
 import { CheckboxInput } from '../components/CheckboxInput.jsx'
 import { Radio }         from '../components/Radio.jsx'
 import { RadioInput }    from '../components/RadioInput.jsx'
+import { Checkmark }     from '../components/Checkmark.jsx'
+import { CheckmarkInput } from '../components/CheckmarkInput.jsx'
 import { HeroBanner }       from '../components/HeroBanner.jsx'
 import { OrderHistoryCard } from '../components/OrderHistoryCard.jsx'
 import * as Icons      from '../icons/icons.jsx'
@@ -257,6 +259,8 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'CheckboxInput' && <CheckboxInputPreview c={controls.CheckboxInput} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Radio' && <RadioPreview c={controls.Radio} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'RadioInput' && <RadioInputPreview c={controls.RadioInput} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Checkmark' && <CheckmarkPreview c={controls.Checkmark} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'CheckmarkInput' && <CheckmarkInputPreview c={controls.CheckmarkInput} />}
       </InspectorLayer>
     </div>
   )
@@ -1231,6 +1235,79 @@ function RadioInputPreview({ c }) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {states.map(state => (
                   <RadioInput key={state} state={state} size={size} label={`${state}`} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// CHECKMARK PREVIEW
+// ═══════════════════════════════════════════════════════════
+function CheckmarkPreview({ c }) {
+  const states = ['Checked', 'Unchecked', 'Disabled']
+  const sizes = ['Small', 'Medium']
+  const styles = ['Default', 'Thin']
+  return (
+    <ComponentCanvas
+      subtitle="Checkmark — current controls applied"
+      hero={
+        <Checkmark state={c.state} size={c.size} style={c.style} />
+      }
+      allVariants={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {styles.map(st => (
+            <div key={st}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-icon-normal)', textTransform: 'uppercase', marginBottom: '12px' }}>
+                {st}
+              </div>
+              {sizes.map(size => (
+                <div key={size} style={{ marginBottom: '16px' }}>
+                  <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>{size}</div>
+                  <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+                    {states.map(state => (
+                      <div key={state} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                        <Checkmark state={state} size={size} style={st} />
+                        <span style={{ fontSize: '10px', color: 'var(--text-icon-assistive)' }}>{state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      }
+    />
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// CHECKMARK INPUT PREVIEW
+// ═══════════════════════════════════════════════════════════
+function CheckmarkInputPreview({ c }) {
+  const states = ['Checked', 'Unchecked', 'Disabled']
+  const sizes = ['Small', 'Medium']
+  return (
+    <ComponentCanvas
+      subtitle="CheckmarkInput — current controls applied"
+      hero={
+        <CheckmarkInput state={c.state} size={c.size} label={c.label} />
+      }
+      allVariants={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {sizes.map(size => (
+            <div key={size}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-icon-normal)', textTransform: 'uppercase', marginBottom: '12px' }}>
+                {size}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {states.map(state => (
+                  <CheckmarkInput key={state} state={state} size={size} label={`${state}`} />
                 ))}
               </div>
             </div>

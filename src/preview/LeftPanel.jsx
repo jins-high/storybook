@@ -20,6 +20,8 @@ const COMPONENTS = [
   { id: 'CheckboxInput',    label: 'Checkbox Input',    icon: '☑' },
   { id: 'Radio',            label: 'Radio',             icon: '◉' },
   { id: 'RadioInput',       label: 'Radio Input',       icon: '◉' },
+  { id: 'Checkmark',         label: 'Checkmark',         icon: '✓' },
+  { id: 'CheckmarkInput',    label: 'Checkmark Input',   icon: '✓' },
 ]
 
 const COMPOSE_COMPONENTS = [

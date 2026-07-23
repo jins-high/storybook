@@ -78,6 +78,16 @@ const defaultControls = {
     size: 'Medium',
     label: '텍스트',
   },
+  Checkmark: {
+    state: 'Checked',
+    size: 'Medium',
+    style: 'Default',
+  },
+  CheckmarkInput: {
+    state: 'Checked',
+    size: 'Medium',
+    label: '텍스트',
+  },
 }
 
 export default function App() {
