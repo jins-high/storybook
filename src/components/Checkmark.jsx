@@ -51,7 +51,7 @@ export function Checkmark({
     ? 'var(--surface-primary-solid)'
     : state === 'Disabled'
     ? 'var(--text-icon-disabled)'
-    : 'var(--text-icon-assistive)'
+    : 'var(--text-icon-subtle)'
 
   return (
     <button

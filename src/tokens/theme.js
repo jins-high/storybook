@@ -110,8 +110,8 @@ export const modes = {
       TextIcon:      { palettePath: 'Blue/400',          value: palette.blue[400]    },
       BgSolid:       { palettePath: 'Brand/Compose/300', value: palette.compose[300] },
       BgSubtle:      { palettePath: 'Brand/Compose/950', value: palette.compose[950] },
-      BdSolid:       { palettePath: 'Blue/500',          value: palette.blue[500]    },
-      BdSubtle:      { palettePath: 'Brand/Compose/500', value: palette.compose[500] },
+      BdSolid:       { palettePath: 'Brand/Compose/400', value: palette.compose[400] },
+      BdSubtle:      { palettePath: 'Brand/Compose/600', value: palette.compose[600] },
     },
   },
   'compose-light': {
@@ -124,8 +124,8 @@ export const modes = {
       TextIcon:      { palettePath: 'Blue/700',          value: palette.blue[700]    },
       BgSolid:       { palettePath: 'Brand/Compose/300', value: palette.compose[300] },
       BgSubtle:      { palettePath: 'Brand/Compose/50',  value: palette.compose[50]  },
-      BdSolid:       { palettePath: 'Blue/400',          value: palette.blue[400]    },
-      BdSubtle:      { palettePath: 'Brand/Compose/400', value: palette.compose[400] },
+      BdSolid:       { palettePath: 'Brand/Compose/400', value: palette.compose[400] },
+      BdSubtle:      { palettePath: 'Brand/Compose/100', value: palette.compose[100] },
     },
   },
 }

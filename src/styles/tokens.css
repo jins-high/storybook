@@ -221,7 +221,7 @@
   /* Color/Border/* ────────────────────────────────────── */
   --border-light:           var(--overlay-black-10);
   --border-normal:          var(--overlay-black-20);
-  --border-heavy:           var(--overlay-black-30);
+  --border-heavy:           var(--overlay-black-40);
   --border-primary-solid:   var(--hasamdong-400);
   --border-primary-subtle:  var(--hasamdong-100);
   --border-info-solid:      var(--blue-400);
@@ -335,8 +335,8 @@
   --primary-text-icon: var(--blue-400);
   --primary-bgsolid:   var(--compose-300);
   --primary-bgsubtle:  var(--compose-950);
-  --primary-bdsolid:   var(--blue-500);
-  --primary-bdsubtle:  var(--compose-500);
+  --primary-bdsolid:   var(--compose-400);
+  --primary-bdsubtle:  var(--compose-600);
 
   /* Text&Icon dark */
   --text-icon-strong:        var(--neutral-white);
@@ -376,9 +376,9 @@
   /* Border dark */
   --border-light:           var(--overlay-white-10);
   --border-normal:          var(--overlay-white-20);
-  --border-heavy:           var(--overlay-white-30);
-  --border-primary-solid:   var(--blue-500);
-  --border-primary-subtle:  var(--compose-500);
+  --border-heavy:           var(--overlay-white-40);
+  --border-primary-solid:   var(--compose-400);
+  --border-primary-subtle:  var(--compose-600);
   --border-info-solid:      var(--blue-500);
   --border-info-subtle:     var(--blue-900);
   --border-success-solid:   var(--green-500);
@@ -436,8 +436,8 @@
   --primary-text-icon: var(--blue-700);
   --primary-bgsolid:   var(--compose-300);
   --primary-bgsubtle:  var(--compose-50);
-  --primary-bdsolid:   var(--blue-400);
-  --primary-bdsubtle:  var(--compose-400);
+  --primary-bdsolid:   var(--compose-400);
+  --primary-bdsubtle:  var(--compose-100);
 
   /* Text&Icon — same as hasamdong except primary */
   --text-icon-strong:        var(--neutral-black);
@@ -477,9 +477,9 @@
   /* Border */
   --border-light:           var(--overlay-black-10);
   --border-normal:          var(--overlay-black-20);
-  --border-heavy:           var(--overlay-black-30);
-  --border-primary-solid:   var(--blue-400);
-  --border-primary-subtle:  var(--compose-400);
+  --border-heavy:           var(--overlay-black-40);
+  --border-primary-solid:   var(--compose-400);
+  --border-primary-subtle:  var(--compose-100);
   --border-info-solid:      var(--blue-400);
   --border-info-subtle:     var(--blue-100);
   --border-success-solid:   var(--green-400);
