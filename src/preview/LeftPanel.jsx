@@ -164,7 +164,7 @@ const COMPOSE_GRAPHICS = [
 ]
 
 export function LeftPanel({ selectedItem, onSelect }) {
-  const [composeOpen, setComposeOpen] = useState({ components: true, graphics: false })
+  const [composeOpen, setComposeOpen] = useState({ foundations: true, wlComponents: true, components: true, graphics: false })
 
   const isSelected = (type, id) =>
     selectedItem?.type === type && selectedItem?.name === id
@@ -175,39 +175,54 @@ export function LeftPanel({ selectedItem, onSelect }) {
   return (
     <aside style={panelStyle}>
       <div style={{ flex: 1, overflowY: 'auto' }}>
-        {/* Foundations section */}
+        {/* White Label section */}
         <div style={sectionStyle}>
-          <div style={sectionLabelStyle}>FOUNDATIONS</div>
-          {FOUNDATIONS.map(item => (
-            <button
-              key={item.id}
-              style={navItemStyle(isSelected('foundation', item.id))}
-              onClick={() => onSelect({ type: 'foundation', name: item.id })}
-            >
-              <span style={navIconStyle}>{item.icon}</span>
-              <span>{item.label}</span>
-            </button>
-          ))}
+          <div style={{ ...sectionLabelStyle, color: '#818CF8' }}>WHITE LABEL</div>
+
+          {/* Foundations accordion */}
+          <button style={accordionHeaderStyle} onClick={() => toggle('foundations')}>
+            <span style={{ fontSize: '10px', opacity: 0.6 }}>{composeOpen.foundations ? '▾' : '▸'}</span>
+            <span>Foundations</span>
+          </button>
+          {composeOpen.foundations && (
+            <div style={accordionBodyStyle}>
+              {FOUNDATIONS.map(item => (
+                <button
+                  key={item.id}
+                  style={navItemStyle(isSelected('foundation', item.id))}
+                  onClick={() => onSelect({ type: 'foundation', name: item.id })}
+                >
+                  <span style={navIconStyle}>{item.icon}</span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Components accordion */}
+          <button style={accordionHeaderStyle} onClick={() => toggle('wlComponents')}>
+            <span style={{ fontSize: '10px', opacity: 0.6 }}>{composeOpen.wlComponents ? '▾' : '▸'}</span>
+            <span>Components</span>
+          </button>
+          {composeOpen.wlComponents && (
+            <div style={accordionBodyStyle}>
+              {COMPONENTS.map(item => (
+                <button
+                  key={item.id}
+                  style={navItemStyle(isSelected('component', item.id))}
+                  onClick={() => onSelect({ type: 'component', name: item.id })}
+                >
+                  <span style={navIconStyle}>{item.icon}</span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Components section */}
+        {/* Compose section */}
         <div style={sectionStyle}>
-          <div style={sectionLabelStyle}>COMPONENTS</div>
-          {COMPONENTS.map(item => (
-            <button
-              key={item.id}
-              style={navItemStyle(isSelected('component', item.id))}
-              onClick={() => onSelect({ type: 'component', name: item.id })}
-            >
-              <span style={navIconStyle}>{item.icon}</span>
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Compose Asset section */}
-        <div style={sectionStyle}>
-          <div style={{ ...sectionLabelStyle, color: '#92773A' }}>COMPOSE ASSET</div>
+          <div style={{ ...sectionLabelStyle, color: '#92773A' }}>COMPOSE</div>
 
           {/* Components accordion */}
           <button style={accordionHeaderStyle} onClick={() => toggle('components')}>
