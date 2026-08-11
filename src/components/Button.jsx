@@ -39,7 +39,7 @@ const SIZE = {
 // ── Color × Variant tokens ─────────────────────────────────────
 const TOKENS = {
   solid: {
-    primary:  { background: 'var(--surface-primary-solid)',  color: 'var(--text-icon-normal)',      border: 'none' },
+    primary:  { background: 'var(--surface-primary-solid)',  color: 'var(--static-black)',          border: 'none' },
     assistive: { background: 'var(--surface-normal-subtle)', color: 'var(--text-icon-alternative)', border: 'none' },
   },
   outline: {
@@ -57,7 +57,7 @@ const DISABLED = {
 // ── Token usage for inspector ──────────────────────────────────
 const USAGE = {
   solid: {
-    primary:  { background: 'surface-primary-solid', text: 'text-icon-normal',      border: '—' },
+    primary:  { background: 'surface-primary-solid', text: 'static-black',          border: '—' },
     assistive: { background: 'surface-normal-subtle', text: 'text-icon-alternative', border: '—' },
   },
   outline: {
