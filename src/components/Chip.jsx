@@ -28,10 +28,10 @@ const TOKENS = {
     disabled: { bg: 'var(--surface-heavy-subtle)', text: 'var(--text-icon-disabled)', border: 'none' },
   },
   outline: {
-    default: { bg: 'none', text: 'var(--text-icon-normal)', border: '1px solid var(--border-light)' },
+    default: { bg: 'transparent', text: 'var(--text-icon-normal)', border: '1px solid var(--border-light)' },
     active:  { bg: 'var(--surface-info-subtle)', text: 'var(--text-icon-info)', border: '1px solid var(--border-info-solid)' },
-    pressed: { bg: 'none', text: 'var(--text-icon-normal)', border: '1px solid var(--border-light)' },
-    disabled: { bg: 'none', text: 'var(--text-icon-disabled)', border: '1px solid var(--border-light)' },
+    pressed: { bg: 'transparent', text: 'var(--text-icon-normal)', border: '1px solid var(--border-light)' },
+    disabled: { bg: 'transparent', text: 'var(--text-icon-disabled)', border: '1px solid var(--border-light)' },
   },
 }
 
