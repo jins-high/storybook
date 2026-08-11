@@ -379,10 +379,13 @@ function Mono({ children, color = 'var(--text-icon-assistive)' }) {
 // COLOR PREVIEW
 // ═══════════════════════════════════════════════════════════
 function ColorPreview() {
-  // Group themeTokenMap entries by group prefix
+  // Group themeTokenMap entries by figmaPath prefix
   const tokenGroups = {}
   Object.entries(themeTokenMap).forEach(([cssKey, token]) => {
-    const group = cssKey.split('/')[0]
+    const parts = token.figmaPath.split('/')
+    const group = parts[0].toLowerCase() === 'color'
+      ? parts[1].toLowerCase()
+      : parts[0].toLowerCase()
     if (!tokenGroups[group]) tokenGroups[group] = []
     tokenGroups[group].push({ cssKey, ...token })
   })
@@ -392,6 +395,8 @@ function ColorPreview() {
     'text&icon':  'Text & Icon',
     surface:      'Surface / Background',
     border:       'Border',
+    dimmer:       'Dimmer',
+    static:       'Static (mode-invariant)',
     status:       'Status (palette TBD)',
   }
 

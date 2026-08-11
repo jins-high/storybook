@@ -233,6 +233,10 @@
   --border-caution-solid:   var(--orange-400);
   --border-caution-subtle:  var(--orange-100);
 
+  /* Color/Static/* ────────────────────────────────────── */
+  --static-black: #000000;
+  --static-white: #ffffff;
+
   /* Color/Dimmer/* ────────────────────────────────────── */
   --dimmer-strong: #000000cc;
   --dimmer-normal: var(--overlay-black-40);
@@ -388,6 +392,10 @@
   --border-caution-solid:   var(--orange-500);
   --border-caution-subtle:  var(--orange-900);
 
+  /* Static dark */
+  --static-black: #000000;
+  --static-white: #ffffff;
+
   /* Dimmer dark */
   --dimmer-strong: #ffffff99;
   --dimmer-normal: var(--overlay-white-40);
@@ -488,6 +496,10 @@
   --border-error-subtle:    var(--red-100);
   --border-caution-solid:   var(--orange-400);
   --border-caution-subtle:  var(--orange-100);
+
+  /* Static */
+  --static-black: #000000;
+  --static-white: #ffffff;
 
   /* Dimmer */
   --dimmer-strong: #000000cc;

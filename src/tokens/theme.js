@@ -198,6 +198,10 @@ register('border-caution-subtle',  'Color/Border/CautionSubtle',  'Orange/100', 
 register('dimmer-strong', 'Color/Dimmer/Strong', 'Overlay-Black/100', '#000000cc')
 register('dimmer-normal', 'Color/Dimmer/Normal', 'Overlay-Black/40', palette.overlayBlack[40])
 
+// Static (brand-mode-invariant)
+register('static-black', 'Color/Static/Black', 'Neutral/Black', '#000000')
+register('static-white', 'Color/Static/White', 'Neutral/White', '#ffffff')
+
 // Status aliases (legacy — map to text-icon / surface / border)
 register('status-info-text-icon',     'Color/Text&Icon/Info',        'Blue/700',   palette.blue[700])
 register('status-info-bgsolid',       'Color/Surface/InfoSolid',     'Blue/500',   palette.blue[500])
