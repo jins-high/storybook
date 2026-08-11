@@ -4,6 +4,7 @@ import { themeTokenMap, modes }             from '../tokens/theme.js'
 import { typography, fontModes }            from '../tokens/typography.js'
 import { spacing, radiusDefault, radiusStatic } from '../tokens/spacing.js'
 import { Button }              from '../components/Button.jsx'
+import { IconButton }          from '../components/IconButton.jsx'
 import { TextButton }          from '../components/TextButton.jsx'
 import { ActionsActionArea }   from '../components/ActionsActionArea.jsx'
 import { Chip }                from '../components/Chip.jsx'
@@ -303,7 +304,8 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'foundation' && selectedItem.name === 'Font'       && <FontPreview />}
         {selectedItem.type === 'foundation' && selectedItem.name === 'Icons'         && <IconsPreview />}
         {selectedItem.type === 'foundation' && selectedItem.name === 'GraphicIcons' && <GraphicIconsPreview />}
-        {selectedItem.type === 'component'  && selectedItem.name === 'Button'     && <ButtonPreview   c={controls.Button} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Button'      && <ButtonPreview      c={controls.Button} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'IconButton'  && <IconButtonPreview  c={controls.IconButton} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'TextButton' && <TextButtonPreview c={controls.TextButton} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'ActionsActionArea' && <ActionsActionAreaPreview c={controls.ActionsActionArea} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Chip' && <ChipPreview c={controls.Chip} />}
@@ -766,6 +768,60 @@ function ComponentCanvas({ subtitle, hero, allVariants }) {
           {allVariants}
         </Section>
       </div>
+    </div>
+  )
+}
+
+// ── IconButton Preview ──────────────────────────────────────────
+function IconButtonPreview({ c }) {
+  const IconComp = Icons[c?.iconName ?? 'IconChevronRight']
+  const iconNode = IconComp ? <IconComp size={c?.size === 'sm' ? 16 : 24} /> : undefined
+
+  return (
+    <div>
+      <ComponentCanvas
+        subtitle="Icon Button — current controls applied"
+        hero={
+          <IconButton
+            variant={c.variant}
+            size={c.size}
+            state={c.state}
+            icon={iconNode}
+          />
+        }
+        allVariants={
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            {IconButton.states.map(state => (
+              <div key={state}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-icon-normal)', marginBottom: '12px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                  {state}
+                </div>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+                  {IconButton.variants.map(variant =>
+                    IconButton.sizes.map(size => {
+                      const sz = size === 'sm' ? 16 : 24
+                      const IconComp2 = Icons[c?.iconName ?? 'IconChevronRight']
+                      return (
+                        <div key={`${variant}-${size}`} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                          <IconButton
+                            variant={variant}
+                            size={size}
+                            state={state}
+                            icon={IconComp2 ? <IconComp2 size={sz} /> : undefined}
+                          />
+                          <div style={{ fontSize: '10px', color: 'var(--text-icon-assistive)', textAlign: 'center' }}>
+                            {variant}<br />{size}
+                          </div>
+                        </div>
+                      )
+                    })
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        }
+      />
     </div>
   )
 }

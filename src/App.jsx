@@ -17,6 +17,12 @@ const defaultControls = {
     ariaLabel:      '',
     iconName:       'IconChevronRight',
   },
+  IconButton: {
+    variant:  'solid',
+    size:     'md',
+    state:    'default',
+    iconName: 'IconChevronRight',
+  },
   TextButton: {
     size:           'md',
     color:          'primary',

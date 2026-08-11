@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { themeTokenMap } from '../tokens/theme.js'
 import { Button }              from '../components/Button.jsx'
+import { IconButton }          from '../components/IconButton.jsx'
 import { TextButton }          from '../components/TextButton.jsx'
 import { ActionsActionArea }   from '../components/ActionsActionArea.jsx'
 import { Chip }                from '../components/Chip.jsx'
@@ -53,7 +54,8 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
       <div style={sectionStyle}>
         <div style={sectionTitleStyle}>Controls</div>
         {type === 'foundation' && <FoundationControls name={name} />}
-        {type === 'component'  && name === 'Button'     && <ButtonControls     c={controls.Button}     onChange={v => onChange('Button', v)} />}
+        {type === 'component'  && name === 'Button'      && <ButtonControls      c={controls.Button}      onChange={v => onChange('Button',      v)} />}
+        {type === 'component'  && name === 'IconButton'  && <IconButtonControls  c={controls.IconButton}  onChange={v => onChange('IconButton',  v)} />}
         {type === 'component'  && name === 'TextButton' && <TextButtonControls c={controls.TextButton} onChange={v => onChange('TextButton', v)} />}
         {type === 'component'  && name === 'ActionsActionArea' && <ActionsActionAreaControls c={controls.ActionsActionArea} onChange={v => onChange('ActionsActionArea', v)} />}
         {type === 'component'  && name === 'Chip' && <ChipControls c={controls.Chip} onChange={v => onChange('Chip', v)} />}
@@ -101,7 +103,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
             <div style={{ ...sectionStyle, paddingBottom: '8px' }}>
               <div style={sectionTitleStyle}>Code</div>
             </div>
-            {type === 'component' && (name === 'Button' || name === 'TextButton' || name === 'ActionsActionArea' || name === 'Chip' || name === 'Tab' || name === 'Snackbar') && (
+            {type === 'component' && (name === 'Button' || name === 'IconButton' || name === 'TextButton' || name === 'ActionsActionArea' || name === 'Chip' || name === 'Tab' || name === 'Snackbar') && (
               <>
                 <ComponentCode  name={name} controls={controls[name]} />
                 <TokenUsageTable name={name} controls={controls[name]} />
@@ -621,6 +623,36 @@ function IconPicker({ value, onChange }) {
         </div>
       )}
     </div>
+  )
+}
+
+function IconButtonControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="VARIANT">
+        <SegmentedControl
+          options={IconButton.variants}
+          value={c.variant}
+          onChange={v => onChange({ ...c, variant: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="SIZE">
+        <SegmentedControl
+          options={IconButton.sizes}
+          value={c.size}
+          onChange={v => onChange({ ...c, size: v })}
+        />
+      </ControlGroup>
+
+      <ControlGroup label="STATE">
+        <SegmentedControl
+          options={IconButton.states}
+          value={c.state}
+          onChange={v => onChange({ ...c, state: v })}
+        />
+      </ControlGroup>
+    </>
   )
 }
 
@@ -1543,6 +1575,19 @@ function ComponentCode({ name, controls: c }) {
   if (!c) return null
 
   const snippets = {
+    IconButton: () => {
+      const lines = [
+        `import { IconButton } from '@/components/IconButton'`,
+        ``,
+        `<IconButton`,
+        `  variant="${c.variant}"`,
+        `  size="${c.size}"`,
+      ]
+      if (c.state !== 'default') lines.push(`  state="${c.state}"`)
+      lines.push(`  icon={<YourIcon />}`)
+      lines.push(`/>`)
+      return lines.join('\n')
+    },
     Button: () => {
       const isIconOnly = c.hasLeadingIcon && !c.hasLabel
       const lines = [

@@ -11,6 +11,7 @@ const FOUNDATIONS = [
 
 const COMPONENTS = [
   { id: 'Button',           label: 'Button',            icon: '⬡' },
+  { id: 'IconButton',       label: 'Icon Button',       icon: '⊙' },
   { id: 'TextButton',       label: 'Text Button',       icon: '⊕' },
   { id: 'ActionsActionArea', label: 'Actions Area',      icon: '⧉' },
   { id: 'Chip',             label: 'Chip',              icon: '●' },
