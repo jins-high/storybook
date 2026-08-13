@@ -2153,6 +2153,13 @@ function TooltipControls({ c, onChange }) {
 function TabControls({ c, onChange }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <ControlGroup label="SIZE">
+        <SegmentedControl
+          options={Tab.sizes}
+          value={c.size ?? 'md'}
+          onChange={v => onChange({ ...c, size: v })}
+        />
+      </ControlGroup>
       {c.tabs.map((tab, idx) => (
         <div
           key={tab.id}

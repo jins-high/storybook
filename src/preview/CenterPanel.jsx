@@ -2954,73 +2954,63 @@ function ChipPreview({ c }) {
 }
 
 function TabPreview({ c }) {
-  const displayTabs = c.tabs
-    .filter(tab => tab.enabled)
-    .map(tab => ({ id: tab.id, label: tab.label }))
+  const size      = c.size ?? 'md'
+  const allTabIds = c.tabs.filter(t => t.enabled).map(t => t.id)
+  const activeId  = c.tabs.find(t => t.state === 'active' && t.enabled)?.id ?? allTabIds[0]
+  const disabledIds = c.tabs.filter(t => t.state === 'disabled' && t.enabled).map(t => t.id)
+  const displayTabs = c.tabs.filter(t => t.enabled).map(t => ({ id: t.id, label: t.label }))
 
-  const activeTab = c.tabs.find(tab => tab.state === 'active')?.id || c.tabs[0]?.id
+  const SAMPLE_TABS = [
+    { id: 's1', label: '메뉴' },
+    { id: 's2', label: '추천' },
+    { id: 's3', label: '신메뉴' },
+    { id: 's4', label: '음료' },
+    { id: 's5', label: '디저트' },
+  ]
 
   return (
     <ComponentCanvas
       subtitle="Tab — current controls applied"
       hero={
         <Tab
+          size={size}
           tabs={displayTabs}
-          activeTab={activeTab}
+          activeTab={activeId}
           onTabChange={() => {}}
-          disabledTabs={[]}
+          disabledTabs={disabledIds}
         />
       }
       allVariants={
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
-              모든 탭 활성화
-            </div>
-            <Tab
-              tabs={c.tabs.filter(t => t.enabled).map(t => ({ id: t.id, label: t.label }))}
-              activeTab={c.tabs.find(t => t.state === 'active')?.id || 'tab-1'}
-              onTabChange={() => {}}
-              disabledTabs={[]}
-            />
-          </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
 
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
-              일부 탭 비활성화
-            </div>
-            <Tab
-              tabs={c.tabs.filter(t => t.enabled).map(t => ({ id: t.id, label: t.label }))}
-              activeTab={c.tabs.find(t => t.enabled && t.state === 'active')?.id || displayTabs[0]?.id}
-              onTabChange={() => {}}
-              disabledTabs={c.tabs.filter(t => !t.enabled).map(t => t.id)}
-            />
-          </div>
-
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
-              탭 상태별 표현
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {['default', 'active', 'disabled'].map(state => (
-                <div key={state}>
-                  <div style={{ fontSize: '10px', color: 'var(--text-icon-disabled)', marginBottom: '6px' }}>
-                    {state}
+          {/* Size × State matrix */}
+          {Tab.sizes.map(sz => (
+            <div key={sz}>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-icon-normal)', marginBottom: '16px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                {sz === 'md' ? 'Medium (18px)' : 'Small (16px)'}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {[
+                  { label: 'Active / Default / Disabled 혼합', activeId: 's1', disabledIds: ['s4', 's5'] },
+                  { label: 'Active only',                       activeId: 's1', disabledIds: [] },
+                  { label: 'Default only (no active)',          activeId: null, disabledIds: [] },
+                  { label: 'Disabled only',                     activeId: null, disabledIds: ['s1','s2','s3','s4','s5'] },
+                ].map(({ label, activeId: aid, disabledIds: dids }) => (
+                  <div key={label}>
+                    <div style={{ fontSize: '10px', color: 'var(--text-icon-assistive)', marginBottom: '6px' }}>{label}</div>
+                    <Tab
+                      size={sz}
+                      tabs={SAMPLE_TABS}
+                      activeTab={aid}
+                      onTabChange={() => {}}
+                      disabledTabs={dids}
+                    />
                   </div>
-                  <Tab
-                    tabs={[
-                      { id: `ex-${state}`, label: '탭' },
-                      { id: `ex-${state}-2`, label: '탭' },
-                      { id: `ex-${state}-3`, label: '탭' },
-                    ]}
-                    activeTab={state === 'active' ? `ex-${state}` : undefined}
-                    onTabChange={() => {}}
-                    disabledTabs={state === 'disabled' ? [`ex-${state}`, `ex-${state}-2`] : []}
-                  />
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
+
         </div>
       }
     />

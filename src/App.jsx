@@ -46,6 +46,7 @@ const defaultControls = {
     label:          'Chip',
   },
   Tab: {
+    size: 'md',
     tabs: [
       { id: 'tab-1', label: '탭', enabled: true, state: 'active' },
       { id: 'tab-2', label: '탭', enabled: true, state: 'default' },
