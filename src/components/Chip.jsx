@@ -14,9 +14,9 @@ import { typography } from '../tokens/typography.js'
 // ── Size specs ────────────────────────────────────────────────
 // Large: 40px / Medium: 32px / Small: 24px
 const SIZE = {
-  lg: { h: '40px', px: 'var(--spacing-500)', gap: 'var(--spacing-300)', typo: typography.label.Medium, iconSize: 20, r: 'var(--radius-default-400)' },
-  md: { h: '32px', px: 'var(--spacing-400)', gap: 'var(--spacing-300)', typo: typography.label.Medium, iconSize: 16, r: 'var(--radius-default-300)' },
-  sm: { h: '24px', px: 'var(--spacing-300)', gap: 'var(--spacing-200)', typo: typography.labelSmall.Medium, iconSize: 16, r: 'var(--radius-default-300)' },
+  lg: { h: '40px', px: 'var(--spacing-500)', gap: 'var(--spacing-300)', typo: typography.label.Medium, iconSize: 20, r: 'var(--radius-default-300)' },
+  md: { h: '32px', px: 'var(--spacing-400)', gap: 'var(--spacing-300)', typo: typography.label.Medium, iconSize: 16, r: 'var(--radius-default-200)' },
+  sm: { h: '24px', px: 'var(--spacing-300)', gap: 'var(--spacing-200)', typo: typography.labelSmall.Medium, iconSize: 16, r: 'var(--radius-default-200)' },
 }
 
 // ── Color × Variant tokens ─────────────────────────────────────

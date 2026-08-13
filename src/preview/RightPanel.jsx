@@ -438,8 +438,8 @@ function FoundationControls({ name }) {
 
 function ControlGroup({ label, children }) {
   return (
-    <div style={{ marginBottom: '16px' }}>
-      <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '8px', letterSpacing: '0.04em' }}>
+    <div style={{ marginBottom: '20px' }}>
+      <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-icon-assistive)', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
         {label}
       </div>
       {children}
@@ -457,16 +457,18 @@ function SegmentedControl({ options, value, onChange }) {
             key={opt}
             onClick={() => onChange(opt)}
             style={{
-              padding:         '5px 10px',
-              borderRadius:    '6px',
-              border:          isActive ? 'none' : '1px solid var(--border-normal)',
-              backgroundColor: isActive ? 'var(--surface-heavy-solid)' : 'var(--surface-base)',
-              color:           isActive ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+              height:          '24px',
+              padding:         '0 var(--spacing-300)',
+              borderRadius:    'var(--radius-default-200)',
+              border:          isActive ? '1px solid var(--border-info-solid)' : '1px solid var(--border-light)',
+              backgroundColor: isActive ? 'var(--surface-info-subtle)' : 'transparent',
+              color:           isActive ? 'var(--text-icon-info)' : 'var(--text-icon-normal)',
               fontSize:        '12px',
-              fontWeight:      isActive ? 500 : 400,
+              fontWeight:      isActive ? 600 : 400,
               cursor:          'pointer',
               fontFamily:      'inherit',
               transition:      'all 0.12s',
+              whiteSpace:      'nowrap',
             }}
           >
             {opt}
@@ -1539,8 +1541,8 @@ function CodeBlock({ code }) {
       <pre style={{
         margin:          0,
         padding:         '16px',
-        backgroundColor: '#0F1117',
-        color:           '#E2E8F0',
+        backgroundColor: 'var(--static-black)',
+        color:           'var(--static-white)',
         fontSize:        '11px',
         lineHeight:      '1.7',
         fontFamily:      '"Geist Mono", "SF Mono", Consolas, monospace',
@@ -1556,9 +1558,9 @@ function CodeBlock({ code }) {
           top:             '8px',
           right:           '8px',
           padding:         '3px 8px',
-          backgroundColor: copied ? '#22C55E20' : '#FFFFFF15',
-          color:           copied ? '#22C55E' : '#9CA3AF',
-          border:          '1px solid #FFFFFF20',
+          backgroundColor: copied ? 'var(--surface-success-subtle)' : 'transparent',
+          color:           copied ? 'var(--text-icon-success)' : 'var(--static-white)',
+          border:          copied ? '1px solid var(--border-success-subtle)' : '1px solid var(--border-heavy)',
           borderRadius:    '4px',
           fontSize:        '10px',
           cursor:          'pointer',
@@ -1843,26 +1845,27 @@ function TokenUsageTable({ name, controls: c }) {
 function FoundationCode({ name }) {
   const code = {
     Color: `/* ── Layer 1: Palette (confirmed from Figma) ── */
---neutral-white:   #ffffff;
---neutral-950:     #0b0d0d;
---hasamdong-500:   #ff6d1f;   /* brand primary */
---hasamdong-600:   #f04707;   /* brand text    */
+--neutral-white:     #ffffff;
+--neutral-950:       #0b0d0d;
+--tenpersent-500:    #e35425;   /* brand primary */
+--tenpersent-600:    #d04500;   /* brand text    */
 /* NOTE: status palette names are TBD             */
 /*       from Figma Foundation page               */
 
 /* ── Layer 2: Theme (Semantic) ── */
 /* Variable names match Figma exactly:            */
---primary-text-icon: var(--hasamdong-600);
---primary-bgsolid:   var(--hasamdong-500);
+--primary-text-icon: var(--tenpersent-500);
+--primary-bgsolid:   var(--tenpersent-500);
 --text-icon-normal:  var(--neutral-950);
---text-icon-base:  var(--neutral-white);
---surface-base:  var(--neutral-white);
+--text-icon-base:    var(--neutral-white);
+--surface-base:      var(--neutral-white);
 --border-normal:     rgba(47,49,51,0.16);
 
 /* ── Layer 3: Brand Mode ── */
-[data-brand-mode="hasamdong"] {
-  --primary-text-icon: var(--hasamdong-600);
-  --primary-bgsolid:   var(--hasamdong-500);
+[data-brand-mode="tenpercent"] {
+  --primary-text-icon: var(--tenpersent-500);
+  --primary-bgsolid:   var(--tenpersent-500);
+  --font-family: "SUIT Variable", SUIT, sans-serif;
 }
 
 /* Usage in components */
@@ -1911,11 +1914,11 @@ function FoundationCode({ name }) {
 --spacing-900: var(--dimension-40);  /* 40px */
 --spacing-1000: var(--dimension-48); /* 48px */
 --spacing-1100: var(--dimension-56); /* 56px */
---spacing-container-padding: var(--dimension-16); /* 16px (hasamdong) */
+--spacing-container-padding: var(--dimension-16); /* 16px (tenpercent) */
 
 /* ── Layer 2: Theme / Radius(Default) ── */
 /* Changes per brand mode                 */
---radius-default-100:     var(--dimension-2);  /* hasamdong/tenpersent */
+--radius-default-100:     var(--dimension-2);  /* tenpercent */
 --radius-default-200:      var(--dimension-4);
 --radius-default-300:     var(--dimension-6);
 --radius-default-400:      var(--dimension-10);

@@ -4,9 +4,8 @@
  * Source: Figma MCP get_variable_defs — exact hex values
  *
  * Brand palettes:
- *   Brand/Hasamdong  — warm orange
  *   Brand/Compose    — yellow/gold
- *   Brand/Tenpersent — warm brown (Figma typo preserved)
+ *   Brand/Tenpersent — warm orange-red (Figma typo preserved)
  *
  * Status palettes:
  *   Blue   — Status/Info
@@ -42,30 +41,15 @@ export const palette = {
     20: 'rgba(47,49,51,0.16)',
     30: 'rgba(47,49,51,0.20)',
     40: 'rgba(0,0,0,0.40)',
+    80: 'rgba(0,0,0,0.80)',
   },
 
   // ── Overlay-White ─────────────────────────────────────────
   overlayWhite: {
     10: 'rgba(200,202,204,0.16)',
     20: 'rgba(200,202,204,0.32)',
-    30: 'rgba(200,202,204,0.48)',
+    50: 'rgba(200,202,204,0.48)',
     40: 'rgba(200,202,204,0.64)',
-  },
-
-  // ── Brand/Hasamdong ───────────────────────────────────────
-  hasamdong: {
-    20:  '#fffbf7',
-    50:  '#fff6ed',
-    100: '#ffead4',
-    200: '#ffd1a8',
-    300: '#ffb170',
-    400: '#ff8437',
-    500: '#ff6d1f',
-    600: '#f04707',
-    700: '#c73308',
-    800: '#9e290e',
-    900: '#7f250e',
-    950: '#450f07',
   },
 
   // ── Brand/Compose ─────────────────────────────────────────
@@ -86,18 +70,18 @@ export const palette = {
 
   // ── Brand/Tenpersent ──────────────────────────────────────
   tenpersent: {
-    20:  '#faf9f7',
-    50:  '#f6f3f0',
-    100: '#e8e0d9',
-    200: '#d2c5b6',
-    300: '#b8a18c',
-    400: '#a3846c',
-    500: '#8c6c58',
-    600: '#7f5e4f',
-    700: '#674941',
-    800: '#583f3b',
-    900: '#4d3836',
-    950: '#2b1e1d',
+    20:  '#fffcf7',
+    50:  '#fff5e5',
+    100: '#fadebc',
+    200: '#ffbf95',
+    300: '#ffa66f',
+    400: '#ee7c3a',
+    500: '#e35425',
+    600: '#d04500',
+    700: '#983500',
+    800: '#6a2a00',
+    900: '#462100',
+    950: '#2b1400',
   },
 
   // ── Blue (Status/Info) ────────────────────────────────────

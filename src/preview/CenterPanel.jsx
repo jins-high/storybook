@@ -351,7 +351,7 @@ const canvasStyle = {
   flex:            1,
   height:          '100%',
   overflow:        'auto',
-  backgroundColor: 'var(--surface-base)',
+  backgroundColor: 'var(--surface-light-subtle)',
   display:         'flex',
   flexDirection:   'column',
 }
@@ -428,7 +428,7 @@ function ColorPreview() {
                       height:          '48px',
                       borderRadius:    '8px',
                       backgroundColor: hex,
-                      border:          isLight(hex) ? '1px solid #E5E7EB' : 'none',
+                      border:          isLight(hex) ? '1px solid var(--border-normal)' : 'none',
                     }}
                     title={`--${colorName}/${step.toLowerCase()} = ${hex}`}
                   />
@@ -634,7 +634,7 @@ function SpacingPreview() {
                 <Mono color="var(--text-icon-normal)" style={{ fontWeight: 600 }}>{item.size}</Mono>
                 <Mono color="var(--text-icon-assistive)" style={{ fontSize: '10px' }}>
                   {item.size === 'Circle' ? '999px' : (
-                    `${item.hasamdong}·${item.composeDark}·${item.composeLight}px`
+                    `${item.tenpersent}·${item.composeDark}·${item.composeLight}px`
                   )}
                 </Mono>
               </div>
@@ -653,7 +653,7 @@ function SpacingPreview() {
         </div>
         <div style={{ marginTop: '12px', padding: '10px 14px', backgroundColor: 'var(--surface-normal-subtle)', borderRadius: '6px' }}>
           <Mono color="var(--text-icon-assistive)" style={{ fontSize: '11px' }}>
-            하삼동 XS/S/SM/M/ML/L = 2·4·6·10·12·16px  ·  컴포즈(dark) = 4·8·12·16·20·24px  ·  텐퍼센트 = 2·4·6·10·12·16px
+            텐퍼센트 XS/S/SM/M/ML/L = 2·4·6·10·12·16px  ·  컴포즈(dark/light) = 4·8·12·16·20·24px
           </Mono>
         </div>
       </Section>
@@ -763,7 +763,7 @@ function ComponentCanvas({ subtitle, hero, allVariants }) {
         </div>
       </div>
       {/* All variants matrix */}
-      <div data-variants-area>
+      <div data-variants-area style={{ backgroundColor: 'var(--surface-base)' }}>
         <Section title="All variants" subtitle="Full variant matrix for designer review">
           {allVariants}
         </Section>
@@ -3131,7 +3131,7 @@ function TooltipVariant({ placement, align, text }) {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'var(--surface-heavy-solid)',
-        color: '#FFFFFF',
+        color: 'var(--text-icon-base)',
         borderRadius: '4px',
         fontSize: '11px',
         fontWeight: 500,

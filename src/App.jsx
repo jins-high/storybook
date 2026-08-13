@@ -291,8 +291,7 @@ export default function App() {
       <header className="app-header">
         <div className="header-left">
           <div className="header-logo">📖</div>
-          <span className="header-title">Story Book</span>
-          <span className="header-badge">Component Library</span>
+          <span className="header-title">MOWLB Story Book</span>
         </div>
 
         <div className="header-right">
@@ -300,7 +299,7 @@ export default function App() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', fontWeight: 500 }}>Brand</span>
             <div style={{ display: 'flex', gap: '4px' }}>
-              {['compose-light', 'compose-dark', 'hasamdong'].map(key => {
+              {['compose-light', 'compose-dark', 'tenpercent'].map(key => {
                 const mode = modes[key]
                 const isActive = brandMode === key
                 return (
@@ -308,14 +307,15 @@ export default function App() {
                     key={key}
                     onClick={() => setBrandMode(key)}
                     style={{
-                      padding:         '4px 10px',
-                      borderRadius:    '6px',
-                      fontSize:        '12px',
-                      border:          isActive ? 'none' : '1px solid var(--border-normal)',
-                      backgroundColor: isActive ? 'var(--primary-bgsolid)' : 'var(--surface-base)',
-                      color:           isActive ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
+                      height:          '24px',
+                      padding:         '0 var(--spacing-300)',
+                      borderRadius:    'var(--radius-default-200)',
+                      border:          isActive ? '1px solid var(--border-info-solid)' : '1px solid var(--border-light)',
+                      backgroundColor: isActive ? 'var(--surface-info-subtle)' : 'transparent',
+                      color:           isActive ? 'var(--text-icon-info)' : 'var(--text-icon-normal)',
                       cursor:          'pointer',
                       fontFamily:      'inherit',
+                      fontSize:        '12px',
                       fontWeight:      isActive ? 600 : 400,
                       transition:      'all 0.15s',
                     }}

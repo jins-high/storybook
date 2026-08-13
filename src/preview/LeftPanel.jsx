@@ -178,7 +178,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
       <div style={{ flex: 1, overflowY: 'auto' }}>
         {/* White Label section */}
         <div style={sectionStyle}>
-          <div style={{ ...sectionLabelStyle, color: '#818CF8' }}>WHITE LABEL</div>
+          <div style={{ ...sectionLabelStyle, color: 'var(--text-icon-primary)' }}>WHITE LABEL</div>
 
           {/* Foundations accordion */}
           <button style={accordionHeaderStyle} onClick={() => toggle('foundations')}>
@@ -223,7 +223,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
 
         {/* Compose section */}
         <div style={sectionStyle}>
-          <div style={{ ...sectionLabelStyle, color: '#92773A' }}>COMPOSE</div>
+          <div style={{ ...sectionLabelStyle, color: 'var(--text-icon-alternative)' }}>COMPOSE</div>
 
           {/* Components accordion */}
           <button style={accordionHeaderStyle} onClick={() => toggle('components')}>
@@ -274,8 +274,8 @@ export function LeftPanel({ selectedItem, onSelect }) {
 
       {/* Footer */}
       <div style={footerStyle}>
-        <div style={{ fontSize: '11px', color: '#374151' }}>Figma variable structure</div>
-        <div style={{ fontSize: '11px', color: '#1F2937', marginTop: '4px' }}>
+        <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)' }}>Figma variable structure</div>
+        <div style={{ fontSize: '11px', color: 'var(--text-icon-alternative)', marginTop: '4px' }}>
           palette → theme → component
         </div>
       </div>
@@ -286,37 +286,14 @@ export function LeftPanel({ selectedItem, onSelect }) {
 // ── Styles ─────────────────────────────────────────────────
 
 const panelStyle = {
-  width:           '220px',
-  minWidth:        '220px',
+  width:           '280px',
+  minWidth:        '280px',
   height:          '100%',
-  backgroundColor: '#111318',
+  backgroundColor: 'var(--surface-light-subtle)',
   display:         'flex',
   flexDirection:   'column',
-  borderRight:     '1px solid #1E2028',
+  borderRight:     '1px solid var(--border-light)',
   overflow:        'hidden',
-}
-
-const headerStyle = {
-  display:       'flex',
-  alignItems:    'center',
-  gap:           '10px',
-  padding:       '18px 16px',
-  borderBottom:  '1px solid #1E2028',
-  flexShrink:    0,
-}
-
-const logoStyle = {
-  width:           '32px',
-  height:          '32px',
-  borderRadius:    '8px',
-  background:      'linear-gradient(135deg, #6366F1, #4338CA)',
-  display:         'flex',
-  alignItems:      'center',
-  justifyContent:  'center',
-  fontSize:        '12px',
-  fontWeight:      700,
-  color:           '#FFFFFF',
-  flexShrink:      0,
 }
 
 const sectionStyle = {
@@ -326,7 +303,7 @@ const sectionStyle = {
 const sectionLabelStyle = {
   fontSize:      '10px',
   fontWeight:    600,
-  color:         '#4B5563',
+  color:         'var(--text-icon-assistive)',
   letterSpacing: '0.08em',
   paddingLeft:   '6px',
   marginBottom:  '6px',
@@ -341,7 +318,7 @@ const accordionHeaderStyle = {
   borderRadius:    '6px',
   border:          'none',
   backgroundColor: 'transparent',
-  color:           '#6B7280',
+  color:           'var(--text-icon-assistive)',
   fontSize:        '12px',
   fontWeight:      500,
   cursor:          'pointer',
@@ -357,14 +334,14 @@ const accordionBodyStyle = {
 const ratioLabelStyle = {
   fontSize:      '10px',
   fontWeight:    600,
-  color:         '#4B5563',
+  color:         'var(--text-icon-assistive)',
   letterSpacing: '0.06em',
   padding:       '6px 8px 2px',
 }
 
 const navIconStyle = {
-  width:          '18px',
-  fontSize:       '12px',
+  width:          '26px',
+  fontSize:       '17px',
   textAlign:      'center',
   display:        'inline-block',
   flexShrink:     0,
@@ -377,23 +354,24 @@ const navItemStyle = (active) => ({
   alignItems:      'center',
   gap:             '8px',
   width:           '100%',
-  padding:         '7px 8px',
+  height:          '40px',
+  padding:         '0 8px',
   borderRadius:    '6px',
   border:          'none',
-  backgroundColor: active ? '#1E2340' : 'transparent',
-  color:           active ? '#818CF8' : '#9CA3AF',
-  fontSize:        '13px',
+  backgroundColor: active ? 'var(--surface-primary-subtle)' : 'transparent',
+  color:           active ? 'var(--text-icon-primary)' : 'var(--text-icon-alternative)',
+  fontSize:        '15px',
   fontWeight:      active ? 500 : 400,
   cursor:          'pointer',
   textAlign:       'left',
   transition:      'background-color 0.12s, color 0.12s',
   outline:         'none',
   fontFamily:      'inherit',
-  borderLeft:      active ? '2px solid #6366F1' : '2px solid transparent',
+  borderLeft:      active ? '2px solid var(--primary-bdsolid)' : '2px solid transparent',
 })
 
 const footerStyle = {
   flexShrink:    0,
   padding:       '12px 16px',
-  borderTop:     '1px solid #1E2028',
+  borderTop:     '1px solid var(--border-light)',
 }

@@ -47,26 +47,26 @@ export const spacing = [
   { level: 'Spacing-1000',              px: 48,   cssVar: '--spacing-1000',              figmaPath: 'Number/Spacing/Spacing-1000'              },
   { level: 'Spacing-1100',              px: 56,   cssVar: '--spacing-1100',              figmaPath: 'Number/Spacing/Spacing-1100'              },
   { level: 'container-padding', px: null, cssVar: '--spacing-container-padding', figmaPath: 'Number/Spacing/Container-padding',
-    note: 'hasamdong 16px · compose-dark/tenpersent 20px' },
+    note: 'tenpersent 16px · compose-dark/compose-light 20px' },
 ]
 
 // ── Radius(Default) — per brand mode ──────────────────────
-// hasamdong & tenpersent: smaller; compose-dark: larger
+// tenpersent: smaller; compose-dark/compose-light: larger
 export const radiusDefault = [
   { size: 'Radius-100', cssVar: '--radius-default-100', figmaPath: 'Number/Radius(Default)/Radius-100',
-    hasamdong: 2,   composeDark: 4,   tenpersent: 2   },
+    tenpersent: 2,   composeDark: 4,   composeLight: 4   },
   { size: 'Radius-200', cssVar: '--radius-default-200', figmaPath: 'Number/Radius(Default)/Radius-200',
-    hasamdong: 4,   composeDark: 8,   tenpersent: 4   },
+    tenpersent: 4,   composeDark: 8,   composeLight: 8   },
   { size: 'Radius-300', cssVar: '--radius-default-300', figmaPath: 'Number/Radius(Default)/Radius-300',
-    hasamdong: 6,   composeDark: 12,  tenpersent: 6   },
+    tenpersent: 6,   composeDark: 12,  composeLight: 12  },
   { size: 'Radius-400', cssVar: '--radius-default-400', figmaPath: 'Number/Radius(Default)/Radius-400',
-    hasamdong: 10,  composeDark: 16,  tenpersent: 10  },
+    tenpersent: 10,  composeDark: 16,  composeLight: 16  },
   { size: 'Radius-500', cssVar: '--radius-default-500', figmaPath: 'Number/Radius(Default)/Radius-500',
-    hasamdong: 12,  composeDark: 20,  tenpersent: 12  },
+    tenpersent: 12,  composeDark: 20,  composeLight: 20  },
   { size: 'Radius-600', cssVar: '--radius-default-600', figmaPath: 'Number/Radius(Default)/Radius-600',
-    hasamdong: 16,  composeDark: 24,  tenpersent: 16  },
+    tenpersent: 16,  composeDark: 24,  composeLight: 24  },
   { size: 'Radius-Circle', cssVar: '--radius-default-circle', figmaPath: 'Number/Radius(Default)/Radius-Circle',
-    hasamdong: 999, composeDark: 999, tenpersent: 999 },
+    tenpersent: 999, composeDark: 999, composeLight: 999 },
 ]
 
 // ── Radius(Fixed) — same across all modes ─────────────────
