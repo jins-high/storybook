@@ -916,24 +916,24 @@ function TextFieldControls({ c, onChange }) {
         <SegmentedControl options={['Default', 'Focused', 'Filled', 'Error', 'Disabled', 'ReadOnly']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="OPTIONS">
-        <ToggleSwitch label="Label"            value={!!c.hasLabel}         onChange={v => onChange({ ...c, hasLabel: v })} />
-        <ToggleSwitch label="Leading Icon"     value={!!c.hasLeadingIcon}   onChange={v => onChange({ ...c, hasLeadingIcon: v })} />
-        <ToggleSwitch label="Trailing Clear"   value={!!c.hasTrailingIcon}  onChange={v => onChange({ ...c, hasTrailingIcon: v })} />
+        <ToggleSwitch label="Label"            value={!!c.hasLabel}          onChange={v => onChange({ ...c, hasLabel: v })} />
+        <ToggleSwitch label="Placeholder"      value={!!c.hasPlaceholder}    onChange={v => onChange({ ...c, hasPlaceholder: v })} />
+        <ToggleSwitch label="Leading Icon"     value={!!c.hasLeadingIcon}    onChange={v => onChange({ ...c, hasLeadingIcon: v })} />
+        <ToggleSwitch label="Trailing Clear"   value={!!c.hasTrailingIcon}   onChange={v => onChange({ ...c, hasTrailingIcon: v })} />
         <ToggleSwitch label="Trailing Button"  value={!!c.hasTrailingButton} onChange={v => onChange({ ...c, hasTrailingButton: v })} />
-        <ToggleSwitch label="Character Count"  value={!!c.hasCount}         onChange={v => onChange({ ...c, hasCount: v })} />
-        <ToggleSwitch label="Helper Text"      value={!!c.hasHelperText}    onChange={v => onChange({ ...c, hasHelperText: v })} />
+        <ToggleSwitch label="Character Count"  value={!!c.hasCount}          onChange={v => onChange({ ...c, hasCount: v })} />
+        <ToggleSwitch label="Helper Text"      value={!!c.hasHelperText}     onChange={v => onChange({ ...c, hasHelperText: v })} />
       </ControlGroup>
-      <TextInput label="LABEL TEXT"   value={c.labelText}   onChange={v => onChange({ ...c, labelText: v })} />
-      <TextInput label="PLACEHOLDER"  value={c.placeholder} onChange={v => onChange({ ...c, placeholder: v })} />
-      <TextInput label="VALUE"        value={c.value}       onChange={v => onChange({ ...c, value: v })} />
-      {c.hasTrailingButton && (
-        <TextInput label="BUTTON LABEL" value={c.trailingButtonLabel} onChange={v => onChange({ ...c, trailingButtonLabel: v })} />
+      <TextInput label="LABEL TEXT"    value={c.labelText}      onChange={v => onChange({ ...c, labelText: v })} />
+      {c.hasPlaceholder && (
+        <TextInput label="PLACEHOLDER" value={c.placeholderText} onChange={v => onChange({ ...c, placeholderText: v })} />
       )}
+      <TextInput label="VALUE"         value={c.value}          onChange={v => onChange({ ...c, value: v })} />
       {c.hasCount && (
-        <TextInput label="MAX COUNT"  value={String(c.maxCount)} onChange={v => onChange({ ...c, maxCount: Number(v) || 12 })} />
+        <TextInput label="MAX COUNT"   value={String(c.maxCount)} onChange={v => onChange({ ...c, maxCount: Number(v) || 12 })} />
       )}
       {c.hasHelperText && (
-        <TextInput label="HELPER TEXT" value={c.helperText} onChange={v => onChange({ ...c, helperText: v })} />
+        <TextInput label="HELPER TEXT" value={c.helperText}     onChange={v => onChange({ ...c, helperText: v })} />
       )}
     </>
   )

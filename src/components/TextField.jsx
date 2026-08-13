@@ -29,23 +29,28 @@ function getHelperColor(state) {
 }
 
 export function TextField({
-  state             = 'Default',
-  hasLabel          = true,
-  labelText         = '레이블',
-  hasLeadingIcon    = false,
-  placeholder       = '입력해주세요',
-  value             = '',
-  onChange          = () => {},
-  hasTrailingIcon   = false,
-  onClear           = () => {},
-  hasTrailingButton = false,
+  state               = 'Default',
+  hasLabel            = true,
+  labelText           = '레이블',
+  hasLeadingIcon      = false,
+  hasPlaceholder      = true,
+  placeholderText     = '입력해주세요',
+  // legacy alias kept for backward compat
+  placeholder,
+  value               = '',
+  onChange            = () => {},
+  hasTrailingIcon     = false,
+  onClear             = () => {},
+  hasTrailingButton   = false,
   trailingButtonLabel = '중복확인',
   onTrailingButtonClick = () => {},
-  hasCount          = false,
-  maxCount          = 12,
-  hasHelperText     = false,
-  helperText        = '도움말 텍스트입니다.',
+  hasCount            = false,
+  maxCount            = 12,
+  hasHelperText       = false,
+  helperText          = '도움말 텍스트입니다.',
 }) {
+  // support old `placeholder` prop name
+  const resolvedPlaceholder = placeholder ?? placeholderText
   const [localFocused, setLocalFocused] = useState(false)
 
   const isDisabled = state === 'Disabled'
@@ -124,7 +129,7 @@ export function TextField({
           {/* Input */}
           <input
             type="text"
-            placeholder={!showLabelChip ? (hasLabel ? labelText : placeholder) : placeholder}
+            placeholder={hasPlaceholder ? (!showLabelChip ? (hasLabel ? labelText : resolvedPlaceholder) : resolvedPlaceholder) : undefined}
             value={value}
             onChange={e => onChange(e.target.value)}
             onFocus={() => setLocalFocused(true)}

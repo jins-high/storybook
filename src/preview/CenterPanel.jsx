@@ -1532,11 +1532,11 @@ function TextFieldPreview({ c }) {
             hasLabel={c.hasLabel}
             labelText={c.labelText}
             hasLeadingIcon={c.hasLeadingIcon}
-            placeholder={c.placeholder}
+            hasPlaceholder={c.hasPlaceholder}
+            placeholderText={c.placeholderText}
             value={c.value}
             hasTrailingIcon={c.hasTrailingIcon}
             hasTrailingButton={c.hasTrailingButton}
-            trailingButtonLabel={c.trailingButtonLabel}
             hasCount={c.hasCount}
             maxCount={c.maxCount}
             hasHelperText={c.hasHelperText}
