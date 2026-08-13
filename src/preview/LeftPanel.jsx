@@ -181,7 +181,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
           <div style={{ ...sectionLabelStyle, color: 'var(--text-icon-primary)' }}>WHITE LABEL</div>
 
           {/* Foundations accordion */}
-          <button style={accordionHeaderStyle} onClick={() => toggle('foundations')}>
+          <button className="accordion-header" onClick={() => toggle('foundations')}>
             <span style={{ fontSize: '10px', opacity: 0.6 }}>{composeOpen.foundations ? '▾' : '▸'}</span>
             <span>Foundations</span>
           </button>
@@ -190,7 +190,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
               {FOUNDATIONS.map(item => (
                 <button
                   key={item.id}
-                  style={navItemStyle(isSelected('foundation', item.id))}
+                  className={`nav-item${isSelected('foundation', item.id) ? ' nav-item--active' : ''}`}
                   onClick={() => onSelect({ type: 'foundation', name: item.id })}
                 >
                   <span style={navIconStyle}>{item.icon}</span>
@@ -201,7 +201,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
           )}
 
           {/* Components accordion */}
-          <button style={accordionHeaderStyle} onClick={() => toggle('wlComponents')}>
+          <button className="accordion-header" onClick={() => toggle('wlComponents')}>
             <span style={{ fontSize: '10px', opacity: 0.6 }}>{composeOpen.wlComponents ? '▾' : '▸'}</span>
             <span>Components</span>
           </button>
@@ -210,7 +210,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
               {COMPONENTS.map(item => (
                 <button
                   key={item.id}
-                  style={navItemStyle(isSelected('component', item.id))}
+                  className={`nav-item${isSelected('component', item.id) ? ' nav-item--active' : ''}`}
                   onClick={() => onSelect({ type: 'component', name: item.id })}
                 >
                   <span style={navIconStyle}>{item.icon}</span>
@@ -226,7 +226,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
           <div style={{ ...sectionLabelStyle, color: 'var(--text-icon-alternative)' }}>COMPOSE</div>
 
           {/* Components accordion */}
-          <button style={accordionHeaderStyle} onClick={() => toggle('components')}>
+          <button className="accordion-header" onClick={() => toggle('components')}>
             <span style={{ fontSize: '10px', opacity: 0.6 }}>{composeOpen.components ? '▾' : '▸'}</span>
             <span>Components</span>
           </button>
@@ -235,7 +235,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
               {COMPOSE_COMPONENTS.map(item => (
                 <button
                   key={item.id}
-                  style={navItemStyle(isSelected('component', item.id))}
+                  className={`nav-item${isSelected('component', item.id) ? ' nav-item--active' : ''}`}
                   onClick={() => onSelect({ type: 'component', name: item.id })}
                 >
                   <span style={navIconStyle}>{item.icon}</span>
@@ -246,7 +246,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
           )}
 
           {/* Graphics accordion */}
-          <button style={accordionHeaderStyle} onClick={() => toggle('graphics')}>
+          <button className="accordion-header" onClick={() => toggle('graphics')}>
             <span style={{ fontSize: '10px', opacity: 0.6 }}>{composeOpen.graphics ? '▾' : '▸'}</span>
             <span>Graphics</span>
           </button>
@@ -258,7 +258,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
                   {items.map(item => (
                     <button
                       key={item.id}
-                      style={navItemStyle(isSelected('graphic', item.id))}
+                      className={`nav-item${isSelected('graphic', item.id) ? ' nav-item--active' : ''}`}
                       onClick={() => onSelect({ type: 'graphic', name: item.id })}
                     >
                       <span style={navIconStyle}>▪</span>
@@ -309,24 +309,6 @@ const sectionLabelStyle = {
   marginBottom:  '6px',
 }
 
-const accordionHeaderStyle = {
-  display:         'flex',
-  alignItems:      'center',
-  gap:             '6px',
-  width:           '100%',
-  padding:         '6px 8px',
-  borderRadius:    '6px',
-  border:          'none',
-  backgroundColor: 'transparent',
-  color:           'var(--text-icon-assistive)',
-  fontSize:        '12px',
-  fontWeight:      500,
-  cursor:          'pointer',
-  textAlign:       'left',
-  fontFamily:      'inherit',
-  letterSpacing:   '0.02em',
-}
-
 const accordionBodyStyle = {
   paddingLeft: '8px',
 }
@@ -348,27 +330,6 @@ const navIconStyle = {
   color:          'inherit',
   opacity:        0.8,
 }
-
-const navItemStyle = (active) => ({
-  display:         'flex',
-  alignItems:      'center',
-  gap:             '8px',
-  width:           '100%',
-  height:          '40px',
-  padding:         '0 8px',
-  borderRadius:    '6px',
-  border:          'none',
-  backgroundColor: active ? 'var(--surface-primary-subtle)' : 'transparent',
-  color:           active ? 'var(--text-icon-primary)' : 'var(--text-icon-alternative)',
-  fontSize:        '15px',
-  fontWeight:      active ? 500 : 400,
-  cursor:          'pointer',
-  textAlign:       'left',
-  transition:      'background-color 0.12s, color 0.12s',
-  outline:         'none',
-  fontFamily:      'inherit',
-  borderLeft:      active ? '2px solid var(--primary-bdsolid)' : '2px solid transparent',
-})
 
 const footerStyle = {
   flexShrink:    0,

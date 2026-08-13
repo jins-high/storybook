@@ -3,6 +3,7 @@ import { LeftPanel }   from './preview/LeftPanel.jsx'
 import { CenterPanel } from './preview/CenterPanel.jsx'
 import { RightPanel }  from './preview/RightPanel.jsx'
 import { modes }       from './tokens/theme.js'
+import { Chip }        from './components/Chip.jsx'
 
 const defaultControls = {
   Button: {
@@ -299,31 +300,16 @@ export default function App() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', fontWeight: 500 }}>Brand</span>
             <div style={{ display: 'flex', gap: '4px' }}>
-              {['compose-light', 'compose-dark', 'tenpercent'].map(key => {
-                const mode = modes[key]
-                const isActive = brandMode === key
-                return (
-                  <button
-                    key={key}
-                    onClick={() => setBrandMode(key)}
-                    style={{
-                      height:          '24px',
-                      padding:         '0 var(--spacing-300)',
-                      borderRadius:    'var(--radius-default-200)',
-                      border:          isActive ? '1px solid var(--border-info-solid)' : '1px solid var(--border-light)',
-                      backgroundColor: isActive ? 'var(--surface-info-subtle)' : 'transparent',
-                      color:           isActive ? 'var(--text-icon-info)' : 'var(--text-icon-normal)',
-                      cursor:          'pointer',
-                      fontFamily:      'inherit',
-                      fontSize:        '12px',
-                      fontWeight:      isActive ? 600 : 400,
-                      transition:      'all 0.15s',
-                    }}
-                  >
-                    {mode.name}
-                  </button>
-                )
-              })}
+              {['compose-light', 'compose-dark', 'tenpercent'].map(key => (
+                <Chip
+                  key={key}
+                  variant="outline"
+                  size="md"
+                  state={brandMode === key ? 'active' : 'default'}
+                  label={modes[key].name}
+                  onClick={() => setBrandMode(key)}
+                />
+              ))}
             </div>
           </div>
         </div>
