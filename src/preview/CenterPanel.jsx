@@ -3033,6 +3033,16 @@ function SnackbarPreview({ c }) {
   return (
     <ComponentCanvas
       subtitle="Snackbar — 등장 · 5초 유지 · 사라짐 · 1초 대기 반복"
+      hero={
+        <div style={{ position: 'relative', width: '100%', height: '80px' }}>
+          <Snackbar
+            message={c.message}
+            visible={visible}
+            onClose={handleClose}
+            duration={5000}
+          />
+        </div>
+      }
       allVariants={
         <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-base)', borderRadius: '8px', position: 'relative', overflow: 'hidden' }}>
           <Snackbar
