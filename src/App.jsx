@@ -49,12 +49,16 @@ const defaultControls = {
   Tab: {
     size: 'md',
     tabs: [
-      { id: 'tab-1', label: '탭', enabled: true, state: 'active' },
-      { id: 'tab-2', label: '탭', enabled: true, state: 'default' },
-      { id: 'tab-3', label: '탭', enabled: true, state: 'default' },
-      { id: 'tab-4', label: '탭', enabled: true, state: 'default' },
-      { id: 'tab-5', label: '탭', enabled: true, state: 'default' },
-      { id: 'tab-6', label: '탭', enabled: true, state: 'default' },
+      { id: 'tab-1',  label: '카테고리 탭', enabled: true, state: 'active' },
+      { id: 'tab-2',  label: '카테고리 탭', enabled: true, state: 'default' },
+      { id: 'tab-3',  label: '카테고리 탭', enabled: true, state: 'default' },
+      { id: 'tab-4',  label: '카테고리 탭', enabled: true, state: 'default' },
+      { id: 'tab-5',  label: '카테고리 탭', enabled: true, state: 'default' },
+      { id: 'tab-6',  label: '카테고리 탭', enabled: true, state: 'default' },
+      { id: 'tab-7',  label: '카테고리 탭', enabled: true, state: 'default' },
+      { id: 'tab-8',  label: '카테고리 탭', enabled: true, state: 'default' },
+      { id: 'tab-9',  label: '카테고리 탭', enabled: true, state: 'default' },
+      { id: 'tab-10', label: '카테고리 탭', enabled: true, state: 'default' },
     ],
   },
   Snackbar: {
