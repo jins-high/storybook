@@ -128,12 +128,12 @@ export function Button({
         ...style,
       }}
     >
-      {/* DarkLayer — Figma Action/DarkLayer: black overlay at 12% opacity on press */}
+      {/* ActionDarkLayer/LightLayer — overlay adapts: black in light mode, white in dark mode */}
       <span
         style={{
           position:        'absolute',
           inset:           0,
-          backgroundColor: 'var(--surface-heavy-solid)',
+          backgroundColor: 'var(--interactive-press-bg)',
           opacity:         showPressed ? 0.12 : 0,
           pointerEvents:   'none',
           zIndex:          0,

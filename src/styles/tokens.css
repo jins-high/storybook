@@ -224,6 +224,9 @@
   --static-black: #000000;
   --static-white: #ffffff;
 
+  /* Interactive overlay — ActionDarkLayer (light mode: black) */
+  --interactive-press-bg: var(--static-black);
+
   /* Color/Dimmer/* ────────────────────────────────────── */
   --dimmer-strong: var(--overlay-black-80);
   --dimmer-normal: var(--overlay-black-40);
@@ -385,6 +388,9 @@
   /* Static dark */
   --static-black: #000000;
   --static-white: #ffffff;
+
+  /* Interactive overlay — ActionLightLayer (dark mode: white) */
+  --interactive-press-bg: var(--static-white);
 
   /* Dimmer dark */
   --dimmer-strong: var(--overlay-black-80);

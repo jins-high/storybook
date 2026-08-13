@@ -71,13 +71,13 @@ export function IconButton({
         ...style,
       }}
     >
-      {/* DarkLayer — black overlay at 8% opacity on press */}
+      {/* ActionDarkLayer/LightLayer — overlay adapts: black in light mode, white in dark mode */}
       <span
         style={{
           position:        'absolute',
           inset:           variant === 'outline' ? '-1px' : 0,
-          backgroundColor: 'var(--surface-heavy-solid)',
-          opacity:         showPressed ? 0.08 : 0,
+          backgroundColor: 'var(--interactive-press-bg)',
+          opacity:         showPressed ? 0.12 : 0,
           pointerEvents:   'none',
           zIndex:          0,
         }}

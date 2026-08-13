@@ -43,16 +43,17 @@ export function Chip({
   hasTrailingIcon = false,
   label = 'Chip',
   icon = null,
+  onClick,
   className = '',
 }) {
   const sizeSpec = SIZE[size]
   const token = TOKENS[variant][state]
 
-  // Pressed state: DarkLayer overlay (Button과 동일한 구현)
+  // Pressed overlay — ActionDarkLayer/LightLayer: black in light mode, white in dark mode
   const darkLayerStyle = {
     position: 'absolute',
     inset: 0,
-    backgroundColor: 'var(--surface-heavy-solid)',
+    backgroundColor: 'var(--interactive-press-bg)',
     opacity: state === 'pressed' ? 0.12 : 0,
     borderRadius: sizeSpec.r,
     pointerEvents: 'none',
@@ -63,6 +64,7 @@ export function Chip({
 
   return (
     <div
+      onClick={state !== 'disabled' ? onClick : undefined}
       style={{
         display: 'inline-flex',
         alignItems: 'center',

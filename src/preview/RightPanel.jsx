@@ -9,8 +9,9 @@ import { Tab }                 from '../components/Tab.jsx'
 import { Snackbar }            from '../components/Snackbar.jsx'
 import { Tooltip }             from '../components/Tooltip.jsx'
 import { Badge }    from '../components/Badge.jsx'
-import { Input }    from '../components/Input.jsx'
-import { Toggle }   from '../components/Toggle.jsx'
+import { Input }     from '../components/Input.jsx'
+import { Toggle }    from '../components/Toggle.jsx'
+import { TextField } from '../components/TextField.jsx'
 import { Checkbox } from '../components/Checkbox.jsx'
 import { Radio }      from '../components/Radio.jsx'
 import { HeroBanner }       from '../components/HeroBanner.jsx'
@@ -450,63 +451,24 @@ function ControlGroup({ label, children }) {
 function SegmentedControl({ options, value, onChange }) {
   return (
     <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-      {options.map(opt => {
-        const isActive = value === opt
-        return (
-          <button
-            key={opt}
-            onClick={() => onChange(opt)}
-            style={{
-              height:          '24px',
-              padding:         '0 var(--spacing-300)',
-              borderRadius:    'var(--radius-default-200)',
-              border:          isActive ? '1px solid var(--border-info-solid)' : '1px solid var(--border-light)',
-              backgroundColor: isActive ? 'var(--surface-info-subtle)' : 'transparent',
-              color:           isActive ? 'var(--text-icon-info)' : 'var(--text-icon-normal)',
-              fontSize:        '12px',
-              fontWeight:      isActive ? 600 : 400,
-              cursor:          'pointer',
-              fontFamily:      'inherit',
-              transition:      'all 0.12s',
-              whiteSpace:      'nowrap',
-            }}
-          >
-            {opt}
-          </button>
-        )
-      })}
+      {options.map(opt => (
+        <Chip
+          key={opt}
+          variant="outline"
+          size="sm"
+          state={value === opt ? 'active' : 'default'}
+          label={opt}
+          onClick={() => onChange(opt)}
+        />
+      ))}
     </div>
   )
 }
 
 function ToggleSwitch({ label, value, onChange }) {
   return (
-    <div
-      style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', marginBottom: '8px' }}
-      onClick={() => onChange(!value)}
-    >
-      <div style={{
-        width:           '32px',
-        height:          '18px',
-        borderRadius:    '9px',
-        backgroundColor: value ? 'var(--surface-heavy-solid)' : 'var(--surface-heavy-subtle)',
-        position:        'relative',
-        transition:      'background-color 0.15s',
-        flexShrink:      0,
-      }}>
-        <div style={{
-          width:           '14px',
-          height:          '14px',
-          borderRadius:    '50%',
-          backgroundColor: 'var(--text-icon-base)',
-          position:        'absolute',
-          top:             '2px',
-          left:            value ? '16px' : '2px',
-          transition:      'left 0.15s',
-          boxShadow:       '0 1px 2px rgba(0,0,0,0.2)',
-        }} />
-      </div>
-      <span style={{ fontSize: '12px', color: 'var(--text-icon-normal)' }}>{label}</span>
+    <div style={{ marginBottom: '8px' }}>
+      <Toggle size="sm" checked={value} onChange={onChange} label={label} />
     </div>
   )
 }
@@ -514,22 +476,13 @@ function ToggleSwitch({ label, value, onChange }) {
 function TextInput({ label, value, onChange }) {
   return (
     <div style={{ marginBottom: '12px' }}>
-      <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '4px' }}>{label}</div>
-      <input
+      <TextField
+        hasLabel={true}
+        labelText={label}
         value={value}
-        onChange={e => onChange(e.target.value)}
-        style={{
-          width:           '100%',
-          padding:         '6px 8px',
-          border:          '1px solid var(--border-normal)',
-          borderRadius:    '6px',
-          fontSize:        '12px',
-          color:           'var(--text-icon-normal)',
-          background:      'transparent',
-          outline:         'none',
-          fontFamily:      'inherit',
-          boxSizing:       'border-box',
-        }}
+        onChange={onChange}
+        placeholder=""
+        state="Default"
       />
     </div>
   )
@@ -2131,23 +2084,14 @@ function TooltipControls({ c, onChange }) {
         onChange={v => onChange({ ...c, text: v })}
       />
       <ControlGroup label="VISIBILITY">
-        <button
+        <Button
+          variant={c.visible ? 'solid' : 'outline'}
+          color="primary"
+          size="sm"
+          label={c.visible ? 'Hide' : 'Show'}
           onClick={() => onChange({ ...c, visible: !c.visible })}
-          style={{
-            padding: '8px 12px',
-            borderRadius: '6px',
-            border: 'none',
-            backgroundColor: c.visible ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-            color: 'var(--text-icon-base)',
-            fontSize: '12px',
-            fontWeight: 500,
-            cursor: 'pointer',
-            fontFamily: 'inherit',
-            width: '100%',
-          }}
-        >
-          {c.visible ? 'Hide' : 'Show'}
-        </button>
+          style={{ width: '100%' }}
+        />
       </ControlGroup>
     </>
   )

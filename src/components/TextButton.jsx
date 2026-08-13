@@ -13,8 +13,8 @@ import { typography } from '../tokens/typography.js'
 
 // ── Size specs ────────────────────────────────────
 const SIZE = {
-  md: { h: '32px', px: '8px', gap: '8px', typo: typography.body.Medium, iconSize: 20, r: 'var(--radius-default-400)' },
-  sm: { h: '20px', px: '8px', gap: '4px', typo: typography.label.Medium, iconSize: 16, r: 'var(--radius-default-300)' },
+  md: { h: '32px', px: 'var(--spacing-300)', gap: 'var(--spacing-300)', typo: typography.body.Medium,  iconSize: 20, r: 'var(--radius-default-300)' },
+  sm: { h: '20px', px: 'var(--spacing-300)', gap: 'var(--spacing-200)', typo: typography.label.Medium, iconSize: 16, r: 'var(--radius-default-200)' },
 }
 
 // ── Color × State tokens ───────────────────────────
@@ -98,12 +98,12 @@ export function TextButton({
         ...style,
       }}
     >
-      {/* DarkLayer — Figma Action/DarkLayer: black overlay at 12% opacity on press */}
+      {/* ActionDarkLayer/LightLayer — overlay adapts: black in light mode, white in dark mode */}
       <span
         style={{
           position:        'absolute',
           inset:           0,
-          backgroundColor: 'var(--surface-heavy-solid)',
+          backgroundColor: 'var(--interactive-press-bg)',
           opacity:         showPressed ? 0.12 : 0,
           pointerEvents:   'none',
           zIndex:          0,
