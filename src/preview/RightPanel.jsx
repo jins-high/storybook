@@ -813,73 +813,13 @@ function CheckboxControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Unchecked', 'Checked', 'Indeterminate', 'Disabled', 'UncheckedDisabled'].map(state => (
-            <button
-              key={state}
-              onClick={() => onChange({ ...c, state })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.state === state ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {state}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Unchecked', 'Checked', 'Indeterminate', 'Disabled', 'UncheckedDisabled']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="SIZE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Small', 'Medium'].map(size => (
-            <button
-              key={size}
-              onClick={() => onChange({ ...c, size })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.size === size ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Small', 'Medium']} value={c.size} onChange={v => onChange({ ...c, size: v })} />
       </ControlGroup>
       <ControlGroup label="STYLE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Default', 'Thin'].map(style => (
-            <button
-              key={style}
-              onClick={() => onChange({ ...c, style })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.style === style ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.style === style ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.style === style ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {style}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'Thin']} value={c.style} onChange={v => onChange({ ...c, style: v })} />
       </ControlGroup>
     </>
   )
@@ -889,73 +829,13 @@ function RadioControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Unselected', 'Selected', 'Disabled', 'UncheckedDisabled'].map(state => (
-            <button
-              key={state}
-              onClick={() => onChange({ ...c, state })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.state === state ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {state}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Unselected', 'Selected', 'Disabled', 'UncheckedDisabled']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="SIZE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Small', 'Medium'].map(size => (
-            <button
-              key={size}
-              onClick={() => onChange({ ...c, size })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.size === size ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Small', 'Medium']} value={c.size} onChange={v => onChange({ ...c, size: v })} />
       </ControlGroup>
       <ControlGroup label="STYLE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Default', 'Thin'].map(style => (
-            <button
-              key={style}
-              onClick={() => onChange({ ...c, style })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.style === style ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.style === style ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.style === style ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {style}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'Thin']} value={c.style} onChange={v => onChange({ ...c, style: v })} />
       </ControlGroup>
     </>
   )
@@ -965,56 +845,12 @@ function RadioInputControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Unselected', 'Selected', 'Disabled', 'UncheckedDisabled'].map(state => (
-            <button
-              key={state}
-              onClick={() => onChange({ ...c, state })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.state === state ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {state}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Unselected', 'Selected', 'Disabled', 'UncheckedDisabled']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="SIZE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Small', 'Medium'].map(size => (
-            <button
-              key={size}
-              onClick={() => onChange({ ...c, size })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.size === size ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Small', 'Medium']} value={c.size} onChange={v => onChange({ ...c, size: v })} />
       </ControlGroup>
-      <TextInput
-        label="LABEL"
-        value={c.label}
-        onChange={v => onChange({ ...c, label: v })}
-      />
+      <TextInput label="LABEL" value={c.label} onChange={v => onChange({ ...c, label: v })} />
     </>
   )
 }
@@ -1023,73 +859,13 @@ function CheckmarkControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Checked', 'Unchecked', 'Disabled'].map(state => (
-            <button
-              key={state}
-              onClick={() => onChange({ ...c, state })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.state === state ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {state}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Checked', 'Unchecked', 'Disabled']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="SIZE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Small', 'Medium'].map(size => (
-            <button
-              key={size}
-              onClick={() => onChange({ ...c, size })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.size === size ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Small', 'Medium']} value={c.size} onChange={v => onChange({ ...c, size: v })} />
       </ControlGroup>
       <ControlGroup label="STYLE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Default', 'Thin'].map(st => (
-            <button
-              key={st}
-              onClick={() => onChange({ ...c, style: st })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.style === st ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.style === st ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.style === st ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {st}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'Thin']} value={c.style} onChange={v => onChange({ ...c, style: v })} />
       </ControlGroup>
     </>
   )
@@ -1099,91 +875,24 @@ function CheckmarkInputControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Checked', 'Unchecked', 'Disabled'].map(state => (
-            <button
-              key={state}
-              onClick={() => onChange({ ...c, state })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.state === state ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {state}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Checked', 'Unchecked', 'Disabled']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="SIZE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Small', 'Medium'].map(size => (
-            <button
-              key={size}
-              onClick={() => onChange({ ...c, size })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.size === size ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Small', 'Medium']} value={c.size} onChange={v => onChange({ ...c, size: v })} />
       </ControlGroup>
-      <TextInput
-        label="LABEL"
-        value={c.label}
-        onChange={v => onChange({ ...c, label: v })}
-      />
+      <TextInput label="LABEL" value={c.label} onChange={v => onChange({ ...c, label: v })} />
     </>
   )
 }
 
 function EmptyStateControls({ c, onChange }) {
-  const btnStyle = (active) => ({
-    padding: '6px 12px',
-    borderRadius: '6px',
-    border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px',
-    fontWeight: active ? 600 : 400,
-    cursor: 'pointer',
-    fontFamily: 'inherit',
-  })
   return (
     <>
       <ControlGroup label="IMAGE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['empty-state', 'empty-wallet', 'empty-notification', 'empty-cart', 'empty-document'].map(img => (
-            <button key={img} onClick={() => onChange({ ...c, image: img })} style={btnStyle(c.image === img)}>
-              {img}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['empty-state', 'empty-wallet', 'empty-notification', 'empty-cart', 'empty-document']} value={c.image} onChange={v => onChange({ ...c, image: v })} />
       </ControlGroup>
       <ControlGroup label="COMBINATION">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['None', 'MainOnly', 'WithAlternative', 'WithAssistive'].map(combo => (
-            <button key={combo} onClick={() => onChange({ ...c, combination: combo })} style={btnStyle(c.combination === combo)}>
-              {combo}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['None', 'MainOnly', 'WithAlternative', 'WithAssistive']} value={c.combination} onChange={v => onChange({ ...c, combination: v })} />
       </ControlGroup>
       <TextInput label="TITLE"          value={c.title}          onChange={v => onChange({ ...c, title: v })} />
       <TextInput label="DESCRIPTION"    value={c.description}    onChange={v => onChange({ ...c, description: v })} />
@@ -1201,42 +910,18 @@ function EmptyStateControls({ c, onChange }) {
 }
 
 function TextFieldControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '6px 12px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Default', 'Focused', 'Filled', 'Error', 'Disabled', 'ReadOnly'].map(s => (
-            <button key={s} onClick={() => onChange({ ...c, state: s })} style={btn(c.state === s)}>{s}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'Focused', 'Filled', 'Error', 'Disabled', 'ReadOnly']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="OPTIONS">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {[
-            ['hasLabel',         'Label'],
-            ['hasLeadingIcon',   'Leading Icon'],
-            ['hasTrailingIcon',  'Trailing Clear'],
-            ['hasTrailingButton','Trailing Button'],
-            ['hasCount',         'Character Count'],
-            ['hasHelperText',    'Helper Text'],
-          ].map(([key, label]) => (
-            <label key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '12px', color: 'var(--text-icon-normal)' }}>
-              <input
-                type="checkbox"
-                checked={!!c[key]}
-                onChange={e => onChange({ ...c, [key]: e.target.checked })}
-                style={{ accentColor: 'var(--primary-bgsolid)', width: '14px', height: '14px', cursor: 'pointer' }}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
+        <ToggleSwitch label="Label"            value={!!c.hasLabel}         onChange={v => onChange({ ...c, hasLabel: v })} />
+        <ToggleSwitch label="Leading Icon"     value={!!c.hasLeadingIcon}   onChange={v => onChange({ ...c, hasLeadingIcon: v })} />
+        <ToggleSwitch label="Trailing Clear"   value={!!c.hasTrailingIcon}  onChange={v => onChange({ ...c, hasTrailingIcon: v })} />
+        <ToggleSwitch label="Trailing Button"  value={!!c.hasTrailingButton} onChange={v => onChange({ ...c, hasTrailingButton: v })} />
+        <ToggleSwitch label="Character Count"  value={!!c.hasCount}         onChange={v => onChange({ ...c, hasCount: v })} />
+        <ToggleSwitch label="Helper Text"      value={!!c.hasHelperText}    onChange={v => onChange({ ...c, hasHelperText: v })} />
       </ControlGroup>
       <TextInput label="LABEL TEXT"   value={c.labelText}   onChange={v => onChange({ ...c, labelText: v })} />
       <TextInput label="PLACEHOLDER"  value={c.placeholder} onChange={v => onChange({ ...c, placeholder: v })} />
@@ -1255,28 +940,11 @@ function TextFieldControls({ c, onChange }) {
 }
 
 function MembershipChipControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '6px 12px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <>
       <ControlGroup label="OPTIONS">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {[['showIcon', '아이콘 표시'], ['numberMax', '최대값 표시 (/max)']].map(([key, label]) => (
-            <label key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '12px', color: 'var(--text-icon-normal)' }}>
-              <input
-                type="checkbox"
-                checked={!!c[key]}
-                onChange={e => onChange({ ...c, [key]: e.target.checked })}
-                style={{ accentColor: 'var(--primary-bgsolid)', width: '14px', height: '14px', cursor: 'pointer' }}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
+        <ToggleSwitch label="아이콘 표시"         value={!!c.showIcon}   onChange={v => onChange({ ...c, showIcon: v })} />
+        <ToggleSwitch label="최대값 표시 (/max)"  value={!!c.numberMax}  onChange={v => onChange({ ...c, numberMax: v })} />
       </ControlGroup>
       <TextInput label="TEXT"   value={c.text}   onChange={v => onChange({ ...c, text: v })} />
       <TextInput label="NUMBER" value={c.number} onChange={v => onChange({ ...c, number: v })} />
@@ -1288,28 +956,13 @@ function MembershipChipControls({ c, onChange }) {
 }
 
 function MicroBadgeControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 10px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '11px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const styles = ['YellowSolid', 'GreenSolid', 'VioletSolid', 'RedSolid', 'BlackSolid', 'BlackLine', 'GarySolid', 'LightGray', 'LightGarySolid']
   return (
     <>
       <ControlGroup label="STYLE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {styles.map(s => (
-            <button key={s} onClick={() => onChange({ ...c, style: s })} style={btn(c.style === s)}>{s}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['YellowSolid', 'GreenSolid', 'VioletSolid', 'RedSolid', 'BlackSolid', 'BlackLine', 'GarySolid', 'LightGray', 'LightGarySolid']} value={c.style} onChange={v => onChange({ ...c, style: v })} />
       </ControlGroup>
       <ControlGroup label="SIZE">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['Small', 'Medium'].map(s => (
-            <button key={s} onClick={() => onChange({ ...c, size: s })} style={btn(c.size === s)}>{s}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Small', 'Medium']} value={c.size} onChange={v => onChange({ ...c, size: v })} />
       </ControlGroup>
       <TextInput label="LABEL" value={c.label} onChange={v => onChange({ ...c, label: v })} />
     </>
@@ -1317,35 +970,14 @@ function MicroBadgeControls({ c, onChange }) {
 }
 
 function TitleControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '6px 12px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <>
       <ControlGroup label="HIERARCHY">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['Primary', 'Secondary'].map(h => (
-            <button key={h} onClick={() => onChange({ ...c, hierarchy: h })} style={btn(c.hierarchy === h)}>{h}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Primary', 'Secondary']} value={c.hierarchy} onChange={v => onChange({ ...c, hierarchy: v })} />
       </ControlGroup>
       <ControlGroup label="OPTIONS">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {[['hasRequired', '필수 표시 (Required)'], ['hasButton', '우측 버튼 (Button)']].map(([key, label]) => (
-            <label key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '12px', color: 'var(--text-icon-normal)' }}>
-              <input
-                type="checkbox"
-                checked={!!c[key]}
-                onChange={e => onChange({ ...c, [key]: e.target.checked })}
-                style={{ accentColor: 'var(--primary-bgsolid)', width: '14px', height: '14px', cursor: 'pointer' }}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
+        <ToggleSwitch label="필수 표시 (Required)"  value={!!c.hasRequired}  onChange={v => onChange({ ...c, hasRequired: v })} />
+        <ToggleSwitch label="우측 버튼 (Button)"    value={!!c.hasButton}    onChange={v => onChange({ ...c, hasButton: v })} />
       </ControlGroup>
       <TextInput label="TEXT"  value={c.text}        onChange={v => onChange({ ...c, text: v })} />
       {c.hasButton && (
@@ -1356,33 +988,15 @@ function TitleControls({ c, onChange }) {
 }
 
 function FilterControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '6px 12px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   const presetOptions = ['최근 1주일', '최근 1개월', '최근 3개월', '최근 6개월', '1년']
   return (
     <>
       <ControlGroup label="OPTIONS">
-        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '12px', color: 'var(--text-icon-normal)' }}>
-          <input
-            type="checkbox"
-            checked={!!c.hasLabel}
-            onChange={e => onChange({ ...c, hasLabel: e.target.checked })}
-            style={{ accentColor: 'var(--primary-bgsolid)', width: '14px', height: '14px', cursor: 'pointer' }}
-          />
-          라벨 표시 (hasLabel)
-        </label>
+        <ToggleSwitch label="라벨 표시 (hasLabel)" value={!!c.hasLabel} onChange={v => onChange({ ...c, hasLabel: v })} />
       </ControlGroup>
       <TextInput label="LABEL TEXT" value={c.label} onChange={v => onChange({ ...c, label: v })} />
       <ControlGroup label="선택값 (VALUE)">
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-          {presetOptions.map(opt => (
-            <button key={opt} onClick={() => onChange({ ...c, value: opt })} style={btn(c.value === opt)}>{opt}</button>
-          ))}
-        </div>
+        <SegmentedControl options={presetOptions} value={c.value} onChange={v => onChange({ ...c, value: v })} />
       </ControlGroup>
     </>
   )
@@ -2033,50 +1647,10 @@ function TooltipControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="PLACEMENT">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['top', 'bottom', 'left', 'right'].map(placement => (
-            <button
-              key={placement}
-              onClick={() => onChange({ ...c, placement })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.placement === placement ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.placement === placement ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.placement === placement ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {placement}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['top', 'bottom', 'left', 'right']} value={c.placement} onChange={v => onChange({ ...c, placement: v })} />
       </ControlGroup>
       <ControlGroup label="ALIGN">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['start', 'center', 'end'].map(align => (
-            <button
-              key={align}
-              onClick={() => onChange({ ...c, align })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.align === align ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.align === align ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.align === align ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {align}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['start', 'center', 'end']} value={c.align} onChange={v => onChange({ ...c, align: v })} />
       </ControlGroup>
       <TextInput
         label="TEXT"
@@ -2136,61 +1710,27 @@ function TabControls({ c, onChange }) {
 
           {tab.enabled && (
             <>
-              <div>
-                <label style={{ fontSize: '11px', color: 'var(--text-icon-assistive)' }}>상태</label>
-                <div style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
-                  {['default', 'active', 'disabled'].map(state => (
-                    <button
-                      key={state}
-                      onClick={() => {
-                        const newTabs = [...c.tabs]
-                        newTabs[idx] = { ...tab, state }
-                        onChange({ ...c, tabs: newTabs })
-                      }}
-                      style={{
-                        flex: 1,
-                        padding: '4px 8px',
-                        fontSize: '11px',
-                        borderRadius: '4px',
-                        border: tab.state === state ? '1px solid var(--border-primary)' : '1px solid var(--border-light)',
-                        backgroundColor: tab.state === state ? 'var(--surface-primary-subtle)' : 'var(--surface-base)',
-                        color: tab.state === state ? 'var(--text-icon-primary)' : 'var(--text-icon-normal)',
-                        cursor: 'pointer',
-                        fontWeight: tab.state === state ? 600 : 400,
-                      }}
-                    >
-                      {state}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', display: 'block', marginBottom: '4px' }}>
-                  라벨
-                </label>
-                <input
-                  type="text"
-                  value={tab.label}
-                  onChange={e => {
-                    const newTabs = [...c.tabs]
-                    newTabs[idx] = { ...tab, label: e.target.value }
-                    onChange({ ...c, tabs: newTabs })
-                  }}
-                  style={{
-                    width: '100%',
-                    padding: '4px 8px',
-                    fontSize: '11px',
-                    borderRadius: '4px',
-                    border: '1px solid var(--border-light)',
-                    backgroundColor: 'var(--surface-base)',
-                    color: 'var(--text-icon-normal)',
-                    fontFamily: 'var(--font-family)',
-                    boxSizing: 'border-box',
-                  }}
-                  placeholder="탭 라벨"
-                />
-              </div>
+              <SegmentedControl
+                options={['default', 'active', 'disabled']}
+                value={tab.state}
+                onChange={state => {
+                  const newTabs = [...c.tabs]
+                  newTabs[idx] = { ...tab, state }
+                  onChange({ ...c, tabs: newTabs })
+                }}
+              />
+              <TextField
+                hasLabel={true}
+                labelText="라벨"
+                value={tab.label}
+                onChange={label => {
+                  const newTabs = [...c.tabs]
+                  newTabs[idx] = { ...tab, label }
+                  onChange({ ...c, tabs: newTabs })
+                }}
+                placeholder="탭 라벨"
+                state="Default"
+              />
             </>
           )}
         </div>
@@ -2203,74 +1743,20 @@ function CheckboxInputControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Unchecked', 'Checked', 'Indeterminate', 'Disabled', 'UncheckedDisabled'].map(state => (
-            <button
-              key={state}
-              onClick={() => onChange({ ...c, state })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.state === state ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.state === state ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.state === state ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {state}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Unchecked', 'Checked', 'Indeterminate', 'Disabled', 'UncheckedDisabled']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="SIZE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Small', 'Medium'].map(size => (
-            <button
-              key={size}
-              onClick={() => onChange({ ...c, size })}
-              style={{
-                padding: '6px 12px',
-                borderRadius: '6px',
-                border: 'none',
-                backgroundColor: c.size === size ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                color: c.size === size ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                fontSize: '12px',
-                fontWeight: c.size === size ? 600 : 400,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl options={['Small', 'Medium']} value={c.size} onChange={v => onChange({ ...c, size: v })} />
       </ControlGroup>
-      <TextInput
-        label="LABEL"
-        value={c.label}
-        onChange={v => onChange({ ...c, label: v })}
-      />
+      <TextInput label="LABEL" value={c.label} onChange={v => onChange({ ...c, label: v })} />
     </>
   )
 }
 
 function RankLabelControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '6px 12px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <ControlGroup label="TIER">
-      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-        {['Bronze', 'Silver', 'Gold', 'Diamond'].map(tier => (
-          <button key={tier} onClick={() => onChange({ ...c, tier })} style={btn(c.tier === tier)}>{tier}</button>
-        ))}
-      </div>
+      <SegmentedControl options={['Bronze', 'Silver', 'Gold', 'Diamond']} value={c.tier} onChange={v => onChange({ ...c, tier: v })} />
     </ControlGroup>
   )
 }
@@ -2279,26 +1765,7 @@ function StepperControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="COUNT">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => {
-            const active = c.count === n
-            return (
-              <button
-                key={n}
-                onClick={() => onChange({ ...c, count: n })}
-                style={{
-                  padding: '5px 9px', borderRadius: '6px', border: 'none',
-                  backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-                  color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-                  fontSize: '12px', fontWeight: active ? 600 : 400,
-                  cursor: 'pointer', fontFamily: 'inherit',
-                }}
-              >
-                {n}
-              </button>
-            )
-          })}
-        </div>
+        <SegmentedControl options={['1','2','3','4','5','6','7','8','9','10']} value={String(c.count)} onChange={v => onChange({ ...c, count: Number(v) })} />
       </ControlGroup>
       <div style={{ fontSize: '12px', color: 'var(--text-icon-assistive)', lineHeight: 1.6, paddingTop: '4px' }}>
         min: {c.min} &ensp;/&ensp; max: {c.max}<br/>
@@ -2309,114 +1776,39 @@ function StepperControls({ c, onChange }) {
 }
 
 function OptionListControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400,
-    cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <>
       <ControlGroup label="SELECTED">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, selected: v })} style={btn(c.selected === v)}>
-              {v ? 'true' : 'false'}
-            </button>
-          ))}
-        </div>
+        <ToggleSwitch label="Selected" value={!!c.selected} onChange={v => onChange({ ...c, selected: v })} />
       </ControlGroup>
       <ControlGroup label="HAS PRICE">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasPrice: v })} style={btn(c.hasPrice === v)}>
-              {v ? 'true' : 'false'}
-            </button>
-          ))}
-        </div>
+        <ToggleSwitch label="Has Price" value={!!c.hasPrice} onChange={v => onChange({ ...c, hasPrice: v })} />
       </ControlGroup>
       <ControlGroup label="HAS STEPPER">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasStepper: v })} style={btn(c.hasStepper === v)}>
-              {v ? 'true' : 'false'}
-            </button>
-          ))}
-        </div>
+        <ToggleSwitch label="Has Stepper" value={!!c.hasStepper} onChange={v => onChange({ ...c, hasStepper: v })} />
       </ControlGroup>
       {c.hasStepper && (
         <ControlGroup label="COUNT">
-          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
-              <button key={n} onClick={() => onChange({ ...c, count: n })} style={btn(c.count === n)}>
-                {n}
-              </button>
-            ))}
-          </div>
+          <SegmentedControl options={['1','2','3','4','5','6','7','8','9','10']} value={String(c.count)} onChange={v => onChange({ ...c, count: Number(v) })} />
         </ControlGroup>
       )}
-      <ControlGroup label="OPTION NAME">
-        <input
-          value={c.optionName}
-          onChange={e => onChange({ ...c, optionName: e.target.value })}
-          style={{
-            width: '100%', padding: '6px 8px', borderRadius: '6px',
-            border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-            color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-            boxSizing: 'border-box',
-          }}
-        />
-      </ControlGroup>
+      <TextInput label="OPTION NAME" value={c.optionName} onChange={v => onChange({ ...c, optionName: v })} />
       {c.hasPrice && (
-        <ControlGroup label="PRICE">
-          <input
-            value={c.price}
-            onChange={e => onChange({ ...c, price: e.target.value })}
-            style={{
-              width: '100%', padding: '6px 8px', borderRadius: '6px',
-              border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-              color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-              boxSizing: 'border-box',
-            }}
-          />
-        </ControlGroup>
+        <TextInput label="PRICE" value={c.price} onChange={v => onChange({ ...c, price: v })} />
       )}
     </>
   )
 }
 
 function OrderStateDisplayControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <ControlGroup label="TYPE">
-      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-        {['접수대기', '픽업완료', '주문취소'].map(t => (
-          <button key={t} onClick={() => onChange({ ...c, type: t })} style={btn(c.type === t)}>{t}</button>
-        ))}
-      </div>
+      <SegmentedControl options={['접수대기', '픽업완료', '주문취소']} value={c.type} onChange={v => onChange({ ...c, type: v })} />
     </ControlGroup>
   )
 }
 
 function OrderHistoryListControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const inputStyle = {
-    width: '100%', padding: '6px 8px', borderRadius: '6px',
-    border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-    color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-    boxSizing: 'border-box',
-  }
   const PRODUCT_IMAGES = [
     'bigpose-americano-decaf-yabangcha.png',
     'dalgona-latte.png',
@@ -2430,24 +1822,12 @@ function OrderHistoryListControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="ORDER STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['접수대기', '픽업완료', '주문취소'].map(t => (
-            <button key={t} onClick={() => onChange({ ...c, orderState: t })} style={btn(c.orderState === t)}>{t}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['접수대기', '픽업완료', '주문취소']} value={c.orderState} onChange={v => onChange({ ...c, orderState: v })} />
       </ControlGroup>
-      <ControlGroup label="PRODUCT NAME">
-        <input value={c.productName} onChange={e => onChange({ ...c, productName: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="STORE NAME">
-        <input value={c.storeName} onChange={e => onChange({ ...c, storeName: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="PRICE">
-        <input value={c.price} onChange={e => onChange({ ...c, price: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="DATE">
-        <input value={c.date} onChange={e => onChange({ ...c, date: e.target.value })} style={inputStyle} />
-      </ControlGroup>
+      <TextInput label="PRODUCT NAME" value={c.productName} onChange={v => onChange({ ...c, productName: v })} />
+      <TextInput label="STORE NAME"   value={c.storeName}   onChange={v => onChange({ ...c, storeName: v })} />
+      <TextInput label="PRICE"        value={c.price}        onChange={v => onChange({ ...c, price: v })} />
+      <TextInput label="DATE"         value={c.date}         onChange={v => onChange({ ...c, date: v })} />
       <ControlGroup label="IMAGE">
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
           {PRODUCT_IMAGES.map(img => (
@@ -2475,36 +1855,14 @@ function OrderHistoryListControls({ c, onChange }) {
 }
 
 function TemperatureDisplayControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <ControlGroup label="TYPE">
-      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-        {['ICED', 'ICED ONLY', 'HOT', 'HOT ONLY'].map(t => (
-          <button key={t} onClick={() => onChange({ ...c, type: t })} style={btn(c.type === t)}>{t}</button>
-        ))}
-      </div>
+      <SegmentedControl options={['ICED', 'ICED ONLY', 'HOT', 'HOT ONLY']} value={c.type} onChange={v => onChange({ ...c, type: v })} />
     </ControlGroup>
   )
 }
 
 function CartItemControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const inputStyle = {
-    width: '100%', padding: '6px 8px', borderRadius: '6px',
-    border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-    color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-    boxSizing: 'border-box',
-  }
   const PRODUCT_IMAGES = [
     'berry-full-strawberry-latte.png',
     'bigpose-americano-decaf-yabangcha.png',
@@ -2518,87 +1876,45 @@ function CartItemControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="CHECKED">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, checked: v })} style={btn(c.checked === v)}>
-              {v ? 'true' : 'false'}
-            </button>
-          ))}
-        </div>
+        <ToggleSwitch label="Checked" value={!!c.checked} onChange={v => onChange({ ...c, checked: v })} />
       </ControlGroup>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Default', 'SoldOut', 'Unavailable'].map(v => (
-            <button key={v} onClick={() => onChange({ ...c, state: v })} style={btn(c.state === v)}>{v}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'SoldOut', 'Unavailable']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="TEMPERATURE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['ICED', 'ICED ONLY', 'HOT', 'HOT ONLY'].map(t => (
-            <button key={t} onClick={() => onChange({ ...c, temperature: t })} style={btn(c.temperature === t)}>{t}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['ICED', 'ICED ONLY', 'HOT', 'HOT ONLY']} value={c.temperature} onChange={v => onChange({ ...c, temperature: v })} />
       </ControlGroup>
-      <ControlGroup label="PRODUCT NAME">
-        <input value={c.productName} onChange={e => onChange({ ...c, productName: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="BASE PRICE">
-        <input value={c.basePrice} onChange={e => onChange({ ...c, basePrice: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="TOTAL PRICE">
-        <input value={c.totalPrice} onChange={e => onChange({ ...c, totalPrice: e.target.value })} style={inputStyle} />
-      </ControlGroup>
+      <TextInput label="PRODUCT NAME" value={c.productName} onChange={v => onChange({ ...c, productName: v })} />
+      <TextInput label="BASE PRICE"   value={c.basePrice}   onChange={v => onChange({ ...c, basePrice: v })} />
+      <TextInput label="TOTAL PRICE"  value={c.totalPrice}  onChange={v => onChange({ ...c, totalPrice: v })} />
       <ControlGroup label="COUNT">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {[1,2,3,4,5].map(n => (
-            <button key={n} onClick={() => onChange({ ...c, count: n })} style={btn(c.count === n)}>{n}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['1','2','3','4','5']} value={String(c.count)} onChange={v => onChange({ ...c, count: Number(v) })} />
       </ControlGroup>
       <ControlGroup label="OPTION 1">
-        <div style={{ display: 'flex', gap: '6px', marginBottom: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasOption1: v })} style={btn(c.hasOption1 === v)}>
-              {v ? 'ON' : 'OFF'}
-            </button>
-          ))}
-        </div>
+        <ToggleSwitch label="Show" value={!!c.hasOption1} onChange={v => onChange({ ...c, hasOption1: v })} />
         {c.hasOption1 && (
-          <div style={{ display: 'flex', gap: '6px' }}>
-            <input value={c.option1Name}  onChange={e => onChange({ ...c, option1Name: e.target.value })}  style={{ ...inputStyle, flex: 1 }} placeholder="옵션명" />
-            <input value={c.option1Price} onChange={e => onChange({ ...c, option1Price: e.target.value })} style={{ ...inputStyle, width: '72px' }} placeholder="가격" />
-          </div>
+          <>
+            <TextInput label="옵션명" value={c.option1Name}  onChange={v => onChange({ ...c, option1Name: v })} />
+            <TextInput label="가격"   value={c.option1Price} onChange={v => onChange({ ...c, option1Price: v })} />
+          </>
         )}
       </ControlGroup>
       <ControlGroup label="OPTION 2">
-        <div style={{ display: 'flex', gap: '6px', marginBottom: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasOption2: v })} style={btn(c.hasOption2 === v)}>
-              {v ? 'ON' : 'OFF'}
-            </button>
-          ))}
-        </div>
+        <ToggleSwitch label="Show" value={!!c.hasOption2} onChange={v => onChange({ ...c, hasOption2: v })} />
         {c.hasOption2 && (
-          <div style={{ display: 'flex', gap: '6px' }}>
-            <input value={c.option2Name}  onChange={e => onChange({ ...c, option2Name: e.target.value })}  style={{ ...inputStyle, flex: 1 }} placeholder="옵션명" />
-            <input value={c.option2Price} onChange={e => onChange({ ...c, option2Price: e.target.value })} style={{ ...inputStyle, width: '72px' }} placeholder="가격" />
-          </div>
+          <>
+            <TextInput label="옵션명" value={c.option2Name}  onChange={v => onChange({ ...c, option2Name: v })} />
+            <TextInput label="가격"   value={c.option2Price} onChange={v => onChange({ ...c, option2Price: v })} />
+          </>
         )}
       </ControlGroup>
       <ControlGroup label="OPTION 3">
-        <div style={{ display: 'flex', gap: '6px', marginBottom: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasOption3: v })} style={btn(c.hasOption3 === v)}>
-              {v ? 'ON' : 'OFF'}
-            </button>
-          ))}
-        </div>
+        <ToggleSwitch label="Show" value={!!c.hasOption3} onChange={v => onChange({ ...c, hasOption3: v })} />
         {c.hasOption3 && (
-          <div style={{ display: 'flex', gap: '6px' }}>
-            <input value={c.option3Name}  onChange={e => onChange({ ...c, option3Name: e.target.value })}  style={{ ...inputStyle, flex: 1 }} placeholder="옵션명" />
-            <input value={c.option3Price} onChange={e => onChange({ ...c, option3Price: e.target.value })} style={{ ...inputStyle, width: '72px' }} placeholder="가격" />
-          </div>
+          <>
+            <TextInput label="옵션명" value={c.option3Name}  onChange={v => onChange({ ...c, option3Name: v })} />
+            <TextInput label="가격"   value={c.option3Price} onChange={v => onChange({ ...c, option3Price: v })} />
+          </>
         )}
       </ControlGroup>
       <ControlGroup label="IMAGE">
@@ -2628,19 +1944,6 @@ function CartItemControls({ c, onChange }) {
 }
 
 function ReorderCardControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400,
-    cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const inputStyle = {
-    width: '100%', padding: '6px 8px', borderRadius: '6px',
-    border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-    color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-    boxSizing: 'border-box',
-  }
   const PRODUCT_IMAGES = [
     'green-tea-frappe.png',
     'bigpose-americano-decaf-yabangcha.png',
@@ -2654,20 +1957,12 @@ function ReorderCardControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STATUS">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['Default', 'Empty'].map(v => (
-            <button key={v} onClick={() => onChange({ ...c, status: v })} style={btn(c.status === v)}>{v}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'Empty']} value={c.status} onChange={v => onChange({ ...c, status: v })} />
       </ControlGroup>
       {c.status === 'Default' && (
         <>
-          <ControlGroup label="STORE NAME">
-            <input value={c.storeName} onChange={e => onChange({ ...c, storeName: e.target.value })} style={inputStyle} />
-          </ControlGroup>
-          <ControlGroup label="PRODUCT NAME">
-            <input value={c.productName} onChange={e => onChange({ ...c, productName: e.target.value })} style={inputStyle} />
-          </ControlGroup>
+          <TextInput label="STORE NAME"   value={c.storeName}   onChange={v => onChange({ ...c, storeName: v })} />
+          <TextInput label="PRODUCT NAME" value={c.productName} onChange={v => onChange({ ...c, productName: v })} />
           <ControlGroup label="IMAGE">
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
               {PRODUCT_IMAGES.map(img => (
@@ -2697,19 +1992,6 @@ function ReorderCardControls({ c, onChange }) {
 }
 
 function ProductListControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400,
-    cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const inputStyle = {
-    width: '100%', padding: '6px 8px', borderRadius: '6px',
-    border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-    color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-    boxSizing: 'border-box',
-  }
   const PRODUCT_IMAGES = [
     'bigpose-americano-decaf-yabangcha.png',
     'dalgona-latte.png',
@@ -2723,52 +2005,18 @@ function ProductListControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="DISPLAY">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['Horizontal', 'Vertical'].map(v => (
-            <button key={v} onClick={() => onChange({ ...c, display: v })} style={btn(c.display === v)}>{v}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Horizontal', 'Vertical']} value={c.display} onChange={v => onChange({ ...c, display: v })} />
       </ControlGroup>
       <ControlGroup label="STATE">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['Default', 'Disabled'].map(v => (
-            <button key={v} onClick={() => onChange({ ...c, state: v })} style={btn(c.state === v)}>{v}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'Disabled']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
-      <ControlGroup label="HAS NEW BADGE">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasNewBadge: v })} style={btn(c.hasNewBadge === v)}>
-              {v ? 'true' : 'false'}
-            </button>
-          ))}
-        </div>
+      <ControlGroup label="OPTIONS">
+        <ToggleSwitch label="New Badge"  value={!!c.hasNewBadge}  onChange={v => onChange({ ...c, hasNewBadge: v })} />
+        <ToggleSwitch label="Best Badge" value={!!c.hasBestBadge} onChange={v => onChange({ ...c, hasBestBadge: v })} />
+        <ToggleSwitch label="Hashtag"    value={!!c.hasHashTag}   onChange={v => onChange({ ...c, hasHashTag: v })} />
       </ControlGroup>
-      <ControlGroup label="HAS BEST BADGE">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasBestBadge: v })} style={btn(c.hasBestBadge === v)}>
-              {v ? 'true' : 'false'}
-            </button>
-          ))}
-        </div>
-      </ControlGroup>
-      <ControlGroup label="HAS HASHTAG">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[true, false].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasHashTag: v })} style={btn(c.hasHashTag === v)}>
-              {v ? 'true' : 'false'}
-            </button>
-          ))}
-        </div>
-      </ControlGroup>
-      <ControlGroup label="PRODUCT NAME">
-        <input value={c.productName} onChange={e => onChange({ ...c, productName: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="PRICE">
-        <input value={c.price} onChange={e => onChange({ ...c, price: e.target.value })} style={inputStyle} />
-      </ControlGroup>
+      <TextInput label="PRODUCT NAME" value={c.productName} onChange={v => onChange({ ...c, productName: v })} />
+      <TextInput label="PRICE"        value={c.price}        onChange={v => onChange({ ...c, price: v })} />
       <ControlGroup label="IMAGE">
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
           {PRODUCT_IMAGES.map(img => (
@@ -2796,39 +2044,17 @@ function ProductListControls({ c, onChange }) {
 }
 
 function StoreSelectorControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '6px 12px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <>
       <ControlGroup label="TYPE">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['BottomFixed', 'TopContent'].map(t => (
-            <button key={t} onClick={() => onChange({ ...c, type: t })} style={btn(c.type === t)}>{t}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['BottomFixed', 'TopContent']} value={c.type} onChange={v => onChange({ ...c, type: v })} />
       </ControlGroup>
       <ControlGroup label="HAS SELECTED STORE">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[false, true].map(v => (
-            <button key={String(v)} onClick={() => onChange({ ...c, hasSelectedStore: v })} style={btn(c.hasSelectedStore === v)}>
-              {v ? 'true' : 'false'}
-            </button>
-          ))}
-        </div>
+        <ToggleSwitch label="Has Selected Store" value={!!c.hasSelectedStore} onChange={v => onChange({ ...c, hasSelectedStore: v })} />
       </ControlGroup>
       {c.type === 'BottomFixed' && c.hasSelectedStore && (
         <ControlGroup label="BADGE (준비중)">
-          <div style={{ display: 'flex', gap: '6px' }}>
-            {[false, true].map(v => (
-              <button key={String(v)} onClick={() => onChange({ ...c, badge: v })} style={btn(c.badge === v)}>
-                {v ? 'true' : 'false'}
-              </button>
-            ))}
-          </div>
+          <ToggleSwitch label="Badge" value={!!c.badge} onChange={v => onChange({ ...c, badge: v })} />
         </ControlGroup>
       )}
       {c.hasSelectedStore && (
@@ -2840,20 +2066,10 @@ function StoreSelectorControls({ c, onChange }) {
 }
 
 function StoreListControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '6px 12px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <>
       <ControlGroup label="STYLE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Default', 'Favorites', 'Preparing', 'ClosedDays', 'Disabled', 'Empty'].map(s => (
-            <button key={s} onClick={() => onChange({ ...c, style: s })} style={btn(c.style === s)}>{s}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'Favorites', 'Preparing', 'ClosedDays', 'Disabled', 'Empty']} value={c.style} onChange={v => onChange({ ...c, style: v })} />
       </ControlGroup>
       {c.style !== 'Empty' && (
         <>
@@ -2866,11 +2082,7 @@ function StoreListControls({ c, onChange }) {
       {c.style === 'Empty' && (
         <>
           <ControlGroup label="HAS MESSAGE">
-            <div style={{ display: 'flex', gap: '6px' }}>
-              {[true, false].map(v => (
-                <button key={String(v)} onClick={() => onChange({ ...c, hasEmptyMessage: v })} style={btn(c.hasEmptyMessage === v)}>{v ? 'Yes' : 'No'}</button>
-              ))}
-            </div>
+            <ToggleSwitch label="Has Empty Message" value={!!c.hasEmptyMessage} onChange={v => onChange({ ...c, hasEmptyMessage: v })} />
           </ControlGroup>
           <TextInput label="EMPTY MESSAGE" value={c.emptyMessage} onChange={v => onChange({ ...c, emptyMessage: v })} />
         </>
@@ -2890,34 +2102,16 @@ const OSC_PRODUCTS = [
 
 function OrderStatusCardControls({ c, onChange }) {
   const BASE = import.meta.env.BASE_URL
-  const btn = (active) => ({
-    padding: '6px 12px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
   return (
     <>
       <ControlGroup label="DISPLAY">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['Default', 'Sticky'].map(d => (
-            <button key={d} onClick={() => onChange({ ...c, display: d })} style={btn(c.display === d)}>{d}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Default', 'Sticky']} value={c.display} onChange={v => onChange({ ...c, display: v })} />
       </ControlGroup>
       <ControlGroup label="STATUS">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['Pending', 'Preparing', 'Pickup', 'Rejected'].map(s => (
-            <button key={s} onClick={() => onChange({ ...c, status: s })} style={btn(c.status === s)}>{s}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Pending', 'Preparing', 'Pickup', 'Rejected']} value={c.status} onChange={v => onChange({ ...c, status: v })} />
       </ControlGroup>
       <ControlGroup label="ORDER TYPE">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['테이크아웃', '매장식사'].map(t => (
-            <button key={t} onClick={() => onChange({ ...c, orderType: t })} style={btn(c.orderType === t)}>{t}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['테이크아웃', '매장식사']} value={c.orderType} onChange={v => onChange({ ...c, orderType: v })} />
       </ControlGroup>
       <ControlGroup label="PRODUCT IMAGE">
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
@@ -2956,18 +2150,6 @@ function OrderStatusCardControls({ c, onChange }) {
 
 function CardListControls({ c, onChange }) {
   const BASE = import.meta.env.BASE_URL
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const inputStyle = {
-    width: '100%', padding: '6px 8px', borderRadius: '6px',
-    border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-    color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-    boxSizing: 'border-box',
-  }
   const LOGOS = [
     { file: 'hyudai.png',      label: '현대' },
     { file: 'kb.png',          label: 'KB' },
@@ -2986,11 +2168,7 @@ function CardListControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="DISPLAY">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['ManageDefault', 'ManageSelected', 'Payment', 'PaymentSelected'].map(d => (
-            <button key={d} onClick={() => onChange({ ...c, display: d })} style={btn(c.display === d)}>{d}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['ManageDefault', 'ManageSelected', 'Payment', 'PaymentSelected']} value={c.display} onChange={v => onChange({ ...c, display: v })} />
       </ControlGroup>
 
       <ControlGroup label="CARD LOGO">
@@ -3020,22 +2198,12 @@ function CardListControls({ c, onChange }) {
 
       {isManage && (
         <>
-          <ControlGroup label="BANK NAME">
-            <input value={c.bankName} onChange={e => onChange({ ...c, bankName: e.target.value })} style={inputStyle} />
-          </ControlGroup>
-          <ControlGroup label="FIRST 4 DIGITS">
-            <input value={c.firstFour} onChange={e => onChange({ ...c, firstFour: e.target.value })} style={inputStyle} maxLength={4} />
-          </ControlGroup>
-          <ControlGroup label="LAST 4 DIGITS">
-            <input value={c.lastFour} onChange={e => onChange({ ...c, lastFour: e.target.value })} style={inputStyle} maxLength={4} />
-          </ControlGroup>
+          <TextInput label="BANK NAME"     value={c.bankName}  onChange={v => onChange({ ...c, bankName: v })} />
+          <TextInput label="FIRST 4 DIGITS" value={c.firstFour} onChange={v => onChange({ ...c, firstFour: v })} />
+          <TextInput label="LAST 4 DIGITS"  value={c.lastFour}  onChange={v => onChange({ ...c, lastFour: v })} />
           {c.display === 'ManageDefault' && (
             <ControlGroup label="REPRESENTATIVE">
-              <div style={{ display: 'flex', gap: '6px' }}>
-                {[true, false].map(v => (
-                  <button key={String(v)} onClick={() => onChange({ ...c, representative: v })} style={btn(c.representative === v)}>{v ? '대표 카드' : '없음'}</button>
-                ))}
-              </div>
+              <ToggleSwitch label="대표 카드" value={!!c.representative} onChange={v => onChange({ ...c, representative: v })} />
             </ControlGroup>
           )}
         </>
@@ -3043,16 +2211,10 @@ function CardListControls({ c, onChange }) {
 
       {isPayment && (
         <>
-          <ControlGroup label="BANK SUMMARY">
-            <input value={c.bankSummary} onChange={e => onChange({ ...c, bankSummary: e.target.value })} style={inputStyle} />
-          </ControlGroup>
+          <TextInput label="BANK SUMMARY" value={c.bankSummary} onChange={v => onChange({ ...c, bankSummary: v })} />
           {c.display === 'Payment' && (
             <ControlGroup label="SELECTED (현재)">
-              <div style={{ display: 'flex', gap: '6px' }}>
-                {[true, false].map(v => (
-                  <button key={String(v)} onClick={() => onChange({ ...c, selected: v })} style={btn(c.selected === v)}>{v ? '현재' : '없음'}</button>
-                ))}
-              </div>
+              <ToggleSwitch label="현재 선택" value={!!c.selected} onChange={v => onChange({ ...c, selected: v })} />
             </ControlGroup>
           )}
         </>
@@ -3062,19 +2224,6 @@ function CardListControls({ c, onChange }) {
 }
 
 function MyPageButtonControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const inputStyle = {
-    width: '100%', padding: '6px 8px', borderRadius: '6px',
-    border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-    color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-    boxSizing: 'border-box',
-  }
-
   const ALL_ICONS = [
     'ProfileSetting', 'Favorites', 'List1', 'List2',
     'GiftCard',       'Coupon',    'Card',  'Membership',
@@ -3089,15 +2238,9 @@ function MyPageButtonControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="DISPLAY">
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {['Horizontal', 'Vertical'].map(t => (
-            <button key={t} onClick={() => onChange({ ...c, display: t })} style={btn(c.display === t)}>{t}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['Horizontal', 'Vertical']} value={c.display} onChange={v => onChange({ ...c, display: v })} />
       </ControlGroup>
-      <ControlGroup label="BUTTON NAME">
-        <input value={c.buttonName} onChange={e => onChange({ ...c, buttonName: e.target.value })} style={inputStyle} />
-      </ControlGroup>
+      <TextInput label="BUTTON NAME" value={c.buttonName} onChange={v => onChange({ ...c, buttonName: v })} />
       <ControlGroup label="ICON">
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
           {ALL_ICONS.map(name => {
@@ -3127,52 +2270,23 @@ function MyPageButtonControls({ c, onChange }) {
 }
 
 function GiftCouponControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const inputStyle = {
-    width: '100%', padding: '6px 8px', borderRadius: '6px',
-    border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-    color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-    boxSizing: 'border-box',
-  }
-
   const BASE = import.meta.env.BASE_URL
 
   return (
     <>
       <ControlGroup label="DISPLAY TYPE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['ListAvailable', 'ListUnavailable', 'PurchaseDefault', 'PurchaseDisabled'].map(t => (
-            <button key={t} onClick={() => onChange({ ...c, display: t })} style={btn(c.display === t)}>{t}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['ListAvailable', 'ListUnavailable', 'PurchaseDefault', 'PurchaseDisabled']} value={c.display} onChange={v => onChange({ ...c, display: v })} />
       </ControlGroup>
-      <ControlGroup label="COUPON NAME">
-        <input value={c.couponName} onChange={e => onChange({ ...c, couponName: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="DATE">
-        <input value={c.date} onChange={e => onChange({ ...c, date: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="SENDER NAME">
-        <input value={c.senderName} onChange={e => onChange({ ...c, senderName: e.target.value })} style={inputStyle} />
-      </ControlGroup>
+      <TextInput label="COUPON NAME"  value={c.couponName}  onChange={v => onChange({ ...c, couponName: v })} />
+      <TextInput label="DATE"         value={c.date}         onChange={v => onChange({ ...c, date: v })} />
+      <TextInput label="SENDER NAME"  value={c.senderName}   onChange={v => onChange({ ...c, senderName: v })} />
       {(c.display === 'PurchaseDefault' || c.display === 'PurchaseDisabled') && (
         <>
           <ControlGroup label="DESCRIPTION">
-            <div style={{ display: 'flex', gap: '6px' }}>
-              {[true, false].map(v => (
-                <button key={String(v)} onClick={() => onChange({ ...c, description: v })} style={btn(c.description === v)}>{v ? 'true' : 'false'}</button>
-              ))}
-            </div>
+            <ToggleSwitch label="Has Description" value={!!c.description} onChange={v => onChange({ ...c, description: v })} />
           </ControlGroup>
           {c.description && (
-            <ControlGroup label="DESCRIPTION TEXT">
-              <input value={c.descriptionText} onChange={e => onChange({ ...c, descriptionText: e.target.value })} style={inputStyle} />
-            </ControlGroup>
+            <TextInput label="DESCRIPTION TEXT" value={c.descriptionText} onChange={v => onChange({ ...c, descriptionText: v })} />
           )}
           <ControlGroup label="GIFT CARD IMAGE">
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
@@ -3194,11 +2308,7 @@ function GiftCouponControls({ c, onChange }) {
       )}
       {c.display === 'PurchaseDisabled' && (
         <ControlGroup label="D IMMED">
-          <div style={{ display: 'flex', gap: '6px' }}>
-            {[true, false].map(v => (
-              <button key={String(v)} onClick={() => onChange({ ...c, dImmed: v })} style={btn(c.dImmed === v)}>{v ? 'true' : 'false'}</button>
-            ))}
-          </div>
+          <ToggleSwitch label="D Immed" value={!!c.dImmed} onChange={v => onChange({ ...c, dImmed: v })} />
         </ControlGroup>
       )}
     </>
@@ -3206,36 +2316,14 @@ function GiftCouponControls({ c, onChange }) {
 }
 
 function CouponListControls({ c, onChange }) {
-  const btn = (active) => ({
-    padding: '5px 9px', borderRadius: '6px', border: 'none',
-    backgroundColor: active ? 'var(--primary-bgsolid)' : 'var(--surface-light-subtle)',
-    color: active ? 'var(--text-icon-base)' : 'var(--text-icon-normal)',
-    fontSize: '12px', fontWeight: active ? 600 : 400, cursor: 'pointer', fontFamily: 'inherit',
-  })
-  const inputStyle = {
-    width: '100%', padding: '6px 8px', borderRadius: '6px',
-    border: '1px solid var(--border-normal)', background: 'var(--surface-base)',
-    color: 'var(--text-icon-normal)', fontSize: '12px', fontFamily: 'inherit',
-    boxSizing: 'border-box',
-  }
   return (
     <>
       <ControlGroup label="DISPLAY TYPE">
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {['ListAvailable', 'ListUnavailable', 'PurchaseUnselected', 'PurchaseSelected'].map(t => (
-            <button key={t} onClick={() => onChange({ ...c, displayType: t })} style={btn(c.displayType === t)}>{t}</button>
-          ))}
-        </div>
+        <SegmentedControl options={['ListAvailable', 'ListUnavailable', 'PurchaseUnselected', 'PurchaseSelected']} value={c.displayType} onChange={v => onChange({ ...c, displayType: v })} />
       </ControlGroup>
-      <ControlGroup label="VALUE">
-        <input value={c.value} onChange={e => onChange({ ...c, value: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="COUPON NAME">
-        <input value={c.couponName} onChange={e => onChange({ ...c, couponName: e.target.value })} style={inputStyle} />
-      </ControlGroup>
-      <ControlGroup label="DATE">
-        <input value={c.date} onChange={e => onChange({ ...c, date: e.target.value })} style={inputStyle} />
-      </ControlGroup>
+      <TextInput label="VALUE"       value={c.value}      onChange={v => onChange({ ...c, value: v })} />
+      <TextInput label="COUPON NAME" value={c.couponName} onChange={v => onChange({ ...c, couponName: v })} />
+      <TextInput label="DATE"        value={c.date}        onChange={v => onChange({ ...c, date: v })} />
     </>
   )
 }
