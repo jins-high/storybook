@@ -175,7 +175,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
 
   return (
     <aside style={panelStyle}>
-      <div style={{ flex: 1, overflowY: 'auto' }}>
+      <div className="left-panel-scroll" style={{ flex: 1, overflowY: 'auto' }}>
         {/* White Label section */}
         <div style={sectionStyle}>
           <div style={{ ...sectionLabelStyle, color: 'var(--text-icon-primary)' }}>WHITE LABEL</div>

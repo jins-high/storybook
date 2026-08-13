@@ -96,7 +96,6 @@ export function Tab({
         overflowY:         'hidden',
         borderBottom:      '1px solid var(--border-light)',
         width:             '100%',
-        maxWidth:          '360px',
         cursor:            isDragging ? 'grabbing' : 'grab',
         userSelect:        'none',
         msUserSelect:      'none',

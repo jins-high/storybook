@@ -740,7 +740,7 @@ function FontPreview() {
 // COMPONENT PREVIEWS
 // ═══════════════════════════════════════════════════════════
 
-function ComponentCanvas({ subtitle, hero, allVariants }) {
+function ComponentCanvas({ subtitle, hero, allVariants, heroInteractive = false }) {
   return (
     <div>
       {/* Hero — current state */}
@@ -758,6 +758,7 @@ function ComponentCanvas({ subtitle, hero, allVariants }) {
           backgroundColor: 'var(--surface-base)',
           borderRadius:    '12px',
           border:          '1px solid var(--preview-hero-border)',
+          ...(heroInteractive ? { position: 'relative', zIndex: 25 } : {}),
         }}>
           {hero}
         </div>
@@ -2971,6 +2972,7 @@ function TabPreview({ c }) {
   return (
     <ComponentCanvas
       subtitle="Tab — current controls applied"
+      heroInteractive={true}
       hero={
         <Tab
           size={size}
