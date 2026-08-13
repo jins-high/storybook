@@ -62,9 +62,10 @@ export function TextField({
 
   const showLabel = hasLabel
   const showLabelChip = showLabel && (
-    effectiveState === 'Focused' ||
-    effectiveState === 'Filled'  ||
-    effectiveState === 'Error'   ||
+    effectiveState === 'Default'  ||
+    effectiveState === 'Focused'  ||
+    effectiveState === 'Filled'   ||
+    effectiveState === 'Error'    ||
     effectiveState === 'Disabled' ||
     effectiveState === 'ReadOnly'
   )
