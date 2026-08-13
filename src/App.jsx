@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LeftPanel }   from './preview/LeftPanel.jsx'
 import { CenterPanel } from './preview/CenterPanel.jsx'
 import { RightPanel }  from './preview/RightPanel.jsx'
@@ -270,11 +270,21 @@ const defaultControls = {
   },
 }
 
+const STORAGE_PAGE  = 'ds-selected-item'
+const STORAGE_BRAND = 'ds-brand-mode'
+
+function readStorage(key, fallback) {
+  try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback }
+}
+
 export default function App() {
-  const [selectedItem, setSelectedItem] = useState({ type: 'component', name: 'Button' })
+  const [selectedItem, setSelectedItem] = useState(() => readStorage(STORAGE_PAGE,  { type: 'component', name: 'Button' }))
   const [controls, setControls]         = useState(defaultControls)
-  const [brandMode, setBrandMode]       = useState('compose-light')
+  const [brandMode, setBrandMode]       = useState(() => readStorage(STORAGE_BRAND, 'compose-light'))
   const [inspectedEl, setInspectedEl]   = useState(null)
+
+  useEffect(() => { localStorage.setItem(STORAGE_PAGE,  JSON.stringify(selectedItem)) }, [selectedItem])
+  useEffect(() => { localStorage.setItem(STORAGE_BRAND, JSON.stringify(brandMode))    }, [brandMode])
 
   const activeMode = modes[brandMode]
   const fontMode   = activeMode?.font ?? 'pretendard'
