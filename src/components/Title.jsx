@@ -1,17 +1,25 @@
 // Title — 모바일오더 라이브러리 / Figma node 100:8282
 // 섹션 또는 콘텐츠 영역 제목 컴포넌트
-// Props: hierarchy, text, hasRequired, hasButton, buttonLabel, onButtonClick
-import { IconArrowRight } from '../icons/icons.jsx'
+// Props: hierarchy, text, hasRequired, hasButton, buttonLabel,
+//        buttonHasLeadingIcon, buttonHasTrailingIcon, buttonIconName, onButtonClick
+import { TextButton }  from './TextButton.jsx'
+import * as Icons      from '../icons/icons.jsx'
+import * as GraphicIcons from '../icons/graphicIcons.jsx'
 
 export function Title({
-  hierarchy     = 'Primary',
-  text          = '제목',
-  hasRequired   = false,
-  hasButton     = false,
-  buttonLabel   = '버튼명',
-  onButtonClick = () => {},
+  hierarchy             = 'Primary',
+  text                  = '제목',
+  hasRequired           = false,
+  hasButton             = false,
+  buttonLabel           = '버튼명',
+  buttonHasLeadingIcon  = false,
+  buttonHasTrailingIcon = true,
+  buttonIconName        = 'IconArrowRight',
+  onButtonClick         = () => {},
 }) {
   const isPrimary = hierarchy === 'Primary'
+  const IconComp  = (buttonIconName?.startsWith('GraphicIcon') ? GraphicIcons[buttonIconName] : Icons[buttonIconName]) ?? Icons.IconArrowRight
+  const buttonIcon = <IconComp style={{ width: 16, height: 16 }} />
 
   return (
     <div
@@ -71,36 +79,17 @@ export function Title({
         )}
       </div>
 
-      {/* Right button */}
+      {/* Right button — TextButton */}
       {hasButton && (
-        <button
+        <TextButton
+          size="sm"
+          color="assistive"
+          label={buttonLabel}
+          hasLeadingIcon={buttonHasLeadingIcon}
+          hasTrailingIcon={buttonHasTrailingIcon}
+          icon={buttonIcon}
           onClick={onButtonClick}
-          style={{
-            display:         'flex',
-            alignItems:      'center',
-            gap:             'var(--spacing-200)',
-            height:          '20px',
-            padding:         '0 var(--spacing-300)',
-            borderRadius:    'var(--radius-default-200)',
-            border:          'none',
-            backgroundColor: 'transparent',
-            cursor:          'pointer',
-            flexShrink:      0,
-          }}
-        >
-          <span style={{
-            fontSize:      '14px',
-            fontWeight:    500,
-            lineHeight:    1.35,
-            letterSpacing: '-0.25px',
-            color:         'var(--text-icon-assistive)',
-            whiteSpace:    'nowrap',
-            fontFamily:    'inherit',
-          }}>
-            {buttonLabel}
-          </span>
-          <IconArrowRight style={{ width: 16, height: 16, color: 'var(--text-icon-assistive)', flexShrink: 0 }} />
-        </button>
+        />
       )}
     </div>
   )

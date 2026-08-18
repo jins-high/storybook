@@ -21,17 +21,30 @@ import * as GraphicIcons  from '../icons/graphicIcons.jsx'
 
 // ── All available icon names ────────────────────────────────
 const ICON_OPTIONS = [
-  { group: 'Direction',       names: ['IconChevronUp','IconChevronDown','IconChevronLeft','IconChevronRight','IconArrowUp','IconArrowDown','IconArrowLeft','IconArrowRight'] },
-  { group: 'Actions',         names: ['IconClose','IconCheck','IconPlus','IconMinus','IconSearch','IconDownload','IconRefresh'] },
-  { group: 'Status',          names: ['IconCheckCircle','IconPlusCircle','IconMinusCircle','IconAlertCircle','IconAlertCircleFill','IconErrorCircle','IconInfo','IconInfoFill','IconHelp','IconHelpFill'] },
-  { group: 'Commerce',        names: ['IconBag','IconBagFill','IconCart','IconCartFill','IconGift','IconGiftFill','IconCoupon','IconCouponFill','IconCard','IconCardFill'] },
-  { group: 'Trash',           names: ['IconTrash','IconTrashFill'] },
-  { group: 'User / Social',   names: ['IconPerson','IconPersonFill','IconStar','IconStarOutline','IconStarFill','IconStarRing'] },
-  { group: 'System / UI',     names: ['IconMenu','IconBell','IconBellFill','IconStamp'] },
-  { group: 'Location / Home', names: ['IconHome','IconHomeFill','IconLocation','IconLocationFill'] },
-  { group: 'Food',            names: ['IconCutlery'] },
+  { group: 'Direction',           names: ['IconChevronUp','IconChevronDown','IconChevronLeft','IconChevronRight','IconArrowUp','IconArrowDown','IconArrowLeft','IconArrowRight'] },
+  { group: 'Thin Arrows',         names: ['IconArrowLeftThin','IconArrowRightThin'] },
+  { group: 'Actions',             names: ['IconClose','IconCheck','IconPlus','IconMinus','IconSearch','IconDownload','IconRefresh','IconPen'] },
+  { group: 'Status',              names: ['IconCheckCircle','IconPlusCircle','IconMinusCircle','IconPlusFill','IconMinusFill','IconAlertCircle','IconAlertCircleFill','IconErrorCircle','IconInfo','IconInfoFill','IconHelp','IconHelpFill'] },
+  { group: 'Commerce',            names: ['IconBag','IconBagFill','IconCart','IconCartFill','IconGift','IconGiftFill','IconCoupon','IconCouponFill','IconCard','IconCardFill'] },
+  { group: 'Trash',               names: ['IconTrash','IconTrashFill'] },
+  { group: 'User / Social',       names: ['IconPerson','IconPersonFill','IconStar','IconStarOutline','IconStarFill','IconStarRing'] },
+  { group: 'System / UI',         names: ['IconMenu','IconBell','IconBellFill','IconStamp','IconStampFill','IconSetting'] },
+  { group: 'Location / Home',     names: ['IconHome','IconHomeFill','IconLocation','IconLocationFill'] },
+  { group: 'Document / Content',  names: ['IconNote','IconNoteFill','IconCopy','IconCopyFill','IconReplace'] },
+  { group: 'Visibility',          names: ['IconEyeOpen','IconEyeClose'] },
+  { group: 'Flash / Time',        names: ['IconFlash','IconFlashFill','IconTime','IconTimeFill'] },
+  { group: 'F&B / Store',         names: ['IconCutlery','IconCup','IconPaperCup','IconHandBag','IconBarcode','IconReturn','IconCalendar'] },
+  { group: 'Graphic / Commerce',  names: ['GraphicIconStamp','GraphicIconGiftCard','GraphicIconCoupon','GraphicIconCard','GraphicIconMembership','GraphicIconGift','GraphicIconOrder','GraphicIconOkCashback','GraphicIconLPoint','GraphicIconFavorites'] },
+  { group: 'Graphic / Social',    names: ['GraphicIconKakao','GraphicIconApple','GraphicIconFacebook','GraphicIconInstagram','GraphicIconYoutube'] },
+  { group: 'Graphic / UI',        names: ['GraphicIconProfileSetting','GraphicIconList1','GraphicIconList2','GraphicIconChart','GraphicIconNews','GraphicIconSpeaker','GraphicIconEvent','GraphicIconCamera','GraphicIconPicture','GraphicIconPhone','GraphicIconHand','GraphicIconHeadPhone','GraphicIconTalk','GraphicIconCompose'] },
 ]
 const ALL_ICON_NAMES = ICON_OPTIONS.flatMap(g => g.names)
+
+function resolveIconComp(name) {
+  if (!name) return null
+  if (name.startsWith('GraphicIcon')) return GraphicIcons[name] ?? null
+  return Icons[name] ?? null
+}
 
 // ── Token resolution ────────────────────────────────────────
 // cssVarKey matches themeTokenMap keys, e.g. 'primary/bgsolid'
@@ -104,7 +117,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
             <div style={{ ...sectionStyle, paddingBottom: '8px' }}>
               <div style={sectionTitleStyle}>Code</div>
             </div>
-            {type === 'component' && (name === 'Button' || name === 'IconButton' || name === 'TextButton' || name === 'ActionsActionArea' || name === 'Chip' || name === 'Tab' || name === 'Snackbar') && (
+            {type === 'component' && (name === 'Button' || name === 'IconButton' || name === 'TextButton' || name === 'ActionsActionArea' || name === 'Chip' || name === 'Tab' || name === 'Snackbar' || name === 'Title') && (
               <>
                 <ComponentCode  name={name} controls={controls[name]} />
                 <TokenUsageTable name={name} controls={controls[name]} />
@@ -491,7 +504,8 @@ function TextInput({ label, value, onChange }) {
 // ── Icon picker dropdown ────────────────────────────────────
 function IconPicker({ value, onChange }) {
   const [open, setOpen] = useState(false)
-  const IconCurrent = Icons[value]
+  const IconCurrent = resolveIconComp(value)
+  const isGraphic   = value?.startsWith('GraphicIcon')
 
   return (
     <div style={{ position: 'relative', marginTop: '8px' }}>
@@ -513,7 +527,7 @@ function IconPicker({ value, onChange }) {
         }}
       >
         <span style={{ display: 'flex', alignItems: 'center', color: 'var(--text-icon-normal)', flexShrink: 0 }}>
-          {IconCurrent && <IconCurrent size={16} />}
+          {IconCurrent && (isGraphic ? <IconCurrent size={16} /> : <IconCurrent size={16} />)}
         </span>
         <span style={{ flex: 1, textAlign: 'left', fontSize: '12px', color: 'var(--text-icon-normal)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {value}
@@ -533,7 +547,7 @@ function IconPicker({ value, onChange }) {
           border:          '1px solid var(--border-normal)',
           borderRadius:    '10px',
           boxShadow:       '0 8px 24px rgba(0,0,0,0.20)',
-          maxHeight:       '280px',
+          maxHeight:       '320px',
           overflowY:       'auto',
           padding:         '8px',
         }}>
@@ -544,7 +558,7 @@ function IconPicker({ value, onChange }) {
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                 {names.map(name => {
-                  const Ic = Icons[name]
+                  const Ic = resolveIconComp(name)
                   if (!Ic) return null
                   const isSelected = name === value
                   return (
@@ -946,6 +960,14 @@ function MembershipChipControls({ c, onChange }) {
         <ToggleSwitch label="아이콘 표시"         value={!!c.showIcon}   onChange={v => onChange({ ...c, showIcon: v })} />
         <ToggleSwitch label="최대값 표시 (/max)"  value={!!c.numberMax}  onChange={v => onChange({ ...c, numberMax: v })} />
       </ControlGroup>
+      {c.showIcon && (
+        <ControlGroup label="ICON">
+          <IconPicker
+            value={c.iconName ?? 'IconStamp'}
+            onChange={v => onChange({ ...c, iconName: v })}
+          />
+        </ControlGroup>
+      )}
       <TextInput label="TEXT"   value={c.text}   onChange={v => onChange({ ...c, text: v })} />
       <TextInput label="NUMBER" value={c.number} onChange={v => onChange({ ...c, number: v })} />
       {c.numberMax && (
@@ -959,7 +981,7 @@ function MicroBadgeControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STYLE">
-        <SegmentedControl options={['YellowSolid', 'GreenSolid', 'VioletSolid', 'RedSolid', 'BlackSolid', 'BlackLine', 'GarySolid', 'LightGray', 'LightGarySolid']} value={c.style} onChange={v => onChange({ ...c, style: v })} />
+        <SegmentedControl options={['YellowSolid', 'GreenSolid', 'VioletSolid', 'RedSolid', 'BlackSolid', 'BlackLine', 'GarySolid', 'Disabled']} value={c.style} onChange={v => onChange({ ...c, style: v })} />
       </ControlGroup>
       <ControlGroup label="SIZE">
         <SegmentedControl options={['Small', 'Medium']} value={c.size} onChange={v => onChange({ ...c, size: v })} />
@@ -976,19 +998,33 @@ function TitleControls({ c, onChange }) {
         <SegmentedControl options={['Primary', 'Secondary']} value={c.hierarchy} onChange={v => onChange({ ...c, hierarchy: v })} />
       </ControlGroup>
       <ControlGroup label="OPTIONS">
-        <ToggleSwitch label="필수 표시 (Required)"  value={!!c.hasRequired}  onChange={v => onChange({ ...c, hasRequired: v })} />
-        <ToggleSwitch label="우측 버튼 (Button)"    value={!!c.hasButton}    onChange={v => onChange({ ...c, hasButton: v })} />
+        <ToggleSwitch label="필수 표시 (Required)" value={!!c.hasRequired} onChange={v => onChange({ ...c, hasRequired: v })} />
+        <ToggleSwitch label="우측 버튼 (Button)"   value={!!c.hasButton}   onChange={v => onChange({ ...c, hasButton: v })} />
       </ControlGroup>
-      <TextInput label="TEXT"  value={c.text}        onChange={v => onChange({ ...c, text: v })} />
+      <TextInput label="TEXT" value={c.text} onChange={v => onChange({ ...c, text: v })} />
       {c.hasButton && (
-        <TextInput label="BUTTON LABEL" value={c.buttonLabel} onChange={v => onChange({ ...c, buttonLabel: v })} />
+        <>
+          <ControlGroup label="BUTTON">
+            <TextInput label="LABEL" value={c.buttonLabel} onChange={v => onChange({ ...c, buttonLabel: v })} />
+            <ToggleSwitch label="Leading Icon"  value={!!c.buttonHasLeadingIcon}          onChange={v => onChange({ ...c, buttonHasLeadingIcon: v })} />
+            <ToggleSwitch label="Trailing Icon" value={c.buttonHasTrailingIcon !== false} onChange={v => onChange({ ...c, buttonHasTrailingIcon: v })} />
+          </ControlGroup>
+          {(c.buttonHasLeadingIcon || c.buttonHasTrailingIcon !== false) && (
+            <ControlGroup label="BUTTON ICON">
+              <IconPicker
+                value={c.buttonIconName ?? 'IconArrowRight'}
+                onChange={v => onChange({ ...c, buttonIconName: v })}
+              />
+            </ControlGroup>
+          )}
+        </>
       )}
     </>
   )
 }
 
 function FilterControls({ c, onChange }) {
-  const presetOptions = ['최근 1주일', '최근 1개월', '최근 3개월', '최근 6개월', '1년']
+  const presetOptions = ['최근 1개월', '최근 6개월', '직접입력']
   return (
     <>
       <ControlGroup label="OPTIONS">
@@ -1313,6 +1349,25 @@ function ComponentCode({ name, controls: c }) {
       if (!c.hasHashTag)         lines.push(`  hasHashTag={false}`)
       if (c.hasHashTag && c.hashtags.length)
         lines.push(`  hashtags={${JSON.stringify(c.hashtags)}}`)
+      lines.push(`/>`)
+      return lines.join('\n')
+    },
+    Title: () => {
+      const lines = [
+        `import { Title } from '@/components/Title'`,
+        ``,
+        `<Title`,
+        `  hierarchy="${c.hierarchy}"`,
+        `  text="${c.text}"`,
+      ]
+      if (c.hasRequired) lines.push(`  hasRequired`)
+      if (c.hasButton) {
+        lines.push(`  hasButton`)
+        if (c.buttonLabel && c.buttonLabel !== '버튼명') lines.push(`  buttonLabel="${c.buttonLabel}"`)
+        if (c.buttonHasLeadingIcon)          lines.push(`  buttonHasLeadingIcon`)
+        if (c.buttonHasTrailingIcon === false) lines.push(`  buttonHasTrailingIcon={false}`)
+        if (c.buttonIconName && c.buttonIconName !== 'IconArrowRight') lines.push(`  buttonIconName="${c.buttonIconName}"`)
+      }
       lines.push(`/>`)
       return lines.join('\n')
     },

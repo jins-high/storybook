@@ -277,6 +277,7 @@
   --radius-default-400:      var(--dimension-10);
   --radius-default-500:     var(--dimension-12);
   --radius-default-600:      var(--dimension-16);
+  --radius-default-700:      var(--dimension-24);
   --radius-default-circle: var(--dimension-full);
 
   /* Radius(Fixed) ─────────────────────────────────────── */
@@ -356,7 +357,7 @@
   --surface-light-subtle:   var(--neutral-950);
   --surface-normal-solid:   var(--neutral-20);
   --surface-normal-subtle:  var(--neutral-800);
-  --surface-heavy-solid:    var(--neutral-600);
+  --surface-heavy-solid:    var(--neutral-white);
   --surface-heavy-subtle:   var(--neutral-700);
   --surface-base:           var(--neutral-black);
   --surface-primary-solid:  var(--compose-300);

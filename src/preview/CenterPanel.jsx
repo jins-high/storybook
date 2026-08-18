@@ -1605,8 +1605,15 @@ function TextFieldPreview({ c }) {
 // ═══════════════════════════════════════════════════════════
 // MEMBERSHIP CHIP PREVIEW
 // ═══════════════════════════════════════════════════════════
+function resolveIcon(name) {
+  if (!name) return null
+  if (name.startsWith('GraphicIcon')) return GraphicIcons[name] ?? null
+  return Icons[name] ?? null
+}
+
 function MembershipChipPreview({ c }) {
-  const stampIcon = <Icons.IconStamp style={{ width: 24, height: 24, color: 'var(--text-icon-normal)' }} />
+  const IconComp  = resolveIcon(c.iconName) ?? Icons.IconStamp
+  const stampIcon = <IconComp style={{ width: 24, height: 24, color: 'var(--text-icon-normal)' }} />
 
   const variants = [
     { label: 'Icon + text + number/max',  showIcon: true,  text: '스탬프', number: '8',  numberMax: true,  max: '10' },
@@ -1663,7 +1670,7 @@ function FilterPreview({ c }) {
   const [localValue, setLocalValue] = useState(c.value)
   useEffect(() => { setLocalValue(c.value) }, [c.value])
 
-  const defaultOptions = ['최근 1주일', '최근 1개월', '최근 3개월', '최근 6개월', '1년']
+  const defaultOptions = ['최근 1개월', '최근 6개월', '직접입력']
 
   return (
     <ComponentCanvas
@@ -1748,6 +1755,7 @@ function OrderStatusCardPreview({ c }) {
   const imgSrc = c.productImage ? `${BASE}assets/product/${c.productImage}.png` : undefined
 
   const cardProps = {
+    orderNumber:  c.orderNumber,
     storeName:    c.storeName,
     orderType:    c.orderType,
     items:        c.items,
@@ -2455,6 +2463,9 @@ function TitlePreview({ c }) {
             hasRequired={c.hasRequired}
             hasButton={c.hasButton}
             buttonLabel={c.buttonLabel}
+            buttonHasLeadingIcon={!!c.buttonHasLeadingIcon}
+            buttonHasTrailingIcon={c.buttonHasTrailingIcon !== false}
+            buttonIconName={c.buttonIconName ?? 'IconArrowRight'}
           />
         </div>
       }
@@ -2710,16 +2721,19 @@ function GraphicPreview({ name }) {
 // ═══════════════════════════════════════════════════════════
 
 const ICON_GROUPS = [
-  { label: 'Direction',       icons: ['IconChevronUp','IconChevronDown','IconChevronLeft','IconChevronRight','IconArrowUp','IconArrowDown','IconArrowLeft','IconArrowRight','IconArrowLeftThin','IconArrowRightThin'] },
-  { label: 'Actions',         icons: ['IconClose','IconCheck','IconPlus','IconMinus','IconSearch','IconDownload','IconRefresh','IconReplace','IconEyeOpen','IconEyeClose'] },
-  { label: 'Status',          icons: ['IconCheckCircle','IconPlusCircle','IconMinusCircle','IconAlertCircle','IconAlertCircleFill','IconErrorCircle','IconInfo','IconInfoFill','IconHelp','IconHelpFill'] },
-  { label: 'Commerce',        icons: ['IconBag','IconBagFill','IconCart','IconCartFill','IconGift','IconGiftFill','IconCoupon','IconCouponFill','IconCard','IconCardFill','IconHandBag','IconBarcode','IconPaperCup','IconCup'] },
-  { label: 'Trash',           icons: ['IconTrash','IconTrashFill'] },
-  { label: 'User / Social',   icons: ['IconPerson','IconPersonFill','IconStar','IconStarOutline','IconStarFill','IconStarRing'] },
-  { label: 'System / UI',     icons: ['IconMenu','IconBell','IconBellFill','IconStamp','IconStampFill','IconFlash','IconFlashFill','IconTime','IconTimeFill'] },
-  { label: 'Location / Home', icons: ['IconHome','IconHomeFill','IconLocation','IconLocationFill'] },
-  { label: 'Document',        icons: ['IconNote','IconNoteFill','IconCopy','IconCopyFill','IconCalendar','IconReturn'] },
-  { label: 'Food',            icons: ['IconCutlery'] },
+  { label: 'Direction',          icons: ['IconChevronUp','IconChevronDown','IconChevronLeft','IconChevronRight','IconArrowUp','IconArrowDown','IconArrowLeft','IconArrowRight'] },
+  { label: 'Thin Arrows',        icons: ['IconArrowLeftThin','IconArrowRightThin'] },
+  { label: 'Actions',            icons: ['IconClose','IconCheck','IconPlus','IconMinus','IconSearch','IconDownload','IconRefresh','IconPen'] },
+  { label: 'Status',             icons: ['IconCheckCircle','IconPlusCircle','IconMinusCircle','IconPlusFill','IconMinusFill','IconAlertCircle','IconAlertCircleFill','IconErrorCircle','IconInfo','IconInfoFill','IconHelp','IconHelpFill'] },
+  { label: 'Commerce',           icons: ['IconBag','IconBagFill','IconCart','IconCartFill','IconGift','IconGiftFill','IconCoupon','IconCouponFill','IconCard','IconCardFill'] },
+  { label: 'Trash',              icons: ['IconTrash','IconTrashFill'] },
+  { label: 'User / Social',      icons: ['IconPerson','IconPersonFill','IconStar','IconStarOutline','IconStarFill','IconStarRing'] },
+  { label: 'System / UI',        icons: ['IconMenu','IconBell','IconBellFill','IconStamp','IconStampFill','IconSetting'] },
+  { label: 'Location / Home',    icons: ['IconHome','IconHomeFill','IconLocation','IconLocationFill'] },
+  { label: 'Document / Content', icons: ['IconNote','IconNoteFill','IconCopy','IconCopyFill','IconReplace'] },
+  { label: 'Visibility',         icons: ['IconEyeOpen','IconEyeClose'] },
+  { label: 'Flash / Time',       icons: ['IconFlash','IconFlashFill','IconTime','IconTimeFill'] },
+  { label: 'F&B / Store',        icons: ['IconCutlery','IconCup','IconPaperCup','IconHandBag','IconBarcode','IconReturn','IconCalendar'] },
 ]
 
 function IconsPreview() {

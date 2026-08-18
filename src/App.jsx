@@ -111,6 +111,7 @@ const defaultControls = {
   },
   MembershipChip: {
     showIcon:  true,
+    iconName:  'IconStamp',
     text:      '스탬프',
     number:    '8',
     numberMax: true,
@@ -122,11 +123,14 @@ const defaultControls = {
     label: '텍스트',
   },
   Title: {
-    hierarchy:   'Primary',
-    text:        '섹션 타이틀',
-    hasRequired: false,
-    hasButton:   false,
-    buttonLabel: '버튼명',
+    hierarchy:             'Primary',
+    text:                  '섹션 타이틀',
+    hasRequired:           false,
+    hasButton:             false,
+    buttonLabel:           '버튼명',
+    buttonHasLeadingIcon:  false,
+    buttonHasTrailingIcon: true,
+    buttonIconName:        'IconArrowRight',
   },
   Filter: {
     hasLabel: true,
@@ -250,6 +254,7 @@ const defaultControls = {
   OrderStatusCard: {
     display:      'Default',
     status:       'Pending',
+    orderNumber:  '808',
     storeName:    '문래힐스테이트점',
     orderType:    '테이크아웃',
     items:        '그린티프라페 외 1종',

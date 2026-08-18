@@ -65,6 +65,8 @@ export const radiusDefault = [
     tenpersent: 12,  composeDark: 20,  composeLight: 20  },
   { size: 'Radius-600', cssVar: '--radius-default-600', figmaPath: 'Number/Radius(Default)/Radius-600',
     tenpersent: 16,  composeDark: 24,  composeLight: 24  },
+    { size: 'Radius-700', cssVar: '--radius-default-700', figmaPath: 'Number/Radius(Default)/Radius-700',
+    tenpersent: 24,  composeDark: 28,  composeLight: 28  },
   { size: 'Radius-Circle', cssVar: '--radius-default-circle', figmaPath: 'Number/Radius(Default)/Radius-Circle',
     tenpersent: 999, composeDark: 999, composeLight: 999 },
 ]

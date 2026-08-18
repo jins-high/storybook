@@ -3,15 +3,14 @@
 // Note: GreenSolid/RedSolid/VioletSolid는 Figma 고정 카테고리 색상 (semantic token 없음)
 
 const STYLE_MAP = {
-  YellowSolid:    { bg: 'var(--surface-primary-solid)', text: 'var(--text-icon-strong)',   border: null },
-  BlackSolid:     { bg: 'var(--surface-heavy-solid)',   text: 'var(--text-icon-base)',      border: null },
-  GreenSolid:     { bg: '#12dd19',                      text: 'var(--text-icon-strong)',   border: null },
-  RedSolid:       { bg: '#ed1826',                      text: 'var(--text-icon-base)',      border: null },
-  VioletSolid:    { bg: '#6a00ff',                      text: 'var(--text-icon-base)',      border: null },
-  BlackLine:      { bg: 'transparent',                  text: 'var(--text-icon-normal)',    border: '1px solid var(--border-heavy)' },
-  GarySolid:      { bg: 'var(--surface-normal-subtle)', text: 'var(--text-icon-normal)',    border: null },
-  LightGray:      { bg: 'var(--surface-normal-subtle)', text: 'var(--text-icon-disabled)', border: null },
-  LightGarySolid: { bg: 'var(--surface-normal-subtle)', text: 'var(--text-icon-disabled)', border: null },
+  YellowSolid: { bg: 'var(--surface-primary-solid)', text: 'var(--text-icon-strong)',   border: null },
+  GreenSolid:  { bg: '#12dd19',                      text: 'var(--text-icon-strong)',   border: null },
+  VioletSolid: { bg: '#6a00ff',                      text: 'var(--text-icon-base)',      border: null },
+  RedSolid:    { bg: '#ed1826',                      text: 'var(--text-icon-base)',      border: null },
+  BlackSolid:  { bg: 'var(--surface-heavy-solid)',   text: 'var(--text-icon-base)',      border: null },
+  BlackLine:   { bg: 'transparent',                  text: 'var(--text-icon-normal)',    border: '1px solid var(--border-heavy)' },
+  GarySolid:   { bg: 'var(--surface-normal-subtle)', text: 'var(--text-icon-normal)',    border: null },
+  Disabled:    { bg: 'var(--surface-normal-subtle)', text: 'var(--text-icon-disabled)', border: null },
 }
 
 const SIZE_MAP = {
@@ -53,5 +52,5 @@ export function MicroBadge({ style = 'YellowSolid', size = 'Small', label = '텍
   )
 }
 
-MicroBadge.styles = ['YellowSolid', 'GreenSolid', 'VioletSolid', 'RedSolid', 'BlackSolid', 'BlackLine', 'GarySolid', 'LightGray', 'LightGarySolid']
+MicroBadge.styles = ['YellowSolid', 'GreenSolid', 'VioletSolid', 'RedSolid', 'BlackSolid', 'BlackLine', 'GarySolid', 'Disabled']
 MicroBadge.sizes  = ['Small', 'Medium']

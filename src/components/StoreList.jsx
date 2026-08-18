@@ -1,26 +1,18 @@
 // StoreList — Figma node 1842:11318
 // Props: style ('Default' | 'Preparing' | 'Favorites' | 'Disabled' | 'ClosedDays' | 'Empty')
 
-import { IconStarOutline, IconAlertCircleFill, IconArrowRight } from '../icons/icons.jsx'
+import { IconStar, IconStarOutline, IconAlertCircleFill, IconArrowRight } from '../icons/icons.jsx'
 
 const BASE = import.meta.env.BASE_URL
 
 // ── Store image placeholder ─────────────────────────────────
 function StorePlaceholder() {
   return (
-    <div style={{
-      width:           '100%',
-      height:          '100%',
-      backgroundColor: 'var(--surface-light-subtle)',
-      display:         'flex',
-      alignItems:      'center',
-      justifyContent:  'center',
-    }}>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="9" r="3.5" stroke="var(--text-icon-subtle)" strokeWidth="1.5"/>
-        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="var(--text-icon-subtle)" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    </div>
+    <img
+      src={`${BASE}assets/storeProfile/fallback.png`}
+      alt=""
+      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+    />
   )
 }
 
@@ -129,7 +121,10 @@ export function StoreList({
         padding:         0,
       }}
     >
-      <IconStarOutline size={16} color={isFavorites ? 'var(--text-icon-base)' : 'var(--text-icon-assistive)'} />
+      {isFavorites
+        ? <IconStar size={16} color='var(--static-black)' />
+        : <IconStarOutline size={16} color='var(--text-icon-assistive)' />
+      }
     </button>
   )
 

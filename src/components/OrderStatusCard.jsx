@@ -50,6 +50,7 @@ function StatusLabels({ status, pendingTime, preparingTime, pickupTime, rejectRe
 export function OrderStatusCard({
   display      = 'Default',
   status       = 'Pending',
+  orderNumber  = '808',
   storeName    = '문래힐스테이트점',
   orderType    = '테이크아웃',
   items        = '그린티프라페 외 1종',
@@ -111,6 +112,10 @@ export function OrderStatusCard({
 
         {/* Text block */}
         <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-200)' }}>
+          {/* Order number */}
+          <p style={{ margin: 0, fontSize: '13px', fontWeight: 700, lineHeight: 1.35, letterSpacing: '-0.25px', color: 'var(--text-icon-info)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            주문번호 {orderNumber}번
+          </p>
           {/* Store name + order type badge */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-200)' }}>
             <span style={{ fontSize: '13px', fontWeight: 700, lineHeight: 1.35, letterSpacing: '-0.25px', color: 'var(--text-icon-normal)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 1 }}>
