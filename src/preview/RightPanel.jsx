@@ -1316,6 +1316,7 @@ function ComponentCode({ name, controls: c }) {
       else               lines.push(`  option2Name="${c.option2Name}" option2Price="${c.option2Price}"`)
       if (!c.hasOption3) lines.push(`  hasOption3={false}`)
       else               lines.push(`  option3Name="${c.option3Name}" option3Price="${c.option3Price}"`)
+      if (c.optionSoldOut) lines.push(`  optionSoldOut`)
       lines.push(`/>`)
       return lines.join('\n')
     },
@@ -1944,6 +1945,9 @@ function CartItemControls({ c, onChange }) {
       <TextInput label="TOTAL PRICE"  value={c.totalPrice}  onChange={v => onChange({ ...c, totalPrice: v })} />
       <ControlGroup label="COUNT">
         <SegmentedControl options={['1','2','3','4','5']} value={String(c.count)} onChange={v => onChange({ ...c, count: Number(v) })} />
+      </ControlGroup>
+      <ControlGroup label="OPTION SOLD OUT">
+        <ToggleSwitch label="준비된 수량이 부족해요." value={!!c.optionSoldOut} onChange={v => onChange({ ...c, optionSoldOut: v })} />
       </ControlGroup>
       <ControlGroup label="OPTION 1">
         <ToggleSwitch label="Show" value={!!c.hasOption1} onChange={v => onChange({ ...c, hasOption1: v })} />

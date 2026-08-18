@@ -14,6 +14,8 @@ const textBase = {
   letterSpacing: '-0.25px',
 }
 
+const SOLD_OUT_MAX = 4
+
 export function CartItem({
   // 선택
   checked          = true,
@@ -46,11 +48,15 @@ export function CartItem({
   // 총 가격
   totalPrice       = '4,000원',
 
+  // 재고 부족 메시지 (외부 제어 또는 count > SOLD_OUT_MAX 시 자동)
+  optionSoldOut    = false,
+
   // X 버튼
   onRemove,
 }) {
   const [checkedInt, setCheckedInt] = useState(checked)
   const [countInt,   setCountInt]   = useState(count)
+  const [soldOut,    setSoldOut]    = useState(false)
 
   const isChecked    = onCheckedChange !== undefined ? checked    : checkedInt
   const liveCount    = onCountChange   !== undefined ? count      : countInt
@@ -62,9 +68,16 @@ export function CartItem({
   }
 
   const handleCount = (n) => {
+    if (n > SOLD_OUT_MAX) {
+      setSoldOut(true)
+      return
+    }
+    setSoldOut(false)
     setCountInt(n)
     onCountChange?.(n)
   }
+
+  const showSoldOutMsg = (optionSoldOut || soldOut) && state === 'Default'
 
   const isDisabled    = state === 'SoldOut' || state === 'Unavailable'
   const overlayLabel  = state === 'SoldOut' ? '주문불가' : state === 'Unavailable' ? '품절' : null
@@ -223,6 +236,13 @@ export function CartItem({
             {totalPrice}
           </span>
         </div>
+
+        {/* 재고 부족 안내 */}
+        {showSoldOutMsg && (
+          <p style={{ ...textBase, margin: 0, fontSize: '14px', fontWeight: 400, color: 'var(--text-icon-error)' }}>
+            준비된 수량이 부족해요.
+          </p>
+        )}
       </div>
     </div>
   )

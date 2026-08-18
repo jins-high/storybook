@@ -2277,6 +2277,7 @@ function CartItemPreview({ c }) {
             count={liveCount}
             onCountChange={setLiveCount}
             totalPrice={c.totalPrice}
+            optionSoldOut={c.optionSoldOut}
           />
         </div>
         <div style={{ marginTop: '8px', fontSize: '12px', color: 'var(--text-icon-assistive)' }}>
