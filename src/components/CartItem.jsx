@@ -56,7 +56,6 @@ export function CartItem({
 }) {
   const [checkedInt, setCheckedInt] = useState(checked)
   const [countInt,   setCountInt]   = useState(count)
-  const [soldOut,    setSoldOut]    = useState(false)
 
   const isChecked    = onCheckedChange !== undefined ? checked    : checkedInt
   const liveCount    = onCountChange   !== undefined ? count      : countInt
@@ -68,12 +67,11 @@ export function CartItem({
   }
 
   const handleCount = (n) => {
-    setSoldOut(false)
     setCountInt(n)
     onCountChange?.(n)
   }
 
-  const showSoldOutMsg = (optionSoldOut || soldOut) && state === 'Default'
+  const showSoldOutMsg = (optionSoldOut || liveCount >= SOLD_OUT_MAX) && state === 'Default'
 
   const isDisabled    = state === 'SoldOut' || state === 'Unavailable'
   const overlayLabel  = state === 'SoldOut' ? '주문불가' : state === 'Unavailable' ? '품절' : null
@@ -227,13 +225,7 @@ export function CartItem({
 
         {/* 하단: 스태퍼 + 총 가격 */}
         <div style={{ display: 'flex', gap: 'var(--spacing-300)', alignItems: 'center' }}>
-          <Stepper
-            count={liveCount}
-            min={1}
-            max={SOLD_OUT_MAX}
-            onChange={handleCount}
-            onAttemptExceedMax={() => setSoldOut(true)}
-          />
+          <Stepper count={liveCount} min={1} max={SOLD_OUT_MAX} onChange={handleCount} />
           <span style={{ ...textBase, flex: '1 0 0', fontSize: '18px', fontWeight: 500, color: priceColor, textAlign: 'right', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {totalPrice}
           </span>
