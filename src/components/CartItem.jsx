@@ -68,10 +68,6 @@ export function CartItem({
   }
 
   const handleCount = (n) => {
-    if (n > SOLD_OUT_MAX) {
-      setSoldOut(true)
-      return
-    }
     setSoldOut(false)
     setCountInt(n)
     onCountChange?.(n)
@@ -231,7 +227,13 @@ export function CartItem({
 
         {/* 하단: 스태퍼 + 총 가격 */}
         <div style={{ display: 'flex', gap: 'var(--spacing-300)', alignItems: 'center' }}>
-          <Stepper count={liveCount} min={1} max={99} onChange={handleCount} />
+          <Stepper
+            count={liveCount}
+            min={1}
+            max={SOLD_OUT_MAX}
+            onChange={handleCount}
+            onAttemptExceedMax={() => setSoldOut(true)}
+          />
           <span style={{ ...textBase, flex: '1 0 0', fontSize: '18px', fontWeight: 500, color: priceColor, textAlign: 'right', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {totalPrice}
           </span>

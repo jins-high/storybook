@@ -9,6 +9,7 @@ export function Stepper({
   min       = 1,
   max       = 10,
   onChange  = undefined,
+  onAttemptExceedMax = undefined,
 }) {
   const [internal, setInternal] = useState(countProp)
   const count    = onChange !== undefined ? countProp : internal
@@ -23,7 +24,10 @@ export function Stepper({
   }
 
   const handlePlus = () => {
-    if (isAtMax) return
+    if (isAtMax) {
+      onAttemptExceedMax?.()
+      return
+    }
     const next = count + 1
     setInternal(next)
     onChange?.(next)
@@ -75,10 +79,9 @@ export function Stepper({
         {count}
       </div>
 
-      {/* + button */}
+      {/* + button — not disabled so click events fire even at max */}
       <button
         onClick={handlePlus}
-        disabled={isAtMax}
         style={{
           display:         'flex',
           alignItems:      'center',
