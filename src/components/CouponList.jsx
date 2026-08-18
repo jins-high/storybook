@@ -23,7 +23,7 @@ function Badge({ available }) {
       fontFamily:      'var(--font-family)',
       fontSize:        '11px',
       fontWeight:      500,
-      lineHeight:      1,
+      lineHeight:      1.35,
       letterSpacing:   '-0.25px',
       color:           available ? 'var(--text-icon-base)' : 'var(--text-icon-disabled)',
       flexShrink:      0,
@@ -47,7 +47,8 @@ function DashDivider() {
       <div style={{
         position:        'absolute',
         left:            '-12px',
-        top:             '0',
+        top:             '50%',
+        transform:       'translateY(-50%)',
         width:           '24px',
         height:          '24px',
         borderRadius:    '9999px',
@@ -60,7 +61,8 @@ function DashDivider() {
       <div style={{
         position:        'absolute',
         right:           '-12px',
-        top:             '0',
+        top:             '50%',
+        transform:       'translateY(-50%)',
         width:           '24px',
         height:          '24px',
         borderRadius:    '9999px',
@@ -84,9 +86,9 @@ function DashDivider() {
 
 export function CouponList({
   displayType  = 'ListAvailable',
-  value        = '4,000원 할인',
-  couponName   = '영상류 단품 쿠폰',
-  date         = '2024.11.01 ~ 2025.10.30',
+  value        = '1,800원',
+  couponName   = '스탬프 쿠폰',
+  couponInfo   = '2027.11.18까지',
   checked      = false,
   onCheckedChange,
 }) {
@@ -138,6 +140,9 @@ export function CouponList({
           {/* Right: 상세보기 button (ListAvailable) | Checkbox (Purchase) */}
           {isListAvail && (
             <button style={{
+              display:         'flex',
+              alignItems:      'center',
+              justifyContent:  'center',
               height:          '32px',
               padding:         '0 12px',
               borderRadius:    'var(--radius-default-300)',
@@ -175,7 +180,7 @@ export function CouponList({
 
       {/* ── Date ── */}
       <span style={t(15, 400, dateColor)}>
-        {date}
+        {couponInfo}
       </span>
 
       {/* ── Ticket notch divider ── */}

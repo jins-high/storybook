@@ -211,7 +211,7 @@ const defaultControls = {
   GiftCoupon: {
     display:         'ListAvailable',
     couponName:      '빅포즈 아이스 아메리카노',
-    date:            '2026.11.18까지',
+    couponInfo:      '2026.11.18까지',
     senderName:      '고윤정',
     description:     true,
     descriptionText: '사용가능 금액 4,000원',
@@ -220,9 +220,9 @@ const defaultControls = {
   },
   CouponList: {
     displayType: 'ListAvailable',
-    value:       '4,000원 할인',
-    couponName:  '영상류 단품 쿠폰',
-    date:        '2024.11.01 ~ 2025.10.30',
+    value:       '1,800원',
+    couponName:  '스탬프 쿠폰',
+    couponInfo:  '2027.11.18까지',
     checked:     false,
   },
   ProductList: {

@@ -14,7 +14,7 @@ const GIFT_CARD_IMAGES = [
 export function GiftCoupon({
   display         = 'ListAvailable',
   couponName      = '빅포즈 아이스 아메리카노',
-  date            = '2026.11.18까지',
+  couponInfo      = '2026.11.18까지',
   senderName      = '고윤정',
   description     = true,
   descriptionText = '사용가능 금액 4,000원',
@@ -78,6 +78,9 @@ export function GiftCoupon({
             </span>
           </div>
           <button style={{
+            display:         'flex',
+            alignItems:      'center',
+            justifyContent:  'center',
             height:          '32px',
             padding:         '0 var(--spacing-400)',
             borderRadius:    'var(--radius-default-300)',
@@ -121,7 +124,7 @@ export function GiftCoupon({
           color:         isListUnavail ? 'var(--text-icon-disabled)' : 'var(--text-icon-assistive)',
           whiteSpace:    'nowrap',
         }}>
-          {date}
+          {couponInfo}
         </span>
       </div>
     )
@@ -182,7 +185,7 @@ export function GiftCoupon({
           letterSpacing: '-0.25px',
           color:         dateColor,
         }}>
-          {date}
+          {couponInfo}
         </span>
       </div>
 

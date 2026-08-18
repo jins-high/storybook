@@ -2337,8 +2337,8 @@ function GiftCouponControls({ c, onChange }) {
         <SegmentedControl options={['ListAvailable', 'ListUnavailable', 'PurchaseDefault', 'PurchaseDisabled']} value={c.display} onChange={v => onChange({ ...c, display: v })} />
       </ControlGroup>
       <TextInput label="COUPON NAME"  value={c.couponName}  onChange={v => onChange({ ...c, couponName: v })} />
-      <TextInput label="DATE"         value={c.date}         onChange={v => onChange({ ...c, date: v })} />
-      <TextInput label="SENDER NAME"  value={c.senderName}   onChange={v => onChange({ ...c, senderName: v })} />
+      <TextInput label="COUPON INFO"  value={c.couponInfo}  onChange={v => onChange({ ...c, couponInfo: v })} />
+      <TextInput label="SENDER NAME"  value={c.senderName}  onChange={v => onChange({ ...c, senderName: v })} />
       {(c.display === 'PurchaseDefault' || c.display === 'PurchaseDisabled') && (
         <>
           <ControlGroup label="DESCRIPTION">
@@ -2382,7 +2382,7 @@ function CouponListControls({ c, onChange }) {
       </ControlGroup>
       <TextInput label="VALUE"       value={c.value}      onChange={v => onChange({ ...c, value: v })} />
       <TextInput label="COUPON NAME" value={c.couponName} onChange={v => onChange({ ...c, couponName: v })} />
-      <TextInput label="DATE"        value={c.date}        onChange={v => onChange({ ...c, date: v })} />
+      <TextInput label="COUPON INFO" value={c.couponInfo} onChange={v => onChange({ ...c, couponInfo: v })} />
     </>
   )
 }

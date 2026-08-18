@@ -2109,7 +2109,7 @@ function CouponListPreview({ c }) {
             displayType={c.displayType}
             value={c.value}
             couponName={c.couponName}
-            date={c.date}
+            couponInfo={c.couponInfo}
             checked={liveChecked}
             onCheckedChange={setLiveChecked}
           />
@@ -2125,7 +2125,7 @@ function CouponListPreview({ c }) {
                 displayType={dt}
                 value={c.value}
                 couponName={c.couponName}
-                date={c.date}
+                couponInfo={c.couponInfo}
                 checked={dt === 'PurchaseSelected'}
               />
             </div>
@@ -2186,7 +2186,7 @@ function GiftCouponPreview({ c }) {
         <GiftCoupon
           display={c.display}
           couponName={c.couponName}
-          date={c.date}
+          couponInfo={c.couponInfo}
           senderName={c.senderName}
           description={c.description}
           descriptionText={c.descriptionText}
@@ -2203,7 +2203,7 @@ function GiftCouponPreview({ c }) {
               <GiftCoupon
                 display={dt}
                 couponName={c.couponName}
-                date={c.date}
+                couponInfo={c.couponInfo}
                 senderName={c.senderName}
                 description={c.description}
                 descriptionText={c.descriptionText}
