@@ -1,54 +1,54 @@
 import { useState } from 'react'
 
 const FOUNDATIONS = [
-  { id: 'Color',        label: 'Color',        icon: '🌈' },
-  { id: 'Typography',   label: 'Typography',   icon: '🔤' },
-  { id: 'Spacing',      label: 'Spacing',      icon: '📐' },
-  { id: 'Font',         label: 'Font',         icon: '🖋️' },
-  { id: 'Icons',        label: 'Icons',        icon: '✨' },
-  { id: 'GraphicIcons', label: 'Graphic Icons', icon: '🎨' },
+  { id: 'Color',        label: 'Color'        },
+  { id: 'Typography',   label: 'Typography'   },
+  { id: 'Spacing',      label: 'Spacing'      },
+  { id: 'Font',         label: 'Font'         },
+  { id: 'Icons',        label: 'Icons'        },
+  { id: 'GraphicIcons', label: 'Graphic Icons' },
 ]
 
 const COMPONENTS = [
-  { id: 'Button',            label: 'Button',          icon: '🔘' },
-  { id: 'IconButton',        label: 'Icon Button',     icon: '🖼️' },
-  { id: 'TextButton',        label: 'Text Button',     icon: '🖊️' },
-  { id: 'ActionsActionArea', label: 'Actions Area',    icon: '🗂️' },
-  { id: 'Chip',              label: 'Chip',            icon: '🏷️' },
-  { id: 'Tab',               label: 'Tab',             icon: '📑' },
-  { id: 'Snackbar',          label: 'Snackbar',        icon: '🔔' },
-  { id: 'Tooltip',           label: 'Tooltip',         icon: '💬' },
-  { id: 'Checkbox',          label: 'Checkbox',        icon: '☑️' },
-  { id: 'CheckboxInput',     label: 'Checkbox Input',  icon: '✅' },
-  { id: 'Radio',             label: 'Radio',           icon: '🔵' },
-  { id: 'RadioInput',        label: 'Radio Input',     icon: '🟦' },
-  { id: 'Checkmark',         label: 'Checkmark',       icon: '✔️' },
-  { id: 'CheckmarkInput',    label: 'Checkmark Input', icon: '☑️' },
+  { id: 'Button',            label: 'Button'          },
+  { id: 'IconButton',        label: 'Icon Button'     },
+  { id: 'TextButton',        label: 'Text Button'     },
+  { id: 'ActionsActionArea', label: 'Actions Area'    },
+  { id: 'Chip',              label: 'Chip'            },
+  { id: 'Tab',               label: 'Tab'             },
+  { id: 'Snackbar',          label: 'Snackbar'        },
+  { id: 'Tooltip',           label: 'Tooltip'         },
+  { id: 'Checkbox',          label: 'Checkbox'        },
+  { id: 'CheckboxInput',     label: 'Checkbox Input'  },
+  { id: 'Radio',             label: 'Radio'           },
+  { id: 'RadioInput',        label: 'Radio Input'     },
+  { id: 'Checkmark',         label: 'Checkmark'       },
+  { id: 'CheckmarkInput',    label: 'Checkmark Input' },
 ]
 
 const COMPOSE_COMPONENTS = [
-  { id: 'EmptyState',         label: 'Empty State',          icon: '📭' },
-  { id: 'TextField',          label: 'Text Field',           icon: '⌨️' },
-  { id: 'Title',              label: 'Title',                icon: '📌' },
-  { id: 'MicroBadge',         label: 'Micro Badge',          icon: '🔖' },
-  { id: 'MembershipChip',     label: 'Membership Chip',      icon: '🪪' },
-  { id: 'Filter',             label: 'Filter',               icon: '🔽' },
-  { id: 'RankLabel',          label: 'Rank Label',           icon: '🏅' },
-  { id: 'OrderStatusCard',    label: 'Order Status Card',    icon: '📦' },
-  { id: 'StoreList',          label: 'Store List',           icon: '🏪' },
-  { id: 'StoreSelector',      label: 'Store Selector',       icon: '📍' },
-  { id: 'Stepper',            label: 'Stepper',              icon: '🔢' },
-  { id: 'OptionList',         label: 'Option List',          icon: '📋' },
-  { id: 'ProductList',        label: 'Product List',         icon: '🛍️' },
-  { id: 'ReorderCard',        label: 'Reorder Card',         icon: '🔄' },
-  { id: 'TemperatureDisplay', label: 'Temperature Display',  icon: '🌡️' },
-  { id: 'CartItem',           label: 'Cart Item',            icon: '🛒' },
-  { id: 'OrderStateDisplay',  label: 'Order State Display',  icon: '🗒️' },
-  { id: 'OrderHistoryList',   label: 'Order History List',   icon: '🧾' },
-  { id: 'CouponList',         label: 'Coupon List',          icon: '🎟️' },
-  { id: 'CardList',           label: 'Card List',            icon: '💳' },
-  { id: 'GiftCoupon',         label: 'Gift Coupon',          icon: '🎁' },
-  { id: 'MyPageButton',       label: 'My Page Button',       icon: '👤' },
+  { id: 'EmptyState',         label: 'Empty State'         },
+  { id: 'TextField',          label: 'Text Field'          },
+  { id: 'Title',              label: 'Title'               },
+  { id: 'MicroBadge',         label: 'Micro Badge'         },
+  { id: 'MembershipChip',     label: 'Membership Chip'     },
+  { id: 'Filter',             label: 'Filter'              },
+  { id: 'RankLabel',          label: 'Rank Label'          },
+  { id: 'OrderStatusCard',    label: 'Order Status Card'   },
+  { id: 'StoreList',          label: 'Store List'          },
+  { id: 'StoreSelector',      label: 'Store Selector'      },
+  { id: 'Stepper',            label: 'Stepper'             },
+  { id: 'OptionList',         label: 'Option List'         },
+  { id: 'ProductList',        label: 'Product List'        },
+  { id: 'ReorderCard',        label: 'Reorder Card'        },
+  { id: 'TemperatureDisplay', label: 'Temperature Display' },
+  { id: 'CartItem',           label: 'Cart Item'           },
+  { id: 'OrderStateDisplay',  label: 'Order State Display' },
+  { id: 'OrderHistoryList',   label: 'Order History List'  },
+  { id: 'CouponList',         label: 'Coupon List'         },
+  { id: 'CardList',           label: 'Card List'           },
+  { id: 'GiftCoupon',         label: 'Gift Coupon'         },
+  { id: 'MyPageButton',       label: 'My Page Button'      },
 ]
 
 const COMPOSE_GRAPHICS = [
@@ -193,7 +193,6 @@ export function LeftPanel({ selectedItem, onSelect }) {
                   className={`nav-item${isSelected('foundation', item.id) ? ' nav-item--active' : ''}`}
                   onClick={() => onSelect({ type: 'foundation', name: item.id })}
                 >
-                  <span style={navIconStyle}>{item.icon}</span>
                   <span>{item.label}</span>
                 </button>
               ))}
@@ -213,7 +212,6 @@ export function LeftPanel({ selectedItem, onSelect }) {
                   className={`nav-item${isSelected('component', item.id) ? ' nav-item--active' : ''}`}
                   onClick={() => onSelect({ type: 'component', name: item.id })}
                 >
-                  <span style={navIconStyle}>{item.icon}</span>
                   <span>{item.label}</span>
                 </button>
               ))}
@@ -223,7 +221,7 @@ export function LeftPanel({ selectedItem, onSelect }) {
 
         {/* Compose section */}
         <div style={sectionStyle}>
-          <div style={{ ...sectionLabelStyle, color: 'var(--text-icon-alternative)' }}>COMPOSE</div>
+          <div style={{ ...sectionLabelStyle, color: 'var(--text-icon-primary-strong)' }}>COMPOSE</div>
 
           {/* Components accordion */}
           <button className="accordion-header" onClick={() => toggle('components')}>
@@ -238,7 +236,6 @@ export function LeftPanel({ selectedItem, onSelect }) {
                   className={`nav-item${isSelected('component', item.id) ? ' nav-item--active' : ''}`}
                   onClick={() => onSelect({ type: 'component', name: item.id })}
                 >
-                  <span style={navIconStyle}>{item.icon}</span>
                   <span>{item.label}</span>
                 </button>
               ))}
@@ -261,7 +258,6 @@ export function LeftPanel({ selectedItem, onSelect }) {
                       className={`nav-item${isSelected('graphic', item.id) ? ' nav-item--active' : ''}`}
                       onClick={() => onSelect({ type: 'graphic', name: item.id })}
                     >
-                      <span style={navIconStyle}>▪</span>
                       <span style={{ fontSize: '12px' }}>{item.label}</span>
                     </button>
                   ))}
@@ -319,16 +315,6 @@ const ratioLabelStyle = {
   color:         'var(--text-icon-assistive)',
   letterSpacing: '0.06em',
   padding:       '6px 8px 2px',
-}
-
-const navIconStyle = {
-  width:          '26px',
-  fontSize:       '17px',
-  textAlign:      'center',
-  display:        'inline-block',
-  flexShrink:     0,
-  color:          'inherit',
-  opacity:        0.8,
 }
 
 const footerStyle = {

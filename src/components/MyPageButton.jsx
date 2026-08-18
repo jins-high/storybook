@@ -1,9 +1,6 @@
 // MyPageButton — Figma node 2898:26051
 import * as GraphicIcons from '../icons/graphicIcons.jsx'
 
-// Decorative background graphic (positioned behind icon, clipped by BgWrap overflow:hidden)
-const BG_GRAPHIC_URL = 'https://www.figma.com/api/mcp/asset/e7682e3c-2d0d-45cf-8267-7919ce6e6f5b'
-
 const ICON_NAMES = [
   'ProfileSetting', 'Favorites', 'List1', 'List2',
   'GiftCard',       'Coupon',    'Card',  'Membership',
@@ -40,7 +37,7 @@ export function MyPageButton({
         ),
       }}
     >
-      {/* BgWrap: icon + clipped decorative background */}
+      {/* BgWrap: icon + clipped circle SVG behind it */}
       <div style={{
         position:     'relative',
         display:      'flex',
@@ -51,7 +48,7 @@ export function MyPageButton({
         borderRadius: 'var(--radius-default-200)',
         flexShrink:   0,
       }}>
-        {/* Decorative glow behind icon — absolute, partially clipped */}
+        {/* BackgroundGraphic: circle SVG clipped by BgWrap overflow:hidden */}
         <div style={{
           position: 'absolute',
           width:    '32px',
@@ -61,7 +58,13 @@ export function MyPageButton({
             : { left: '0',   top: '16px' }
           ),
         }}>
-          <img src={BG_GRAPHIC_URL} alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+          <svg
+            width="32" height="32" viewBox="0 0 32 32"
+            fill="none" xmlns="http://www.w3.org/2000/svg"
+            style={{ display: 'block', width: '100%', height: '100%' }}
+          >
+            <circle cx="16" cy="16" r="16" fill="var(--surface-normal-subtle)" />
+          </svg>
         </div>
 
         {/* Graphic icon */}
