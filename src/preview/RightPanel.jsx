@@ -105,6 +105,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'GiftCoupon'          && <GiftCouponControls          c={controls.GiftCoupon}          onChange={v => onChange('GiftCoupon',          v)} />}
         {type === 'component'  && name === 'MyPageButton'        && <MyPageButtonControls        c={controls.MyPageButton}        onChange={v => onChange('MyPageButton',        v)} />}
         {type === 'component'  && name === 'Modal'               && <ModalControls               c={controls.Modal}               onChange={v => onChange('Modal',               v)} />}
+        {type === 'component'  && name === 'DotIndicator'        && <DotIndicatorControls        c={controls.DotIndicator}        onChange={v => onChange('DotIndicator',        v)} />}
       </div>
 
       <div style={{ height: '1px', backgroundColor: 'var(--border-normal)' }} />
@@ -2384,6 +2385,35 @@ function CouponListControls({ c, onChange }) {
       <TextInput label="VALUE"       value={c.value}      onChange={v => onChange({ ...c, value: v })} />
       <TextInput label="COUPON NAME" value={c.couponName} onChange={v => onChange({ ...c, couponName: v })} />
       <TextInput label="COUPON INFO" value={c.couponInfo} onChange={v => onChange({ ...c, couponInfo: v })} />
+    </>
+  )
+}
+
+function DotIndicatorControls({ c, onChange }) {
+  const maxCurrent = c.count === '5+' ? 5 : parseInt(c.count, 10)
+  const currentOptions = Array.from({ length: maxCurrent }, (_, i) => String(i + 1))
+  const safeCurrentStr = String(Math.min(parseInt(c.current, 10), maxCurrent))
+
+  return (
+    <>
+      <ControlGroup label="COUNT">
+        <SegmentedControl
+          options={['2', '3', '4', '5+']}
+          value={c.count}
+          onChange={v => {
+            const newMax = v === '5+' ? 5 : parseInt(v, 10)
+            const safeNew = Math.min(parseInt(c.current, 10), newMax)
+            onChange({ ...c, count: v, current: safeNew })
+          }}
+        />
+      </ControlGroup>
+      <ControlGroup label="CURRENT">
+        <SegmentedControl
+          options={currentOptions}
+          value={safeCurrentStr}
+          onChange={v => onChange({ ...c, current: parseInt(v, 10) })}
+        />
+      </ControlGroup>
     </>
   )
 }

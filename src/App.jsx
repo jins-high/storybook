@@ -100,6 +100,10 @@ const defaultControls = {
     size: 'Medium',
     label: '텍스트',
   },
+  DotIndicator: {
+    count:   '5+',
+    current: 1,
+  },
   Modal: {
     layout:             'Vertical',
     title:              '상태 노출',

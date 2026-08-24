@@ -43,6 +43,7 @@ import { CardList }            from '../components/CardList.jsx'
 import { GiftCoupon }          from '../components/GiftCoupon.jsx'
 import { MyPageButton }        from '../components/MyPageButton.jsx'
 import { Modal }               from '../components/Modal.jsx'
+import { DotIndicator }        from '../components/DotIndicator.jsx'
 import { HeroBanner }       from '../components/HeroBanner.jsx'
 import { OrderHistoryCard } from '../components/OrderHistoryCard.jsx'
 import * as Icons        from '../icons/icons.jsx'
@@ -342,6 +343,7 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'GiftCoupon'          && <GiftCouponPreview           c={controls.GiftCoupon} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'MyPageButton'        && <MyPageButtonPreview          c={controls.MyPageButton} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Modal'               && <ModalPreview                  c={controls.Modal} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'DotIndicator'        && <DotIndicatorPreview           c={controls.DotIndicator} />}
         {selectedItem.type === 'graphic' && <GraphicPreview name={selectedItem.name} />}
       </InspectorLayer>
     </div>
@@ -2232,6 +2234,54 @@ function ModalPreview({ c }) {
             <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>보조 버튼 없음</div>
             <Modal layout="Vertical" hasBody hasAssistiveButton={false} primaryLabel="확인" />
           </div>
+        </div>
+      </Section>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// DOT INDICATOR PREVIEW
+// ═══════════════════════════════════════════════════════════
+function DotIndicatorPreview({ c }) {
+  const counts   = DotIndicator.counts
+  const maxCur   = c.count === '5+' ? 5 : parseInt(c.count, 10)
+  const currents = Array.from({ length: maxCur }, (_, i) => i + 1)
+
+  return (
+    <div>
+      <Section title="Current State" subtitle="우측 패널에서 속성을 변경하세요">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 0' }}>
+          <DotIndicator count={c.count} current={c.current} />
+        </div>
+      </Section>
+
+      <Section title="Count Variants" subtitle="전체 dot 개수 변형">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {counts.map(cnt => {
+            const max = cnt === '5+' ? 5 : parseInt(cnt, 10)
+            return (
+              <div key={cnt} style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+                <span style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', width: '32px', flexShrink: 0 }}>
+                  {cnt}
+                </span>
+                <DotIndicator count={cnt} current={1} />
+              </div>
+            )
+          })}
+        </div>
+      </Section>
+
+      <Section title="Current Variants" subtitle={`count=${c.count}일 때 current 변형`}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {currents.map(cur => (
+            <div key={cur} style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', width: '32px', flexShrink: 0 }}>
+                {cur}
+              </span>
+              <DotIndicator count={c.count} current={cur} />
+            </div>
+          ))}
         </div>
       </Section>
     </div>
