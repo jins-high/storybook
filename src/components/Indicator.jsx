@@ -1,5 +1,8 @@
 // Indicator — Figma node 10097:10664
-export function Indicator({ current = 1, total = 5 }) {
+// label prop이 있으면 그대로 사용, 없으면 current/total로 계산
+export function Indicator({ current = 1, total = 5, label }) {
+  const text = label != null ? label : `${current}/${total}`
+
   return (
     <div
       data-inspect="Indicator"
@@ -26,7 +29,7 @@ export function Indicator({ current = 1, total = 5 }) {
           whiteSpace:    'nowrap',
         }}
       >
-        {current}/{total}
+        {text}
       </span>
     </div>
   )

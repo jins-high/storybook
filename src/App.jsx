@@ -105,8 +105,10 @@ const defaultControls = {
     current: 1,
   },
   Indicator: {
+    mode:    'number',
     current: 1,
     total:   5,
+    label:   'AD',
   },
   Modal: {
     layout:             'Vertical',

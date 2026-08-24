@@ -2391,27 +2391,47 @@ function CouponListControls({ c, onChange }) {
 }
 
 function IndicatorControls({ c, onChange }) {
-  const totalOptions = ['2','3','4','5','6','7','8','9','10']
+  const totalOptions   = ['2','3','4','5','6','7','8','9','10']
   const currentOptions = Array.from({ length: c.total }, (_, i) => String(i + 1))
+  const isNumber = c.mode === 'number'
+
   return (
     <>
-      <ControlGroup label="TOTAL">
+      <ControlGroup label="MODE">
         <SegmentedControl
-          options={totalOptions}
-          value={String(c.total)}
-          onChange={v => {
-            const newTotal = Number(v)
-            onChange({ ...c, total: newTotal, current: Math.min(c.current, newTotal) })
-          }}
+          options={['number', 'text']}
+          value={c.mode}
+          onChange={v => onChange({ ...c, mode: v })}
         />
       </ControlGroup>
-      <ControlGroup label="CURRENT">
-        <SegmentedControl
-          options={currentOptions}
-          value={String(c.current)}
-          onChange={v => onChange({ ...c, current: Number(v) })}
+
+      {isNumber ? (
+        <>
+          <ControlGroup label="TOTAL">
+            <SegmentedControl
+              options={totalOptions}
+              value={String(c.total)}
+              onChange={v => {
+                const newTotal = Number(v)
+                onChange({ ...c, total: newTotal, current: Math.min(c.current, newTotal) })
+              }}
+            />
+          </ControlGroup>
+          <ControlGroup label="CURRENT">
+            <SegmentedControl
+              options={currentOptions}
+              value={String(c.current)}
+              onChange={v => onChange({ ...c, current: Number(v) })}
+            />
+          </ControlGroup>
+        </>
+      ) : (
+        <TextInput
+          label="LABEL"
+          value={c.label}
+          onChange={v => onChange({ ...c, label: v })}
         />
-      </ControlGroup>
+      )}
     </>
   )
 }

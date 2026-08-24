@@ -2294,29 +2294,45 @@ function DotIndicatorPreview({ c }) {
 // INDICATOR PREVIEW
 // ═══════════════════════════════════════════════════════════
 function IndicatorPreview({ c }) {
+  const isNumber = c.mode === 'number'
+
   return (
     <div>
       <Section title="Current State" subtitle="우측 패널에서 속성을 변경하세요">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 0', backgroundColor: 'var(--surface-normal-subtle)', borderRadius: '8px' }}>
-          <Indicator current={c.current} total={c.total} />
+          {isNumber
+            ? <Indicator current={c.current} total={c.total} />
+            : <Indicator label={c.label} />
+          }
         </div>
       </Section>
 
-      <Section title="Total Variants" subtitle="전체 페이지 수 변형">
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
-          {[3, 4, 5, 8, 10].map(total => (
-            <Indicator key={total} current={1} total={total} />
-          ))}
-        </div>
-      </Section>
-
-      <Section title="Current Variants" subtitle={`total=${c.total}일 때 current 변형`}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
-          {Array.from({ length: c.total }, (_, i) => i + 1).map(cur => (
-            <Indicator key={cur} current={cur} total={c.total} />
-          ))}
-        </div>
-      </Section>
+      {isNumber ? (
+        <>
+          <Section title="Total Variants" subtitle="전체 페이지 수 변형">
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
+              {[3, 4, 5, 8, 10].map(total => (
+                <Indicator key={total} current={1} total={total} />
+              ))}
+            </div>
+          </Section>
+          <Section title="Current Variants" subtitle={`total=${c.total}일 때 current 변형`}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
+              {Array.from({ length: c.total }, (_, i) => i + 1).map(cur => (
+                <Indicator key={cur} current={cur} total={c.total} />
+              ))}
+            </div>
+          </Section>
+        </>
+      ) : (
+        <Section title="Text Label 예시" subtitle="커스텀 텍스트 사용 케이스">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
+            {['AD', 'LIVE', 'NEW', '광고'].map(lbl => (
+              <Indicator key={lbl} label={lbl} />
+            ))}
+          </div>
+        </Section>
+      )}
     </div>
   )
 }
