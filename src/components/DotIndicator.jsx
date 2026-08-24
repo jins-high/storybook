@@ -55,7 +55,7 @@ export function DotIndicator({ count = '5+', current = 1 }) {
               width:           isActive ? '12px' : `${size}px`,
               height:          isActive ? '6px'  : `${size}px`,
               borderRadius:    '9999px',
-              backgroundColor: 'var(--text-icon-strong)',
+              backgroundColor: isActive ? 'var(--text-icon-strong)' : 'var(--surface-heavy-subtle)',
               flexShrink:      0,
               transition:      'width 0.35s cubic-bezier(0.4, 0, 0.2, 1), height 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
