@@ -100,6 +100,15 @@ const defaultControls = {
     size: 'Medium',
     label: '텍스트',
   },
+  Modal: {
+    layout:             'Vertical',
+    title:              '상태 노출',
+    body:               '해당 상태에 대한 설명글 작성란',
+    hasBody:            true,
+    hasAssistiveButton: true,
+    primaryLabel:       '버튼명',
+    assistiveLabel:     '버튼명',
+  },
   EmptyState: {
     image:          'empty-state',
     title:          '검색 결과가 없어요.',

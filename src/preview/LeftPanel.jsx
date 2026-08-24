@@ -24,6 +24,7 @@ const COMPONENTS = [
   { id: 'RadioInput',        label: 'Radio Input'     },
   { id: 'Checkmark',         label: 'Checkmark'       },
   { id: 'CheckmarkInput',    label: 'Checkmark Input' },
+  { id: 'Modal',             label: 'Modal'           },
 ]
 
 const COMPOSE_COMPONENTS = [

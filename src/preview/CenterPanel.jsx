@@ -42,6 +42,7 @@ import { CouponList }          from '../components/CouponList.jsx'
 import { CardList }            from '../components/CardList.jsx'
 import { GiftCoupon }          from '../components/GiftCoupon.jsx'
 import { MyPageButton }        from '../components/MyPageButton.jsx'
+import { Modal }               from '../components/Modal.jsx'
 import { HeroBanner }       from '../components/HeroBanner.jsx'
 import { OrderHistoryCard } from '../components/OrderHistoryCard.jsx'
 import * as Icons        from '../icons/icons.jsx'
@@ -340,6 +341,7 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'CardList'            && <CardListPreview             c={controls.CardList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'GiftCoupon'          && <GiftCouponPreview           c={controls.GiftCoupon} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'MyPageButton'        && <MyPageButtonPreview          c={controls.MyPageButton} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Modal'               && <ModalPreview                  c={controls.Modal} />}
         {selectedItem.type === 'graphic' && <GraphicPreview name={selectedItem.name} />}
       </InspectorLayer>
     </div>
@@ -2170,6 +2172,66 @@ function MyPageButtonPreview({ c }) {
           {DEMO_BUTTONS.map(btn => (
             <MyPageButton key={btn.iconName} display="Vertical" buttonName={btn.buttonName} iconName={btn.iconName} />
           ))}
+        </div>
+      </Section>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// MODAL PREVIEW
+// ═══════════════════════════════════════════════════════════
+function ModalPreview({ c }) {
+  return (
+    <div>
+      <Section title="Current State" subtitle="우측 패널에서 속성을 변경하세요">
+        <Modal
+          layout={c.layout}
+          title={c.title}
+          body={c.body}
+          hasBody={c.hasBody}
+          hasAssistiveButton={c.hasAssistiveButton}
+          primaryLabel={c.primaryLabel}
+          assistiveLabel={c.assistiveLabel}
+        />
+      </Section>
+
+      <Section title="Layout" subtitle="Vertical · Horizontal">
+        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+          <div>
+            <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>Vertical</div>
+            <Modal layout="Vertical" hasBody hasAssistiveButton primaryLabel="확인" assistiveLabel="취소" />
+          </div>
+          <div>
+            <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>Horizontal</div>
+            <Modal layout="Horizontal" hasBody hasAssistiveButton primaryLabel="확인" assistiveLabel="취소" />
+          </div>
+        </div>
+      </Section>
+
+      <Section title="HasBody" subtitle="true · false">
+        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+          <div>
+            <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>hasBody: true</div>
+            <Modal layout="Vertical" hasBody={true} hasAssistiveButton primaryLabel="확인" assistiveLabel="취소" />
+          </div>
+          <div>
+            <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>hasBody: false</div>
+            <Modal layout="Vertical" hasBody={false} hasAssistiveButton primaryLabel="확인" assistiveLabel="취소" />
+          </div>
+        </div>
+      </Section>
+
+      <Section title="HasAssistiveButton" subtitle="true · false">
+        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+          <div>
+            <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>보조 버튼 있음</div>
+            <Modal layout="Vertical" hasBody hasAssistiveButton={true} primaryLabel="확인" assistiveLabel="취소" />
+          </div>
+          <div>
+            <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '8px' }}>보조 버튼 없음</div>
+            <Modal layout="Vertical" hasBody hasAssistiveButton={false} primaryLabel="확인" />
+          </div>
         </div>
       </Section>
     </div>

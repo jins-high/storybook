@@ -104,6 +104,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'CardList'            && <CardListControls            c={controls.CardList}            onChange={v => onChange('CardList',            v)} />}
         {type === 'component'  && name === 'GiftCoupon'          && <GiftCouponControls          c={controls.GiftCoupon}          onChange={v => onChange('GiftCoupon',          v)} />}
         {type === 'component'  && name === 'MyPageButton'        && <MyPageButtonControls        c={controls.MyPageButton}        onChange={v => onChange('MyPageButton',        v)} />}
+        {type === 'component'  && name === 'Modal'               && <ModalControls               c={controls.Modal}               onChange={v => onChange('Modal',               v)} />}
       </div>
 
       <div style={{ height: '1px', backgroundColor: 'var(--border-normal)' }} />
@@ -2383,6 +2384,30 @@ function CouponListControls({ c, onChange }) {
       <TextInput label="VALUE"       value={c.value}      onChange={v => onChange({ ...c, value: v })} />
       <TextInput label="COUPON NAME" value={c.couponName} onChange={v => onChange({ ...c, couponName: v })} />
       <TextInput label="COUPON INFO" value={c.couponInfo} onChange={v => onChange({ ...c, couponInfo: v })} />
+    </>
+  )
+}
+
+function ModalControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="LAYOUT">
+        <SegmentedControl options={['Vertical', 'Horizontal']} value={c.layout} onChange={v => onChange({ ...c, layout: v })} />
+      </ControlGroup>
+      <TextInput label="TITLE"           value={c.title}          onChange={v => onChange({ ...c, title: v })} />
+      <TextInput label="PRIMARY LABEL"   value={c.primaryLabel}   onChange={v => onChange({ ...c, primaryLabel: v })} />
+      <ControlGroup label="HAS BODY">
+        <ToggleSwitch label="Has Body" value={!!c.hasBody} onChange={v => onChange({ ...c, hasBody: v })} />
+      </ControlGroup>
+      {c.hasBody && (
+        <TextInput label="BODY" value={c.body} onChange={v => onChange({ ...c, body: v })} />
+      )}
+      <ControlGroup label="HAS ASSISTIVE BUTTON">
+        <ToggleSwitch label="Has Assistive" value={!!c.hasAssistiveButton} onChange={v => onChange({ ...c, hasAssistiveButton: v })} />
+      </ControlGroup>
+      {c.hasAssistiveButton && (
+        <TextInput label="ASSISTIVE LABEL" value={c.assistiveLabel} onChange={v => onChange({ ...c, assistiveLabel: v })} />
+      )}
     </>
   )
 }
