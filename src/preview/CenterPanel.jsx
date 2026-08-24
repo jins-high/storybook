@@ -44,6 +44,7 @@ import { GiftCoupon }          from '../components/GiftCoupon.jsx'
 import { MyPageButton }        from '../components/MyPageButton.jsx'
 import { Modal }               from '../components/Modal.jsx'
 import { DotIndicator }        from '../components/DotIndicator.jsx'
+import { Indicator }           from '../components/Indicator.jsx'
 import { HeroBanner }       from '../components/HeroBanner.jsx'
 import { OrderHistoryCard } from '../components/OrderHistoryCard.jsx'
 import * as Icons        from '../icons/icons.jsx'
@@ -344,6 +345,7 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'MyPageButton'        && <MyPageButtonPreview          c={controls.MyPageButton} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Modal'               && <ModalPreview                  c={controls.Modal} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'DotIndicator'        && <DotIndicatorPreview           c={controls.DotIndicator} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Indicator'           && <IndicatorPreview              c={controls.Indicator} />}
         {selectedItem.type === 'graphic' && <GraphicPreview name={selectedItem.name} />}
       </InspectorLayer>
     </div>
@@ -2281,6 +2283,37 @@ function DotIndicatorPreview({ c }) {
               </span>
               <DotIndicator count={c.count} current={cur} />
             </div>
+          ))}
+        </div>
+      </Section>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// INDICATOR PREVIEW
+// ═══════════════════════════════════════════════════════════
+function IndicatorPreview({ c }) {
+  return (
+    <div>
+      <Section title="Current State" subtitle="우측 패널에서 속성을 변경하세요">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 0', backgroundColor: 'var(--surface-normal-subtle)', borderRadius: '8px' }}>
+          <Indicator current={c.current} total={c.total} />
+        </div>
+      </Section>
+
+      <Section title="Total Variants" subtitle="전체 페이지 수 변형">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
+          {[3, 4, 5, 8, 10].map(total => (
+            <Indicator key={total} current={1} total={total} />
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Current Variants" subtitle={`total=${c.total}일 때 current 변형`}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
+          {Array.from({ length: c.total }, (_, i) => i + 1).map(cur => (
+            <Indicator key={cur} current={cur} total={c.total} />
           ))}
         </div>
       </Section>

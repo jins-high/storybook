@@ -104,6 +104,10 @@ const defaultControls = {
     count:   '5+',
     current: 1,
   },
+  Indicator: {
+    current: 1,
+    total:   5,
+  },
   Modal: {
     layout:             'Vertical',
     title:              '상태 노출',

@@ -26,6 +26,7 @@ const COMPONENTS = [
   { id: 'CheckmarkInput',    label: 'Checkmark Input' },
   { id: 'Modal',             label: 'Modal'           },
   { id: 'DotIndicator',     label: 'Dot Indicator'   },
+  { id: 'Indicator',        label: 'Indicator'       },
 ]
 
 const COMPOSE_COMPONENTS = [

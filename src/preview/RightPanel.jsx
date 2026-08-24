@@ -106,6 +106,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'MyPageButton'        && <MyPageButtonControls        c={controls.MyPageButton}        onChange={v => onChange('MyPageButton',        v)} />}
         {type === 'component'  && name === 'Modal'               && <ModalControls               c={controls.Modal}               onChange={v => onChange('Modal',               v)} />}
         {type === 'component'  && name === 'DotIndicator'        && <DotIndicatorControls        c={controls.DotIndicator}        onChange={v => onChange('DotIndicator',        v)} />}
+        {type === 'component'  && name === 'Indicator'           && <IndicatorControls           c={controls.Indicator}           onChange={v => onChange('Indicator',           v)} />}
       </div>
 
       <div style={{ height: '1px', backgroundColor: 'var(--border-normal)' }} />
@@ -2385,6 +2386,32 @@ function CouponListControls({ c, onChange }) {
       <TextInput label="VALUE"       value={c.value}      onChange={v => onChange({ ...c, value: v })} />
       <TextInput label="COUPON NAME" value={c.couponName} onChange={v => onChange({ ...c, couponName: v })} />
       <TextInput label="COUPON INFO" value={c.couponInfo} onChange={v => onChange({ ...c, couponInfo: v })} />
+    </>
+  )
+}
+
+function IndicatorControls({ c, onChange }) {
+  const totalOptions = ['2','3','4','5','6','7','8','9','10']
+  const currentOptions = Array.from({ length: c.total }, (_, i) => String(i + 1))
+  return (
+    <>
+      <ControlGroup label="TOTAL">
+        <SegmentedControl
+          options={totalOptions}
+          value={String(c.total)}
+          onChange={v => {
+            const newTotal = Number(v)
+            onChange({ ...c, total: newTotal, current: Math.min(c.current, newTotal) })
+          }}
+        />
+      </ControlGroup>
+      <ControlGroup label="CURRENT">
+        <SegmentedControl
+          options={currentOptions}
+          value={String(c.current)}
+          onChange={v => onChange({ ...c, current: Number(v) })}
+        />
+      </ControlGroup>
     </>
   )
 }
