@@ -97,7 +97,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'ProductList'     && <ProductListControls       c={controls.ProductList}       onChange={v => onChange('ProductList',       v)} />}
         {type === 'component'  && name === 'ReorderCard'        && <ReorderCardControls        c={controls.ReorderCard}        onChange={v => onChange('ReorderCard',        v)} />}
         {type === 'component'  && name === 'TemperatureDisplay'  && <TemperatureDisplayControls  c={controls.TemperatureDisplay}  onChange={v => onChange('TemperatureDisplay',  v)} />}
-        {type === 'component'  && name === 'CartItem'            && <CartItemControls            c={controls.CartItem}            onChange={v => onChange('CartItem',            v)} />}
+        {type === 'component'  && name === 'OrderItem'           && <OrderItemControls           c={controls.OrderItem}           onChange={v => onChange('OrderItem',           v)} />}
         {type === 'component'  && name === 'OrderStateDisplay'   && <OrderStateDisplayControls   c={controls.OrderStateDisplay}   onChange={v => onChange('OrderStateDisplay',   v)} />}
         {type === 'component'  && name === 'OrderHistoryList'    && <OrderHistoryListControls    c={controls.OrderHistoryList}    onChange={v => onChange('OrderHistoryList',    v)} />}
         {type === 'component'  && name === 'CouponList'          && <CouponListControls          c={controls.CouponList}          onChange={v => onChange('CouponList',          v)} />}
@@ -1299,26 +1299,36 @@ function ComponentCode({ name, controls: c }) {
       ``,
       `<TemperatureDisplay type="${c.type}" />`,
     ].join('\n'),
-    CartItem: () => {
+    OrderItem: () => {
       const lines = [
-        `import { CartItem } from '@/components/CartItem'`,
+        `import { OrderItem } from '@/components/OrderItem'`,
         ``,
-        `<CartItem`,
+        `<OrderItem`,
         `  productName="${c.productName}"`,
         `  imageSrc="${c.imageSrc}"`,
         `  temperature="${c.temperature}"`,
         `  basePrice="${c.basePrice}"`,
-        `  totalPrice="${c.totalPrice}"`,
+        `  price="${c.price}"`,
         `  count={${c.count}}`,
       ]
-      if (!c.checked)    lines.push(`  checked={false}`)
+      if (!c.hasCartControls) lines.push(`  hasCartControls={false}`)
+      if (!c.checked)         lines.push(`  checked={false}`)
       if (c.state !== 'Default') lines.push(`  state="${c.state}"`)
-      if (!c.hasOption1) lines.push(`  hasOption1={false}`)
-      else               lines.push(`  option1Name="${c.option1Name}" option1Price="${c.option1Price}"`)
-      if (!c.hasOption2) lines.push(`  hasOption2={false}`)
-      else               lines.push(`  option2Name="${c.option2Name}" option2Price="${c.option2Price}"`)
-      if (!c.hasOption3) lines.push(`  hasOption3={false}`)
-      else               lines.push(`  option3Name="${c.option3Name}" option3Price="${c.option3Price}"`)
+      if (!c.option1) lines.push(`  option1={false}`)
+      else {
+        lines.push(`  option1Name="${c.option1Name}" option1Price="${c.option1Price}"`)
+        if (c.soldOut1) lines.push(`  soldOut1`)
+      }
+      if (!c.option2) lines.push(`  option2={false}`)
+      else {
+        lines.push(`  option2Name="${c.option2Name}" option2Price="${c.option2Price}"`)
+        if (c.soldOut2) lines.push(`  soldOut2`)
+      }
+      if (!c.option3) lines.push(`  option3={false}`)
+      else {
+        lines.push(`  option3Name="${c.option3Name}" option3Price="${c.option3Price}"`)
+        if (c.soldOut3) lines.push(`  soldOut3`)
+      }
       if (c.optionSoldOut) lines.push(`  optionSoldOut`)
       lines.push(`/>`)
       return lines.join('\n')
@@ -1921,7 +1931,7 @@ function TemperatureDisplayControls({ c, onChange }) {
   )
 }
 
-function CartItemControls({ c, onChange }) {
+function OrderItemControls({ c, onChange }) {
   const PRODUCT_IMAGES = [
     'berry-full-strawberry-latte.png',
     'bigpose-americano-decaf-yabangcha.png',
@@ -1934,48 +1944,60 @@ function CartItemControls({ c, onChange }) {
   ]
   return (
     <>
-      <ControlGroup label="CHECKED">
-        <ToggleSwitch label="Checked" value={!!c.checked} onChange={v => onChange({ ...c, checked: v })} />
+      <ControlGroup label="MODE">
+        <ToggleSwitch label="hasCartControls (장바구니)" value={!!c.hasCartControls} onChange={v => onChange({ ...c, hasCartControls: v })} />
       </ControlGroup>
+      {c.hasCartControls && (
+        <ControlGroup label="CHECKED">
+          <ToggleSwitch label="Checked" value={!!c.checked} onChange={v => onChange({ ...c, checked: v })} />
+        </ControlGroup>
+      )}
       <ControlGroup label="STATE">
-        <SegmentedControl options={['Default', 'SoldOut', 'Unavailable']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
+        <SegmentedControl options={['Default', 'SoldOut', 'Variant3']} value={c.state} onChange={v => onChange({ ...c, state: v })} />
       </ControlGroup>
       <ControlGroup label="TEMPERATURE">
         <SegmentedControl options={['ICED', 'ICED ONLY', 'HOT', 'HOT ONLY']} value={c.temperature} onChange={v => onChange({ ...c, temperature: v })} />
       </ControlGroup>
       <TextInput label="PRODUCT NAME" value={c.productName} onChange={v => onChange({ ...c, productName: v })} />
       <TextInput label="BASE PRICE"   value={c.basePrice}   onChange={v => onChange({ ...c, basePrice: v })} />
-      <TextInput label="TOTAL PRICE"  value={c.totalPrice}  onChange={v => onChange({ ...c, totalPrice: v })} />
-      <ControlGroup label="COUNT">
-        <SegmentedControl options={['1','2','3','4','5']} value={String(c.count)} onChange={v => onChange({ ...c, count: Number(v) })} />
-      </ControlGroup>
-      <ControlGroup label="OPTION SOLD OUT">
-        <ToggleSwitch label="준비된 수량이 부족해요." value={!!c.optionSoldOut} onChange={v => onChange({ ...c, optionSoldOut: v })} />
-      </ControlGroup>
+      <TextInput label="PRICE"        value={c.price}       onChange={v => onChange({ ...c, price: v })} />
+      {c.hasCartControls && (
+        <ControlGroup label="COUNT">
+          <SegmentedControl options={['1','2','3','4','5']} value={String(c.count)} onChange={v => onChange({ ...c, count: Number(v) })} />
+        </ControlGroup>
+      )}
+      {c.hasCartControls && (
+        <ControlGroup label="OPTION SOLD OUT">
+          <ToggleSwitch label="준비된 수량이 부족해요." value={!!c.optionSoldOut} onChange={v => onChange({ ...c, optionSoldOut: v })} />
+        </ControlGroup>
+      )}
       <ControlGroup label="OPTION 1">
-        <ToggleSwitch label="Show" value={!!c.hasOption1} onChange={v => onChange({ ...c, hasOption1: v })} />
-        {c.hasOption1 && (
+        <ToggleSwitch label="Show" value={!!c.option1} onChange={v => onChange({ ...c, option1: v })} />
+        {c.option1 && (
           <>
             <TextInput label="옵션명" value={c.option1Name}  onChange={v => onChange({ ...c, option1Name: v })} />
             <TextInput label="가격"   value={c.option1Price} onChange={v => onChange({ ...c, option1Price: v })} />
+            <ToggleSwitch label="품절" value={!!c.soldOut1} onChange={v => onChange({ ...c, soldOut1: v })} />
           </>
         )}
       </ControlGroup>
       <ControlGroup label="OPTION 2">
-        <ToggleSwitch label="Show" value={!!c.hasOption2} onChange={v => onChange({ ...c, hasOption2: v })} />
-        {c.hasOption2 && (
+        <ToggleSwitch label="Show" value={!!c.option2} onChange={v => onChange({ ...c, option2: v })} />
+        {c.option2 && (
           <>
             <TextInput label="옵션명" value={c.option2Name}  onChange={v => onChange({ ...c, option2Name: v })} />
             <TextInput label="가격"   value={c.option2Price} onChange={v => onChange({ ...c, option2Price: v })} />
+            <ToggleSwitch label="품절" value={!!c.soldOut2} onChange={v => onChange({ ...c, soldOut2: v })} />
           </>
         )}
       </ControlGroup>
       <ControlGroup label="OPTION 3">
-        <ToggleSwitch label="Show" value={!!c.hasOption3} onChange={v => onChange({ ...c, hasOption3: v })} />
-        {c.hasOption3 && (
+        <ToggleSwitch label="Show" value={!!c.option3} onChange={v => onChange({ ...c, option3: v })} />
+        {c.option3 && (
           <>
             <TextInput label="옵션명" value={c.option3Name}  onChange={v => onChange({ ...c, option3Name: v })} />
             <TextInput label="가격"   value={c.option3Price} onChange={v => onChange({ ...c, option3Price: v })} />
+            <ToggleSwitch label="품절" value={!!c.soldOut3} onChange={v => onChange({ ...c, soldOut3: v })} />
           </>
         )}
       </ControlGroup>

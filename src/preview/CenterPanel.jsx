@@ -35,7 +35,7 @@ import { OptionList }       from '../components/OptionList.jsx'
 import { ProductList }      from '../components/ProductList.jsx'
 import { ReorderCard }         from '../components/ReorderCard.jsx'
 import { TemperatureDisplay }  from '../components/TemperatureDisplay.jsx'
-import { CartItem }            from '../components/CartItem.jsx'
+import { OrderItem }           from '../components/OrderItem.jsx'
 import { OrderStateDisplay }   from '../components/OrderStateDisplay.jsx'
 import { OrderHistoryList }    from '../components/OrderHistoryList.jsx'
 import { CouponList }          from '../components/CouponList.jsx'
@@ -336,7 +336,7 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'ProductList'     && <ProductListPreview          c={controls.ProductList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'ReorderCard'        && <ReorderCardPreview        c={controls.ReorderCard} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'TemperatureDisplay' && <TemperatureDisplayPreview  c={controls.TemperatureDisplay} />}
-        {selectedItem.type === 'component'  && selectedItem.name === 'CartItem'           && <CartItemPreview            c={controls.CartItem} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'OrderItem'          && <OrderItemPreview           c={controls.OrderItem} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'OrderStateDisplay'  && <OrderStateDisplayPreview   c={controls.OrderStateDisplay} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'OrderHistoryList'   && <OrderHistoryListPreview    c={controls.OrderHistoryList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'CouponList'          && <CouponListPreview           c={controls.CouponList} />}
@@ -2405,73 +2405,71 @@ function TemperatureDisplayPreview({ c }) {
 // ═══════════════════════════════════════════════════════════
 // CART ITEM PREVIEW
 // ═══════════════════════════════════════════════════════════
-function CartItemPreview({ c }) {
+function OrderItemPreview({ c }) {
   const [liveChecked, setLiveChecked] = useState(c.checked)
   const [liveCount,   setLiveCount]   = useState(c.count)
 
-  // 우측 패널 변경 시 동기화
   useEffect(() => { setLiveChecked(c.checked) }, [c.checked])
   useEffect(() => { setLiveCount(c.count) },     [c.count])
+
+  const commonProps = {
+    imageSrc:    c.imageSrc,
+    productName: c.productName,
+    temperature: c.temperature,
+    basePrice:   c.basePrice,
+    option1:     c.option1, option1Name: c.option1Name, option1Price: c.option1Price, soldOut1: c.soldOut1,
+    option2:     c.option2, option2Name: c.option2Name, option2Price: c.option2Price, soldOut2: c.soldOut2,
+    option3:     c.option3, option3Name: c.option3Name, option3Price: c.option3Price, soldOut3: c.soldOut3,
+    price:       c.price,
+  }
 
   return (
     <div>
       <Section title="Current State" subtitle="체크박스·스태퍼 직접 조작 가능">
-        {/* z-index 25: InspectorLayer(z:20) 위에 배치해 체크박스·스태퍼 클릭 통과 */}
         <div style={{ position: 'relative', zIndex: 25 }}>
-          <CartItem
+          <OrderItem
+            {...commonProps}
+            hasCartControls={c.hasCartControls}
             checked={liveChecked}
             onCheckedChange={setLiveChecked}
-            imageSrc={c.imageSrc}
-            productName={c.productName}
             state={c.state}
-            temperature={c.temperature}
-            basePrice={c.basePrice}
-            hasOption1={c.hasOption1}
-            option1Name={c.option1Name}
-            option1Price={c.option1Price}
-            hasOption2={c.hasOption2}
-            option2Name={c.option2Name}
-            option2Price={c.option2Price}
-            hasOption3={c.hasOption3}
-            option3Name={c.option3Name}
-            option3Price={c.option3Price}
             count={liveCount}
             onCountChange={setLiveCount}
-            totalPrice={c.totalPrice}
             optionSoldOut={c.optionSoldOut}
           />
         </div>
-        <div style={{ marginTop: '8px', fontSize: '12px', color: 'var(--text-icon-assistive)' }}>
-          checked: <strong style={{ color: 'var(--text-icon-normal)' }}>{String(liveChecked)}</strong>
-          &ensp;/&ensp;count: <strong style={{ color: 'var(--text-icon-normal)' }}>{liveCount}</strong>
+        {c.hasCartControls && (
+          <div style={{ marginTop: '8px', fontSize: '12px', color: 'var(--text-icon-assistive)' }}>
+            checked: <strong style={{ color: 'var(--text-icon-normal)' }}>{String(liveChecked)}</strong>
+            &ensp;/&ensp;count: <strong style={{ color: 'var(--text-icon-normal)' }}>{liveCount}</strong>
+          </div>
+        )}
+      </Section>
+
+      <Section title="hasCartControls" subtitle="장바구니 모드 vs 결제 모드">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {[true, false].map(hcc => (
+            <div key={String(hcc)}>
+              <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
+                hasCartControls: {String(hcc)}{hcc ? ' — 장바구니' : ' — 결제'}
+              </div>
+              <OrderItem {...commonProps} hasCartControls={hcc} checked state="Default" count={1} />
+            </div>
+          ))}
         </div>
       </Section>
 
-      <Section title="All States" subtitle="Default · SoldOut(주문불가) · Unavailable(품절)">
+      <Section title="All States" subtitle="Default · SoldOut(주문불가) · Variant3(품절)">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {['Default', 'SoldOut', 'Unavailable'].map(st => (
+          {['Default', 'SoldOut', 'Variant3'].map(st => (
             <div key={st}>
               <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
-                {st}{st === 'SoldOut' ? ' — 주문불가' : st === 'Unavailable' ? ' — 품절' : ''}
+                {st}{st === 'SoldOut' ? ' — 주문불가' : st === 'Variant3' ? ' — 품절' : ''}
               </div>
-              <CartItem
-                checked={true}
-                imageSrc={c.imageSrc}
-                productName={c.productName}
-                state={st}
-                temperature={c.temperature}
-                basePrice={c.basePrice}
-                hasOption1={c.hasOption1}
-                option1Name={c.option1Name}
-                option1Price={c.option1Price}
-                hasOption2={c.hasOption2}
-                option2Name={c.option2Name}
-                option2Price={c.option2Price}
-                hasOption3={c.hasOption3}
-                option3Name={c.option3Name}
-                option3Price={c.option3Price}
-                count={1}
-                totalPrice={c.totalPrice}
+              <OrderItem
+                {...commonProps}
+                hasCartControls={c.hasCartControls}
+                checked state={st} count={1}
               />
             </div>
           ))}
