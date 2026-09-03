@@ -290,6 +290,7 @@ const defaultControls = {
     state:          'Default',
     hasLabel:       true,
     labelText:      '아이디',
+    required:       false,
     hasLeadingIcon: false,
     hasPlaceholder: true,
     placeholderText:'입력해주세요',

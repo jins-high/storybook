@@ -934,6 +934,7 @@ function TextFieldControls({ c, onChange }) {
       </ControlGroup>
       <ControlGroup label="OPTIONS">
         <ToggleSwitch label="Label"            value={!!c.hasLabel}          onChange={v => onChange({ ...c, hasLabel: v })} />
+        <ToggleSwitch label="Required (*)"     value={!!c.required}          onChange={v => onChange({ ...c, required: v })} />
         <ToggleSwitch label="Placeholder"      value={!!c.hasPlaceholder}    onChange={v => onChange({ ...c, hasPlaceholder: v })} />
         <ToggleSwitch label="Leading Icon"     value={!!c.hasLeadingIcon}    onChange={v => onChange({ ...c, hasLeadingIcon: v })} />
         <ToggleSwitch label="Trailing Clear"   value={!!c.hasTrailingIcon}   onChange={v => onChange({ ...c, hasTrailingIcon: v })} />

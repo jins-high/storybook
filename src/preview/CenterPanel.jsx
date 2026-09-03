@@ -1537,6 +1537,7 @@ function TextFieldPreview({ c }) {
             state={c.state}
             hasLabel={c.hasLabel}
             labelText={c.labelText}
+            required={c.required}
             hasLeadingIcon={c.hasLeadingIcon}
             hasPlaceholder={c.hasPlaceholder}
             placeholderText={c.placeholderText}

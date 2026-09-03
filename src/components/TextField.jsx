@@ -32,6 +32,7 @@ export function TextField({
   state               = 'Default',
   hasLabel            = true,
   labelText           = '레이블',
+  required            = false,
   hasLeadingIcon      = false,
   hasPlaceholder      = true,
   placeholderText     = '입력해주세요',
@@ -88,10 +89,15 @@ export function TextField({
               top:             0,
               left:            '12px',
               zIndex:          1,
-              backgroundColor: 'var(--surface-normal-subtle)',
+              display:         'flex',
+              alignItems:      'center',
+              gap:             '2px',
+              backgroundColor: effectiveState === 'Disabled' || effectiveState === 'ReadOnly'
+                ? 'var(--surface-normal-subtle)'
+                : 'var(--surface-base)',
               padding:         '2px 4px',
               borderRadius:    '4px',
-              fontSize:        '12px',
+              fontSize:        '14px',
               fontWeight:      500,
               lineHeight:      1.35,
               letterSpacing:   '-0.25px',
@@ -101,6 +107,9 @@ export function TextField({
             }}
           >
             {labelText}
+            {required && (
+              <span style={{ color: 'var(--text-icon-error)' }}>*</span>
+            )}
           </span>
         )}
 
@@ -221,7 +230,7 @@ export function TextField({
       {hasHelperText && (
         <div style={{ paddingLeft: '8px', paddingRight: '8px' }}>
           <span style={{
-            fontSize:      '14px',
+            fontSize:      '15px',
             fontWeight:    400,
             lineHeight:    1.35,
             letterSpacing: '-0.25px',
