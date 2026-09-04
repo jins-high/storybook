@@ -266,11 +266,21 @@ export function OrderItem({
         </div>
 
         {/* 재고 부족 안내 */}
-        {showSoldOutMsg && (
-          <p style={{ ...textBase, margin: 0, fontSize: '14px', fontWeight: 400, color: 'var(--text-icon-error)' }}>
-            준비된 수량이 부족해요.
-          </p>
-        )}
+        <p style={{
+          ...textBase,
+          margin: 0,
+          fontSize: '14px',
+          fontWeight: 400,
+          color: 'var(--text-icon-error)',
+          maxHeight: showSoldOutMsg ? '40px' : '0px',
+          opacity: showSoldOutMsg ? 1 : 0,
+          transform: showSoldOutMsg ? 'translateY(0)' : 'translateY(-4px)',
+          overflow: 'hidden',
+          transition: 'max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease',
+          pointerEvents: 'none',
+        }}>
+          준비된 수량이 부족해요.
+        </p>
       </div>
     </div>
   )

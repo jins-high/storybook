@@ -40,7 +40,7 @@ const COMPOSE_COMPONENTS = [
   { id: 'OrderStatusCard',    label: 'Order Status Card'   },
   { id: 'StoreList',          label: 'Store List'          },
   { id: 'StoreSelector',      label: 'Store Selector'      },
-  { id: 'StoreMarker',        label: 'Store Marker'        },
+  { id: 'Location',           label: 'Location'            },
   { id: 'Stepper',            label: 'Stepper'             },
   { id: 'OptionList',         label: 'Option List'         },
   { id: 'ProductList',        label: 'Product List'        },

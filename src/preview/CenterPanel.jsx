@@ -30,7 +30,7 @@ import { RankLabel }        from '../components/RankLabel.jsx'
 import { OrderStatusCard } from '../components/OrderStatusCard.jsx'
 import { StoreList }        from '../components/StoreList.jsx'
 import { StoreSelector }    from '../components/StoreSelector.jsx'
-import { StoreMarker }      from '../components/StoreMarker.jsx'
+import { Location }          from '../components/Location.jsx'
 import { Stepper }          from '../components/Stepper.jsx'
 import { OptionList }       from '../components/OptionList.jsx'
 import { ProductList }      from '../components/ProductList.jsx'
@@ -332,7 +332,7 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'OrderStatusCard' && <OrderStatusCardPreview  c={controls.OrderStatusCard} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'StoreList'        && <StoreListPreview         c={controls.StoreList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'StoreSelector'   && <StoreSelectorPreview      c={controls.StoreSelector} />}
-        {selectedItem.type === 'component'  && selectedItem.name === 'StoreMarker'     && <StoreMarkerPreview        c={controls.StoreMarker} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Location'     && <LocationPreview        c={controls.Location} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Stepper'         && <StepperPreview            c={controls.Stepper} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'OptionList'      && <OptionListPreview          c={controls.OptionList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'ProductList'     && <ProductListPreview          c={controls.ProductList} />}
@@ -1837,7 +1837,7 @@ function StoreListPreview({ c }) {
 // ═══════════════════════════════════════════════════════════
 // STORE MARKER PREVIEW
 // ═══════════════════════════════════════════════════════════
-function StoreMarkerPreview({ c }) {
+function LocationPreview({ c }) {
   const badgeCombos = [
     { hasTakeoutOnly: false, hasDineInUnavailable: false, label: '기본' },
     { hasTakeoutOnly: true,  hasDineInUnavailable: false, label: '포장전용' },
@@ -1849,7 +1849,7 @@ function StoreMarkerPreview({ c }) {
     <div>
       <Section title="Current State" subtitle="state · 뱃지 조합 실시간 반영">
         <div style={{ padding: '24px', display: 'flex', justifyContent: 'center' }}>
-          <StoreMarker
+          <Location
             state={c.state}
             storeName={c.storeName}
             hasTakeoutOnly={c.hasTakeoutOnly}
@@ -1863,7 +1863,7 @@ function StoreMarkerPreview({ c }) {
           {['Default', 'Selected'].map(st => (
             <div key={st} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
               <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', fontWeight: 500 }}>{st}</div>
-              <StoreMarker state={st} storeName={c.storeName} />
+              <Location state={st} storeName={c.storeName} />
             </div>
           ))}
         </div>
@@ -1876,7 +1876,7 @@ function StoreMarkerPreview({ c }) {
               <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '12px' }}>{label}</div>
               <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
                 {['Default', 'Selected'].map(st => (
-                  <StoreMarker
+                  <Location
                     key={st}
                     state={st}
                     storeName={c.storeName}

@@ -92,7 +92,7 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'OrderStatusCard' && <OrderStatusCardControls c={controls.OrderStatusCard} onChange={v => onChange('OrderStatusCard', v)} />}
         {type === 'component'  && name === 'StoreList'        && <StoreListControls        c={controls.StoreList}        onChange={v => onChange('StoreList',        v)} />}
         {type === 'component'  && name === 'StoreSelector'   && <StoreSelectorControls    c={controls.StoreSelector}    onChange={v => onChange('StoreSelector',    v)} />}
-        {type === 'component'  && name === 'StoreMarker'     && <StoreMarkerControls      c={controls.StoreMarker}      onChange={v => onChange('StoreMarker',      v)} />}
+        {type === 'component'  && name === 'Location'     && <LocationControls      c={controls.Location}      onChange={v => onChange('Location',      v)} />}
         {type === 'component'  && name === 'Stepper'         && <StepperControls          c={controls.Stepper}          onChange={v => onChange('Stepper',          v)} />}
         {type === 'component'  && name === 'OptionList'      && <OptionListControls        c={controls.OptionList}        onChange={v => onChange('OptionList',        v)} />}
         {type === 'component'  && name === 'ProductList'     && <ProductListControls       c={controls.ProductList}       onChange={v => onChange('ProductList',       v)} />}
@@ -1368,11 +1368,11 @@ function ComponentCode({ name, controls: c }) {
       lines.push(`/>`)
       return lines.join('\n')
     },
-    StoreMarker: () => {
+    Location: () => {
       const lines = [
-        `import { StoreMarker } from '@/components/StoreMarker'`,
+        `import { Location } from '@/components/Location'`,
         ``,
-        `<StoreMarker`,
+        `<Location`,
         `  storeName="${c.storeName}"`,
       ]
       if (c.state !== 'Default')       lines.push(`  state="${c.state}"`)
@@ -2142,7 +2142,7 @@ function ProductListControls({ c, onChange }) {
   )
 }
 
-function StoreMarkerControls({ c, onChange }) {
+function LocationControls({ c, onChange }) {
   return (
     <>
       <ControlGroup label="STATE">

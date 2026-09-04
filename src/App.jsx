@@ -259,7 +259,7 @@ const defaultControls = {
     hashtags:     ['#저당', '#저칼로리'],
     imageSrc:     'bigpose-americano-decaf-yabangcha.png',
   },
-  StoreMarker: {
+  Location: {
     state:               'Default',
     storeName:           '신사점',
     hasTakeoutOnly:      false,

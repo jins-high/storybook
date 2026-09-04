@@ -1,5 +1,6 @@
-// StoreMarker — Figma node 4426:69468
+// Location — Figma node 4426:69468
 // 지도에 표시되는 매장 마커 (Default / Selected)
+import { GraphicIconCompose, GraphicIconComposeLight } from '../icons/graphicIcons.jsx'
 
 const textBase = {
   fontFamily:    'var(--font-family)',
@@ -7,32 +8,20 @@ const textBase = {
   letterSpacing: '-0.25px',
 }
 
-function StoreIcon({ color }) {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-      <path
-        d="M6 1L1 4.5V11H4.5V7.5H7.5V11H11V4.5L6 1Z"
-        fill={color}
-      />
-    </svg>
-  )
-}
-
-export function StoreMarker({
-  state               = 'Default',   // 'Default' | 'Selected'
-  storeName           = '신사점',
-  hasTakeoutOnly      = false,       // 포장전용 뱃지
-  hasDineInUnavailable = false,      // 매장이용불가 뱃지
+export function Location({
+  state                = 'Default',   // 'Default' | 'Selected'
+  storeName            = '신사점',
+  hasTakeoutOnly       = false,       // 포장전용 뱃지
+  hasDineInUnavailable = false,       // 매장이용불가 뱃지
 }) {
   const isSelected = state === 'Selected'
   const pillBg    = isSelected ? 'var(--surface-primary-solid)' : 'var(--surface-base)'
   const pinBg     = isSelected ? 'var(--surface-heavy-solid)' : 'var(--surface-primary-solid)'
-  const iconColor = isSelected ? 'var(--surface-primary-solid)' : 'var(--surface-heavy-solid)'
 
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
       <div
-        data-inspect="StoreMarker"
+        data-inspect="Location"
         style={{
           position:        'relative',
           display:         'inline-flex',
@@ -58,22 +47,20 @@ export function StoreMarker({
         }} />
 
         {/* 핀 아이콘 */}
-        <div style={{ position: 'relative', width: 20, height: 20, flexShrink: 0 }}>
-          <div style={{
-            width:           20,
-            height:          20,
-            borderRadius:    '9999px',
-            backgroundColor: pinBg,
-          }} />
-          <div style={{
-            position:       'absolute',
-            inset:          0,
-            display:        'flex',
-            alignItems:     'center',
-            justifyContent: 'center',
-          }}>
-            <StoreIcon color={iconColor} />
-          </div>
+        <div style={{
+          width:           20,
+          height:          20,
+          borderRadius:    '9999px',
+          backgroundColor: pinBg,
+          display:         'flex',
+          alignItems:      'center',
+          justifyContent:  'center',
+          flexShrink:      0,
+        }}>
+          {isSelected
+            ? <GraphicIconComposeLight size={16} />
+            : <GraphicIconCompose      size={16} />
+          }
         </div>
 
         {/* 매장명 */}
@@ -119,4 +106,4 @@ export function StoreMarker({
   )
 }
 
-StoreMarker.states = ['Default', 'Selected']
+Location.states = ['Default', 'Selected']
