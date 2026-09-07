@@ -24,16 +24,14 @@ function IconSlot({ OutlineIcon, FillIcon, isActive }) {
       <div style={{
         position:   'absolute', inset: 0,
         opacity:    isActive ? 0 : 1,
-        transform:  isActive ? 'scale(0.75)' : 'scale(1)',
-        transition: 'opacity 0.2s ease, transform 0.2s ease',
+        transition: 'opacity 0.2s ease',
       }}>
         <OutlineIcon size={24} color="var(--text-icon-assistive)" />
       </div>
       <div style={{
         position:   'absolute', inset: 0,
         opacity:    isActive ? 1 : 0,
-        transform:  isActive ? 'scale(1)' : 'scale(0.75)',
-        transition: 'opacity 0.2s ease, transform 0.2s ease',
+        transition: 'opacity 0.2s ease',
       }}>
         <FillIcon size={24} color="var(--text-icon-normal)" />
       </div>
