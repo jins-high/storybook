@@ -31,6 +31,7 @@ import { OrderStatusCard } from '../components/OrderStatusCard.jsx'
 import { StoreList }        from '../components/StoreList.jsx'
 import { StoreSelector }    from '../components/StoreSelector.jsx'
 import { Location }          from '../components/Location.jsx'
+import { BottomNavigation }  from '../components/BottomNavigation.jsx'
 import { Stepper }          from '../components/Stepper.jsx'
 import { OptionList }       from '../components/OptionList.jsx'
 import { ProductList }      from '../components/ProductList.jsx'
@@ -332,7 +333,8 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'OrderStatusCard' && <OrderStatusCardPreview  c={controls.OrderStatusCard} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'StoreList'        && <StoreListPreview         c={controls.StoreList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'StoreSelector'   && <StoreSelectorPreview      c={controls.StoreSelector} />}
-        {selectedItem.type === 'component'  && selectedItem.name === 'Location'     && <LocationPreview        c={controls.Location} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'Location'          && <LocationPreview         c={controls.Location} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'BottomNavigation' && <BottomNavigationPreview  c={controls.BottomNavigation} onChange={v => {}} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Stepper'         && <StepperPreview            c={controls.Stepper} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'OptionList'      && <OptionListPreview          c={controls.OptionList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'ProductList'     && <ProductListPreview          c={controls.ProductList} />}
@@ -3289,6 +3291,39 @@ function SnackbarPreview({ c }) {
         </div>
       }
     />
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// BOTTOM NAVIGATION PREVIEW
+// ═══════════════════════════════════════════════════════════
+function BottomNavigationPreview({ c }) {
+  const [activePage, setActivePage] = useState(c.page ?? 'Home')
+  const pages = ['Home', 'Laboratory', 'Order', 'GiftShop', 'More']
+
+  return (
+    <div>
+      <Section title="Current State" subtitle="탭을 클릭해서 전환 애니메이션 확인">
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
+          <div style={{ width: 375, border: '1px solid var(--border-normal)', borderRadius: 12, overflow: 'hidden' }}>
+            <BottomNavigation page={activePage} onChange={setActivePage} />
+          </div>
+        </div>
+      </Section>
+
+      <Section title="All States" subtitle="각 페이지 활성 상태">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {pages.map(p => (
+            <div key={p}>
+              <div style={{ fontSize: 11, color: 'var(--text-icon-assistive)', marginBottom: 8 }}>{p}</div>
+              <div style={{ border: '1px solid var(--border-normal)', borderRadius: 8, overflow: 'hidden' }}>
+                <BottomNavigation page={p} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+    </div>
   )
 }
 

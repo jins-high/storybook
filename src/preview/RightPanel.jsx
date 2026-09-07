@@ -92,7 +92,8 @@ export function RightPanel({ selectedItem, controls, onChange, inspectedEl, onCl
         {type === 'component'  && name === 'OrderStatusCard' && <OrderStatusCardControls c={controls.OrderStatusCard} onChange={v => onChange('OrderStatusCard', v)} />}
         {type === 'component'  && name === 'StoreList'        && <StoreListControls        c={controls.StoreList}        onChange={v => onChange('StoreList',        v)} />}
         {type === 'component'  && name === 'StoreSelector'   && <StoreSelectorControls    c={controls.StoreSelector}    onChange={v => onChange('StoreSelector',    v)} />}
-        {type === 'component'  && name === 'Location'     && <LocationControls      c={controls.Location}      onChange={v => onChange('Location',      v)} />}
+        {type === 'component'  && name === 'Location'          && <LocationControls         c={controls.Location}          onChange={v => onChange('Location',          v)} />}
+        {type === 'component'  && name === 'BottomNavigation' && <BottomNavigationControls  c={controls.BottomNavigation}  onChange={v => onChange('BottomNavigation',  v)} />}
         {type === 'component'  && name === 'Stepper'         && <StepperControls          c={controls.Stepper}          onChange={v => onChange('Stepper',          v)} />}
         {type === 'component'  && name === 'OptionList'      && <OptionListControls        c={controls.OptionList}        onChange={v => onChange('OptionList',        v)} />}
         {type === 'component'  && name === 'ProductList'     && <ProductListControls       c={controls.ProductList}       onChange={v => onChange('ProductList',       v)} />}
@@ -1368,6 +1369,17 @@ function ComponentCode({ name, controls: c }) {
       lines.push(`/>`)
       return lines.join('\n')
     },
+    BottomNavigation: () => {
+      const lines = [
+        `import { BottomNavigation } from '@/components/BottomNavigation'`,
+        ``,
+        `<BottomNavigation`,
+      ]
+      if (c.page !== 'Home') lines.push(`  page="${c.page}"`)
+      lines.push(`  onChange={handlePageChange}`)
+      lines.push(`/>`)
+      return lines.join('\n')
+    },
     Location: () => {
       const lines = [
         `import { Location } from '@/components/Location'`,
@@ -2137,6 +2149,20 @@ function ProductListControls({ c, onChange }) {
             </button>
           ))}
         </div>
+      </ControlGroup>
+    </>
+  )
+}
+
+function BottomNavigationControls({ c, onChange }) {
+  return (
+    <>
+      <ControlGroup label="ACTIVE PAGE">
+        <SegmentedControl
+          options={['Home', 'Laboratory', 'Order', 'GiftShop', 'More']}
+          value={c.page}
+          onChange={v => onChange({ ...c, page: v })}
+        />
       </ControlGroup>
     </>
   )

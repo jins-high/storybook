@@ -49,6 +49,7 @@ const COMPOSE_COMPONENTS = [
   { id: 'OrderItem',           label: 'Order Item'          },
   { id: 'OrderStateDisplay',  label: 'Order State Display' },
   { id: 'OrderHistoryList',   label: 'Order History List'  },
+  { id: 'BottomNavigation',  label: 'Bottom Navigation'   },
   { id: 'CouponList',         label: 'Coupon List'         },
   { id: 'CardList',           label: 'Card List'           },
   { id: 'GiftCoupon',         label: 'Gift Coupon'         },
