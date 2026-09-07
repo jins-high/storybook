@@ -55,14 +55,14 @@ function OrderSlot({ isActive, playCount }) {
       autoplay:      false,
       animationData,
     })
-    anim.goToAndStop(0, true)
+    anim.goToAndStop(anim.totalFrames - 1, true)
     animRef.current = anim
     return () => { anim.destroy(); animRef.current = null }
   }, [])
 
   useEffect(() => {
     if (!isActive && animRef.current) {
-      animRef.current.goToAndStop(0, true)
+      animRef.current.goToAndStop(animRef.current.totalFrames - 1, true)
     }
   }, [isActive])
 
