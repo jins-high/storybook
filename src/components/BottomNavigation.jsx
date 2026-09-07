@@ -162,7 +162,7 @@ export function BottomNavigation({
           >
             {isOrder
               ? <OrderSlot isActive={isActive} playCount={orderPlayCount} />
-              : <IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} />
+              : <div className="tab-icon-wrapper"><IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} /></div>
             }
 
             <span style={{
