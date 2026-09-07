@@ -110,15 +110,6 @@ function OrderSlot({ isActive, playCount }) {
   )
 }
 
-function handlePressStart(e) {
-  const overlay = e.currentTarget.querySelector('[data-overlay]')
-  if (overlay) overlay.style.opacity = '0.12'
-}
-function handlePressEnd(e) {
-  const overlay = e.currentTarget.querySelector('[data-overlay]')
-  if (overlay) overlay.style.opacity = '0'
-}
-
 export function BottomNavigation({
   page           = 'Home',  // 'Home' | 'Laboratory' | 'Order' | 'GiftShop' | 'More'
   onChange,
@@ -153,9 +144,6 @@ export function BottomNavigation({
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
-            onPointerDown={isOrder ? undefined : handlePressStart}
-            onPointerUp={isOrder ? undefined : handlePressEnd}
-            onPointerLeave={isOrder ? undefined : handlePressEnd}
             style={{
               flex:          '1 0 0',
               display:       'flex',
@@ -188,7 +176,7 @@ export function BottomNavigation({
               {tab.label}
             </span>
 
-            {/* DarkLayer — DOM 직접 조작으로 React render 지연 없이 즉시 표시 */}
+            {/* DarkLayer — CSS :active으로 React render 독립적으로 동작 */}
             {!isOrder && (
               <div
                 data-overlay=""
@@ -196,8 +184,6 @@ export function BottomNavigation({
                   position:        'absolute',
                   inset:           0,
                   backgroundColor: 'var(--surface-heavy-solid)',
-                  opacity:         0,
-                  transition:      'opacity 0.1s ease',
                   pointerEvents:   'none',
                 }}
               />
