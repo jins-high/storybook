@@ -61,6 +61,12 @@ function OrderSlot({ isActive, playCount }) {
   }, [])
 
   useEffect(() => {
+    if (!isActive && animRef.current) {
+      animRef.current.goToAndStop(0, true)
+    }
+  }, [isActive])
+
+  useEffect(() => {
     if (playCount > 0) {
       if (animRef.current) animRef.current.goToAndPlay(0, true)
       // 배경 원 scale 44→40→44 애니메이션
