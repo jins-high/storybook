@@ -18,7 +18,7 @@ const TABS = [
   { id: 'More',       label: '더보기',   OutlineIcon: IconMenu,   FillIcon: IconMenu      },
 ]
 
-function IconSlot({ OutlineIcon, FillIcon, isActive, isPressed }) {
+function IconSlot({ OutlineIcon, FillIcon, isActive }) {
   return (
     <div style={{ position: 'relative', width: 24, height: 24 }}>
       <div style={{
@@ -37,16 +37,6 @@ function IconSlot({ OutlineIcon, FillIcon, isActive, isPressed }) {
       }}>
         <FillIcon size={24} color="var(--text-icon-normal)" />
       </div>
-      {/* DarkLayer pressed overlay — 40px 원형, 아이콘 중앙 기준 */}
-      <div style={{
-        position:        'absolute',
-        inset:           -8,
-        borderRadius:    '9999px',
-        backgroundColor: 'var(--interactive-press-bg)',
-        opacity:         isPressed ? 0.12 : 0,
-        transition:      'opacity 0.1s ease',
-        pointerEvents:   'none',
-      }} />
     </div>
   )
 }
@@ -79,7 +69,6 @@ function OrderSlot({ isActive, playCount }) {
   useEffect(() => {
     if (playCount > 0) {
       if (animRef.current) animRef.current.goToAndPlay(0, true)
-      // 배경 원 scale 44→40→44 애니메이션
       const el = bgRef.current
       if (el) {
         el.style.animation = 'none'
@@ -90,27 +79,33 @@ function OrderSlot({ isActive, playCount }) {
   }, [playCount])
 
   return (
+    // BgWrap — Figma 구조: 52px 흰 원(4px 패딩) → 44px 노란 원 → Lottie
     <div style={{
-      position:   'relative',
-      width:      44,
-      height:     44,
-      flexShrink: 0,
+      display:         'flex',
+      alignItems:      'center',
+      justifyContent:  'center',
+      padding:         4,
+      width:           52,
+      height:          52,
+      borderRadius:    '9999px',
+      backgroundColor: 'var(--surface-base)',
+      flexShrink:      0,
     }}>
-      {/* 노란 원 배경 — 항상 표시, 클릭 시 scale 애니메이션 */}
       <div
         ref={bgRef}
         style={{
-          position:        'absolute',
-          inset:           0,
-          borderRadius:    '9999px',
+          display:         'flex',
+          alignItems:      'center',
+          justifyContent:  'center',
+          width:           44,
+          height:          44,
+          borderRadius:    '999px',
           backgroundColor: 'var(--surface-primary-solid)',
+          flexShrink:      0,
         }}
-      />
-      {/* 로띠 44×44 */}
-      <div
-        ref={containerRef}
-        style={{ width: 44, height: 44, position: 'relative', zIndex: 1 }}
-      />
+      >
+        <div ref={containerRef} style={{ width: 44, height: 44 }} />
+      </div>
     </div>
   )
 }
@@ -136,7 +131,7 @@ export function BottomNavigation({
         justifyContent:  'center',
         gap:             'var(--spacing-200)',
         height:          64,
-        padding:         '8px 24px',
+        padding:         '8px var(--spacing-container-padding)',
         backgroundColor: 'var(--surface-base)',
         filter:          'drop-shadow(0px -1px 2px rgba(0,0,0,0.06))',
         width:           '100%',
@@ -145,8 +140,9 @@ export function BottomNavigation({
       }}
     >
       {TABS.map(tab => {
-        const isActive = page === tab.id
-        const isOrder  = tab.id === 'Order'
+        const isActive  = page === tab.id
+        const isOrder   = tab.id === 'Order'
+        const isPressed = !isOrder && pressedTab === tab.id
 
         return (
           <button
@@ -166,11 +162,15 @@ export function BottomNavigation({
               cursor:        'pointer',
               padding:       0,
               minWidth:      0,
+              position:      'relative',
+              // Figma: icon 탭은 overflow clip + radius-200(8px), Order는 오픈
+              overflow:      isOrder ? 'visible' : 'hidden',
+              borderRadius:  isOrder ? 0 : 'var(--radius-default-200)',
             }}
           >
             {isOrder
               ? <OrderSlot isActive={isActive} playCount={orderPlayCount} />
-              : <IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} isPressed={pressedTab === tab.id} />
+              : <IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} />
             }
 
             <span style={{
@@ -183,6 +183,18 @@ export function BottomNavigation({
             }}>
               {tab.label}
             </span>
+
+            {/* Action/DarkLayer — Figma 구조: 버튼 전체에 absolute 오버레이 */}
+            {!isOrder && (
+              <div style={{
+                position:        'absolute',
+                inset:           0,
+                backgroundColor: 'var(--surface-heavy-solid)',
+                opacity:         isPressed ? 0.12 : 0,
+                transition:      'opacity 0.1s ease',
+                pointerEvents:   'none',
+              }} />
+            )}
           </button>
         )
       })}
