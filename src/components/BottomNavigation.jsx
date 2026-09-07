@@ -59,7 +59,6 @@ function OrderSlot({ isActive, playCount }) {
     return () => { anim.destroy(); animRef.current = null }
   }, [])
 
-  // 버튼 클릭 시 재생
   useEffect(() => {
     if (playCount > 0 && animRef.current) {
       animRef.current.goToAndPlay(0, true)
@@ -68,39 +67,22 @@ function OrderSlot({ isActive, playCount }) {
 
   return (
     <div style={{
-      position:       'relative',
-      width:          52,
-      height:         52,
-      display:        'flex',
-      alignItems:     'center',
-      justifyContent: 'center',
+      position:   'relative',
+      width:      44,
+      height:     44,
+      flexShrink: 0,
     }}>
-      {/* 비활성: 흰 링 + 노란 원 (배경) */}
+      {/* 노란 원 배경 — 항상 표시 */}
       <div style={{
         position:        'absolute',
-        width:           52, height: 52,
+        inset:           0,
         borderRadius:    '9999px',
-        backgroundColor: 'var(--surface-base)',
-        display:         'flex',
-        alignItems:      'center',
-        justifyContent:  'center',
-        opacity:         isActive ? 0 : 1,
-        transform:       isActive ? 'scale(0.7)' : 'scale(1)',
-        transition:      'opacity 0.25s ease, transform 0.25s ease',
-        pointerEvents:   'none',
-      }}>
-        <div style={{
-          width:           44,
-          height:          44,
-          borderRadius:    '9999px',
-          backgroundColor: 'var(--surface-primary-solid)',
-        }} />
-      </div>
-
-      {/* 로띠 — 항상 가운데, 항상 위에 */}
+        backgroundColor: 'var(--surface-primary-solid)',
+      }} />
+      {/* 로띠 44×44 */}
       <div
         ref={containerRef}
-        style={{ width: 24, height: 24, position: 'relative', zIndex: 1, flexShrink: 0 }}
+        style={{ width: 44, height: 44, position: 'relative', zIndex: 1 }}
       />
     </div>
   )
@@ -131,6 +113,7 @@ export function BottomNavigation({
         filter:          'drop-shadow(0px -1px 2px rgba(0,0,0,0.06))',
         width:           '100%',
         boxSizing:       'border-box',
+        overflow:        'visible',
       }}
     >
       {TABS.map(tab => {
