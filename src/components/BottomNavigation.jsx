@@ -163,7 +163,7 @@ export function BottomNavigation({
               padding:       0,
               minWidth:      0,
               position:      'relative',
-              overflow:      isOrder ? 'visible' : 'hidden',
+              overflow:      'visible',
               borderRadius:  isOrder ? 0 : 'var(--radius-default-200)',
             }}
           >
@@ -183,17 +183,25 @@ export function BottomNavigation({
               {tab.label}
             </span>
 
-            {/* DarkLayer — CSS :active으로 React render 독립적으로 동작 */}
+            {/* DarkLayer — 별도 overflow:hidden 래퍼로 borderRadius 클리핑 유지 */}
             {!isOrder && (
-              <div
-                data-overlay=""
-                style={{
-                  position:        'absolute',
-                  inset:           0,
-                  backgroundColor: 'var(--surface-heavy-solid)',
-                  pointerEvents:   'none',
-                }}
-              />
+              <div style={{
+                position:     'absolute',
+                inset:        0,
+                borderRadius: 'var(--radius-default-200)',
+                overflow:     'hidden',
+                pointerEvents:'none',
+              }}>
+                <div
+                  data-overlay=""
+                  style={{
+                    position:        'absolute',
+                    inset:           0,
+                    backgroundColor: 'var(--surface-heavy-solid)',
+                    pointerEvents:   'none',
+                  }}
+                />
+              </div>
             )}
           </button>
         )
