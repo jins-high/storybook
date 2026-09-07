@@ -287,7 +287,7 @@ function InspectorLayer({ children, onInspect }) {
 
 // ══════════════════════════════════════════════════════════
 
-export function CenterPanel({ selectedItem, controls, onInspect }) {
+export function CenterPanel({ selectedItem, controls, onInspect, onChange }) {
   if (!selectedItem) {
     return (
       <div style={{ ...canvasStyle, justifyContent: 'center', alignItems: 'center' }}>
@@ -334,7 +334,7 @@ export function CenterPanel({ selectedItem, controls, onInspect }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'StoreList'        && <StoreListPreview         c={controls.StoreList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'StoreSelector'   && <StoreSelectorPreview      c={controls.StoreSelector} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Location'          && <LocationPreview         c={controls.Location} />}
-        {selectedItem.type === 'component'  && selectedItem.name === 'BottomNavigation' && <BottomNavigationPreview  c={controls.BottomNavigation} onChange={v => {}} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'BottomNavigation' && <BottomNavigationPreview  c={controls.BottomNavigation} onChange={v => onChange?.('BottomNavigation', { ...controls.BottomNavigation, ...v })} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Stepper'         && <StepperPreview            c={controls.Stepper} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'OptionList'      && <OptionListPreview          c={controls.OptionList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'ProductList'     && <ProductListPreview          c={controls.ProductList} />}
@@ -3297,16 +3297,24 @@ function SnackbarPreview({ c }) {
 // ═══════════════════════════════════════════════════════════
 // BOTTOM NAVIGATION PREVIEW
 // ═══════════════════════════════════════════════════════════
-function BottomNavigationPreview({ c }) {
+function BottomNavigationPreview({ c, onChange }) {
   const [activePage, setActivePage] = useState(c.page ?? 'Home')
   const pages = ['Home', 'Laboratory', 'Order', 'GiftShop', 'More']
+
+  // RightPanel에서 변경 시 로컬 state 동기화
+  useEffect(() => { setActivePage(c.page ?? 'Home') }, [c.page])
+
+  function handlePageChange(newPage) {
+    setActivePage(newPage)
+    onChange?.({ page: newPage })
+  }
 
   return (
     <div>
       <Section title="Current State" subtitle="탭을 클릭해서 전환 애니메이션 확인">
         <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
           <div style={{ width: 375, border: '1px solid var(--border-normal)', borderRadius: 12, overflow: 'visible', paddingTop: 12 }}>
-            <BottomNavigation page={activePage} onChange={setActivePage} />
+            <BottomNavigation page={activePage} onChange={handlePageChange} />
           </div>
         </div>
       </Section>

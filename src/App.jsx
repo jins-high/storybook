@@ -377,6 +377,7 @@ export default function App() {
           selectedItem={selectedItem}
           controls={controls}
           onInspect={setInspectedEl}
+          onChange={handleControlChange}
         />
         <RightPanel
           selectedItem={selectedItem}
