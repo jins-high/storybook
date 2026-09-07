@@ -42,7 +42,6 @@ function IconSlot({ OutlineIcon, FillIcon, isActive }) {
 function OrderSlot({ isActive, playCount }) {
   const containerRef = useRef(null)
   const animRef      = useRef(null)
-  const bgRef        = useRef(null)
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -65,14 +64,8 @@ function OrderSlot({ isActive, playCount }) {
   }, [isActive])
 
   useEffect(() => {
-    if (playCount > 0) {
-      if (animRef.current) animRef.current.goToAndPlay(0, true)
-      const el = bgRef.current
-      if (el) {
-        el.style.animation = 'none'
-        el.offsetHeight // reflow 강제
-        el.style.animation = 'order-bg-press 0.3s ease'
-      }
+    if (playCount > 0 && animRef.current) {
+      animRef.current.goToAndPlay(0, true)
     }
   }, [playCount])
 
@@ -90,7 +83,6 @@ function OrderSlot({ isActive, playCount }) {
       flexShrink:      0,
     }}>
       <div
-        ref={bgRef}
         style={{
           display:         'flex',
           alignItems:      'center',
@@ -148,7 +140,7 @@ export function BottomNavigation({
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
-            onPointerDown={isOrder ? undefined : () => handleTabPointerDown(tab.id)}
+            onPointerDown={() => handleTabPointerDown(tab.id)}
             style={{
               flex:          '1 0 0',
               display:       'flex',
@@ -165,13 +157,15 @@ export function BottomNavigation({
               borderRadius:  isOrder ? 0 : 'var(--radius-default-200)',
             }}
           >
-            {isOrder
-              ? <OrderSlot isActive={isActive} playCount={orderPlayCount} />
-              : <div
-                  className={`tab-icon-wrapper${tappedTab === tab.id ? ' tab-icon-tapped' : ''}`}
-                  onAnimationEnd={() => setTappedTab(null)}
-                ><IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} /></div>
-            }
+            <div
+              className={`tab-icon-wrapper${tappedTab === tab.id ? ' tab-icon-tapped' : ''}`}
+              onAnimationEnd={() => setTappedTab(null)}
+            >
+              {isOrder
+                ? <OrderSlot isActive={isActive} playCount={orderPlayCount} />
+                : <IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} />
+              }
+            </div>
 
             <span style={{
               ...textBase,
