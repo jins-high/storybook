@@ -3305,7 +3305,7 @@ function BottomNavigationPreview({ c }) {
     <div>
       <Section title="Current State" subtitle="탭을 클릭해서 전환 애니메이션 확인">
         <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
-          <div style={{ width: 375, border: '1px solid var(--border-normal)', borderRadius: 12, overflow: 'hidden' }}>
+          <div style={{ width: 375, border: '1px solid var(--border-normal)', borderRadius: 12, overflow: 'visible', paddingTop: 12 }}>
             <BottomNavigation page={activePage} onChange={setActivePage} />
           </div>
         </div>
@@ -3316,7 +3316,7 @@ function BottomNavigationPreview({ c }) {
           {pages.map(p => (
             <div key={p}>
               <div style={{ fontSize: 11, color: 'var(--text-icon-assistive)', marginBottom: 8 }}>{p}</div>
-              <div style={{ border: '1px solid var(--border-normal)', borderRadius: 8, overflow: 'hidden' }}>
+              <div style={{ border: '1px solid var(--border-normal)', borderRadius: 8, overflow: 'visible', paddingTop: 12 }}>
                 <BottomNavigation page={p} />
               </div>
             </div>
