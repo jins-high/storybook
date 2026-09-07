@@ -3319,7 +3319,8 @@ function BottomNavigationPreview({ c, onChange }) {
   return (
     <div>
       <Section title="Current State" subtitle="탭을 클릭해서 전환 애니메이션 확인">
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
+        {/* zIndex 25: inspector overlay(z-index 20) 위에 배치해 탭 클릭 통과 */}
+        <div style={{ position: 'relative', zIndex: 25, display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
           <div style={{ width: 375, border: '1px solid var(--border-normal)', borderRadius: 12, overflow: 'visible', paddingTop: 12 }}>
             <BottomNavigation page={activePage} onChange={handlePageChange} orderPlayCount={orderPlayCount} />
           </div>

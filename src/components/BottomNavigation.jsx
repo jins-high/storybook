@@ -1,5 +1,5 @@
 // BottomNavigation — Figma node 2033:22087
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import lottie from 'lottie-web'
 import { IconHome, IconHomeFill, IconGift, IconGiftFill, IconMenu, IconFlask, IconFlaskFill } from '../icons/icons.jsx'
 import animationData from '../assets/order-animation.json'
@@ -108,21 +108,19 @@ function OrderSlot({ isActive, playCount }) {
   )
 }
 
-function triggerIconTap(e) {
-  const wrapper = e.currentTarget.querySelector('.tab-icon-wrapper')
-  if (!wrapper) return
-  wrapper.classList.remove('tab-icon-tapped')
-  void wrapper.offsetWidth
-  wrapper.classList.add('tab-icon-tapped')
-}
-
 export function BottomNavigation({
-  page           = 'Home',  // 'Home' | 'Laboratory' | 'Order' | 'GiftShop' | 'More'
+  page           = 'Home',
   onChange,
   orderPlayCount = 0,
 }) {
+  const [tappedTab, setTappedTab] = useState(null)
+
   function handleTabClick(tabId) {
     onChange?.(tabId)
+  }
+
+  function handleTabPointerDown(tabId) {
+    setTappedTab(tabId)
   }
 
   return (
@@ -150,7 +148,7 @@ export function BottomNavigation({
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
-            onPointerDown={isOrder ? undefined : triggerIconTap}
+            onPointerDown={isOrder ? undefined : () => handleTabPointerDown(tab.id)}
             style={{
               flex:          '1 0 0',
               display:       'flex',
@@ -169,7 +167,10 @@ export function BottomNavigation({
           >
             {isOrder
               ? <OrderSlot isActive={isActive} playCount={orderPlayCount} />
-              : <div className="tab-icon-wrapper" onAnimationEnd={e => e.currentTarget.classList.remove('tab-icon-tapped')}><IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} /></div>
+              : <div
+                  className={`tab-icon-wrapper${tappedTab === tab.id ? ' tab-icon-tapped' : ''}`}
+                  onAnimationEnd={() => setTappedTab(null)}
+                ><IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} /></div>
             }
 
             <span style={{
