@@ -18,7 +18,7 @@ const TABS = [
   { id: 'More',       label: '더보기',   OutlineIcon: IconMenu,   FillIcon: IconMenu      },
 ]
 
-function IconSlot({ OutlineIcon, FillIcon, isActive }) {
+function IconSlot({ OutlineIcon, FillIcon, isActive, isPressed }) {
   return (
     <div style={{ position: 'relative', width: 24, height: 24 }}>
       <div style={{
@@ -37,6 +37,16 @@ function IconSlot({ OutlineIcon, FillIcon, isActive }) {
       }}>
         <FillIcon size={24} color="var(--text-icon-normal)" />
       </div>
+      {/* DarkLayer pressed overlay — 40px 원형, 아이콘 중앙 기준 */}
+      <div style={{
+        position:        'absolute',
+        inset:           -8,
+        borderRadius:    '9999px',
+        backgroundColor: 'var(--interactive-press-bg)',
+        opacity:         isPressed ? 0.12 : 0,
+        transition:      'opacity 0.1s ease',
+        pointerEvents:   'none',
+      }} />
     </div>
   )
 }
@@ -110,6 +120,7 @@ export function BottomNavigation({
   onChange,
 }) {
   const [orderPlayCount, setOrderPlayCount] = useState(0)
+  const [pressedTab, setPressedTab]         = useState(null)
 
   function handleTabClick(tabId) {
     if (tabId === 'Order') setOrderPlayCount(c => c + 1)
@@ -141,6 +152,9 @@ export function BottomNavigation({
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
+            onPointerDown={() => { if (!isOrder) setPressedTab(tab.id) }}
+            onPointerUp={() => setPressedTab(null)}
+            onPointerLeave={() => setPressedTab(null)}
             style={{
               flex:          '1 0 0',
               display:       'flex',
@@ -156,7 +170,7 @@ export function BottomNavigation({
           >
             {isOrder
               ? <OrderSlot isActive={isActive} playCount={orderPlayCount} />
-              : <IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} />
+              : <IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} isPressed={pressedTab === tab.id} />
             }
 
             <span style={{
