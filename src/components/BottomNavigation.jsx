@@ -1,5 +1,5 @@
 // BottomNavigation — Figma node 2033:22087
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import lottie from 'lottie-web'
 import { IconHome, IconHomeFill, IconGift, IconGiftFill, IconMenu, IconFlask, IconFlaskFill } from '../icons/icons.jsx'
 import animationData from '../assets/order-animation.json'
@@ -110,15 +110,21 @@ function OrderSlot({ isActive, playCount }) {
   )
 }
 
-export function BottomNavigation({
-  page     = 'Home',  // 'Home' | 'Laboratory' | 'Order' | 'GiftShop' | 'More'
-  onChange,
-}) {
-  const [orderPlayCount, setOrderPlayCount] = useState(0)
-  const [pressedTab, setPressedTab]         = useState(null)
+function handlePressStart(e) {
+  const overlay = e.currentTarget.querySelector('[data-overlay]')
+  if (overlay) overlay.style.opacity = '0.12'
+}
+function handlePressEnd(e) {
+  const overlay = e.currentTarget.querySelector('[data-overlay]')
+  if (overlay) overlay.style.opacity = '0'
+}
 
+export function BottomNavigation({
+  page           = 'Home',  // 'Home' | 'Laboratory' | 'Order' | 'GiftShop' | 'More'
+  onChange,
+  orderPlayCount = 0,
+}) {
   function handleTabClick(tabId) {
-    if (tabId === 'Order') setOrderPlayCount(c => c + 1)
     onChange?.(tabId)
   }
 
@@ -140,17 +146,16 @@ export function BottomNavigation({
       }}
     >
       {TABS.map(tab => {
-        const isActive  = page === tab.id
-        const isOrder   = tab.id === 'Order'
-        const isPressed = !isOrder && pressedTab === tab.id
+        const isActive = page === tab.id
+        const isOrder  = tab.id === 'Order'
 
         return (
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
-            onPointerDown={() => { if (!isOrder) setPressedTab(tab.id) }}
-            onPointerUp={() => setPressedTab(null)}
-            onPointerLeave={() => setPressedTab(null)}
+            onPointerDown={isOrder ? undefined : handlePressStart}
+            onPointerUp={isOrder ? undefined : handlePressEnd}
+            onPointerLeave={isOrder ? undefined : handlePressEnd}
             style={{
               flex:          '1 0 0',
               display:       'flex',
@@ -163,7 +168,6 @@ export function BottomNavigation({
               padding:       0,
               minWidth:      0,
               position:      'relative',
-              // Figma: icon 탭은 overflow clip + radius-200(8px), Order는 오픈
               overflow:      isOrder ? 'visible' : 'hidden',
               borderRadius:  isOrder ? 0 : 'var(--radius-default-200)',
             }}
@@ -184,16 +188,19 @@ export function BottomNavigation({
               {tab.label}
             </span>
 
-            {/* Action/DarkLayer — Figma 구조: 버튼 전체에 absolute 오버레이 */}
+            {/* DarkLayer — DOM 직접 조작으로 React render 지연 없이 즉시 표시 */}
             {!isOrder && (
-              <div style={{
-                position:        'absolute',
-                inset:           0,
-                backgroundColor: 'var(--surface-heavy-solid)',
-                opacity:         isPressed ? 0.12 : 0,
-                transition:      'opacity 0.1s ease',
-                pointerEvents:   'none',
-              }} />
+              <div
+                data-overlay=""
+                style={{
+                  position:        'absolute',
+                  inset:           0,
+                  backgroundColor: 'var(--surface-heavy-solid)',
+                  opacity:         0,
+                  transition:      'opacity 0.1s ease',
+                  pointerEvents:   'none',
+                }}
+              />
             )}
           </button>
         )

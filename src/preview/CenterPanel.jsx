@@ -3298,14 +3298,21 @@ function SnackbarPreview({ c }) {
 // BOTTOM NAVIGATION PREVIEW
 // ═══════════════════════════════════════════════════════════
 function BottomNavigationPreview({ c, onChange }) {
-  const [activePage, setActivePage] = useState(c.page ?? 'Home')
+  const [activePage, setActivePage]       = useState(c.page ?? 'Home')
+  const [orderPlayCount, setOrderPlayCount] = useState(0)
   const pages = ['Home', 'Laboratory', 'Order', 'GiftShop', 'More']
 
-  // RightPanel에서 변경 시 로컬 state 동기화
-  useEffect(() => { setActivePage(c.page ?? 'Home') }, [c.page])
+  // RightPanel에서 변경 시 로컬 state 동기화 + Order 선택 시 Lottie 트리거
+  useEffect(() => {
+    const prev = activePage
+    setActivePage(c.page ?? 'Home')
+    if (c.page === 'Order' && prev !== 'Order') setOrderPlayCount(n => n + 1)
+  }, [c.page])
 
   function handlePageChange(newPage) {
+    const prev = activePage
     setActivePage(newPage)
+    if (newPage === 'Order' && prev !== 'Order') setOrderPlayCount(n => n + 1)
     onChange?.({ page: newPage })
   }
 
@@ -3314,7 +3321,7 @@ function BottomNavigationPreview({ c, onChange }) {
       <Section title="Current State" subtitle="탭을 클릭해서 전환 애니메이션 확인">
         <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
           <div style={{ width: 375, border: '1px solid var(--border-normal)', borderRadius: 12, overflow: 'visible', paddingTop: 12 }}>
-            <BottomNavigation page={activePage} onChange={handlePageChange} />
+            <BottomNavigation page={activePage} onChange={handlePageChange} orderPlayCount={orderPlayCount} />
           </div>
         </div>
       </Section>
