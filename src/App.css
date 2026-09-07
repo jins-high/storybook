@@ -207,12 +207,13 @@ button:active [data-overlay] {
 }
 
 /* ── BottomNavigation tab icon press animation ──────────────── */
-.tab-icon-wrapper {
-  transition: transform 0.35s ease-out;
+@keyframes tab-icon-tap {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
 }
-button:active .tab-icon-wrapper {
-  transform: scale(1.18);
-  transition: transform 0.15s ease-out;
+.tab-icon-tapped {
+  animation: tab-icon-tap 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 @keyframes order-bg-press {

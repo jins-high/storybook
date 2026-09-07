@@ -110,6 +110,14 @@ function OrderSlot({ isActive, playCount }) {
   )
 }
 
+function triggerIconTap(e) {
+  const wrapper = e.currentTarget.querySelector('.tab-icon-wrapper')
+  if (!wrapper) return
+  wrapper.classList.remove('tab-icon-tapped')
+  void wrapper.offsetWidth
+  wrapper.classList.add('tab-icon-tapped')
+}
+
 export function BottomNavigation({
   page           = 'Home',  // 'Home' | 'Laboratory' | 'Order' | 'GiftShop' | 'More'
   onChange,
@@ -144,6 +152,7 @@ export function BottomNavigation({
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
+            onPointerDown={isOrder ? undefined : triggerIconTap}
             style={{
               flex:          '1 0 0',
               display:       'flex',
@@ -162,7 +171,7 @@ export function BottomNavigation({
           >
             {isOrder
               ? <OrderSlot isActive={isActive} playCount={orderPlayCount} />
-              : <div className="tab-icon-wrapper"><IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} /></div>
+              : <div className="tab-icon-wrapper" onAnimationEnd={e => e.currentTarget.classList.remove('tab-icon-tapped')}><IconSlot OutlineIcon={tab.OutlineIcon} FillIcon={tab.FillIcon} isActive={isActive} /></div>
             }
 
             <span style={{
