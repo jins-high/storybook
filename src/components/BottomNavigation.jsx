@@ -44,6 +44,7 @@ function IconSlot({ OutlineIcon, FillIcon, isActive }) {
 function OrderSlot({ isActive, playCount }) {
   const containerRef = useRef(null)
   const animRef      = useRef(null)
+  const bgRef        = useRef(null)
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -60,8 +61,15 @@ function OrderSlot({ isActive, playCount }) {
   }, [])
 
   useEffect(() => {
-    if (playCount > 0 && animRef.current) {
-      animRef.current.goToAndPlay(0, true)
+    if (playCount > 0) {
+      if (animRef.current) animRef.current.goToAndPlay(0, true)
+      // 배경 원 scale 44→40→44 애니메이션
+      const el = bgRef.current
+      if (el) {
+        el.style.animation = 'none'
+        el.offsetHeight // reflow 강제
+        el.style.animation = 'order-bg-press 0.3s ease'
+      }
     }
   }, [playCount])
 
@@ -72,13 +80,16 @@ function OrderSlot({ isActive, playCount }) {
       height:     44,
       flexShrink: 0,
     }}>
-      {/* 노란 원 배경 — 항상 표시 */}
-      <div style={{
-        position:        'absolute',
-        inset:           0,
-        borderRadius:    '9999px',
-        backgroundColor: 'var(--surface-primary-solid)',
-      }} />
+      {/* 노란 원 배경 — 항상 표시, 클릭 시 scale 애니메이션 */}
+      <div
+        ref={bgRef}
+        style={{
+          position:        'absolute',
+          inset:           0,
+          borderRadius:    '9999px',
+          backgroundColor: 'var(--surface-primary-solid)',
+        }}
+      />
       {/* 로띠 44×44 */}
       <div
         ref={containerRef}
