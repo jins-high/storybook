@@ -222,7 +222,7 @@ const defaultControls = {
     bankSummary:    '현대카드',
     cardLogoSrc:    'hyudai.png',
     firstFour:      '1234',
-    lastFour:       '1234',
+    lastFour:       '123',
     representative: true,
     selected:       false,
   },
