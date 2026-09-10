@@ -76,7 +76,7 @@ function ManageCardBody({ bankName, cardLogoSrc, firstFour, lastFour }) {
 export function CardList({
   display       = 'ManageDefault',
   bankName      = '현대',
-  bankSummary   = '현대카드 (4852)',
+  bankSummary   = '현대카드',
   cardLogoSrc   = 'hyudai.png',
   firstFour     = '1234',
   lastFour      = '1234',
