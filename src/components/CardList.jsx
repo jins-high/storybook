@@ -34,19 +34,11 @@ function CardLogo({ src, size = 32 }) {
   )
 }
 
+const dot = { width: '4px', height: '4px', borderRadius: '9999px', backgroundColor: 'var(--text-icon-alternative)' }
+const Dot  = () => <div style={dot} />
 const Dots = () => (
   <div style={{ display: 'flex', gap: '3px', alignItems: 'center', flexShrink: 0 }}>
-    {[0, 1, 2, 3].map(i => (
-      <div
-        key={i}
-        style={{
-          width:           '4px',
-          height:          '4px',
-          borderRadius:    '9999px',
-          backgroundColor: 'var(--text-icon-alternative)',
-        }}
-      />
-    ))}
+    {[0, 1, 2, 3].map(i => <Dot key={i} />)}
   </div>
 )
 
@@ -56,7 +48,10 @@ function CardNumberRow({ firstFour, lastFour }) {
       <span style={t(14, 400, 'var(--text-icon-alternative)', { whiteSpace: 'nowrap' })}>{firstFour}</span>
       <Dots />
       <Dots />
-      <span style={t(14, 400, 'var(--text-icon-alternative)', { whiteSpace: 'nowrap' })}>{lastFour}</span>
+      <div style={{ display: 'flex', gap: '3px', alignItems: 'center', flexShrink: 0 }}>
+        <span style={t(14, 400, 'var(--text-icon-alternative)', { whiteSpace: 'nowrap' })}>{lastFour}</span>
+        <Dot />
+      </div>
     </div>
   )
 }
