@@ -19,9 +19,11 @@ function CardLogo({ src, size = 32 }) {
       width:           `${size}px`,
       height:          `${size}px`,
       borderRadius:    'var(--radius-default-200)',
-      backgroundColor: 'white',
+      backgroundColor: 'var(--surface-light-subtle)',
+      border:          '1px solid var(--border-light)',
       overflow:        'hidden',
       flexShrink:      0,
+      boxSizing:       'border-box',
     }}>
       <img
         src={BASE + 'assets/cardLogo/' + src}
@@ -161,24 +163,24 @@ export function CardList({
       <div
         data-inspect="CardList"
         style={{
-          display:     'flex',
-          alignItems:  'center',
-          width:       '327px',
-          gap:         'var(--spacing-500)',
-          padding:     'var(--spacing-500) 0',
-          boxSizing:   'border-box',
+          display:      'flex',
+          alignItems:   'center',
+          width:        '327px',
+          gap:          'var(--spacing-300)',
+          padding:      'var(--spacing-400) var(--spacing-500)',
+          border:       '1px solid var(--border-light)',
+          borderRadius: 'var(--radius-default-400)',
+          boxSizing:    'border-box',
         }}
       >
-        <div style={{ flex: '1 0 0', display: 'flex', alignItems: 'center', gap: 'var(--spacing-300)', minWidth: 0 }}>
-          <CardLogo src={cardLogoSrc} size={24} />
-          <span style={t(18, 500, 'var(--text-icon-disabled)', { flex: '1 0 0', minWidth: 0 })}>
+        <CardLogo src={cardLogoSrc} size={24} />
+        <div style={{ display: 'flex', gap: 'var(--spacing-200)', alignItems: 'center', flexShrink: 0 }}>
+          <span style={t(14, 400, 'var(--text-icon-alternative)', { whiteSpace: 'nowrap' })}>
             {bankSummary}
           </span>
-          {selected && (
-            <span style={t(16, 500, 'var(--text-icon-disabled)', { whiteSpace: 'nowrap', flexShrink: 0 })}>
-              현재
-            </span>
-          )}
+          <span style={t(14, 400, 'var(--text-icon-alternative)', { whiteSpace: 'nowrap' })}>
+            {lastFour}*
+          </span>
         </div>
       </div>
     )
@@ -192,20 +194,21 @@ export function CardList({
         display:         'flex',
         alignItems:      'center',
         width:           '327px',
-        gap:             'var(--spacing-500)',
-        padding:         'var(--spacing-500)',
-        backgroundColor: 'var(--surface-light-subtle)',
+        gap:             'var(--spacing-300)',
+        padding:         'var(--spacing-400) var(--spacing-500)',
+        backgroundColor: 'var(--surface-info-subtle)',
+        border:          '1px solid var(--border-info-solid)',
         borderRadius:    'var(--radius-default-400)',
         boxSizing:       'border-box',
       }}
     >
-      <div style={{ flex: '1 0 0', display: 'flex', alignItems: 'center', gap: 'var(--spacing-300)', minWidth: 0 }}>
-        <CardLogo src={cardLogoSrc} size={24} />
-        <span style={t(18, 500, 'var(--text-icon-normal)', { flex: '1 0 0', minWidth: 0 })}>
+      <CardLogo src={cardLogoSrc} size={24} />
+      <div style={{ display: 'flex', gap: 'var(--spacing-200)', alignItems: 'center', flexShrink: 0 }}>
+        <span style={t(14, 400, 'var(--text-icon-normal)', { whiteSpace: 'nowrap' })}>
           {bankSummary}
         </span>
-        <span style={t(16, 500, 'var(--text-icon-primary)', { whiteSpace: 'nowrap', flexShrink: 0 })}>
-          선택됨
+        <span style={t(14, 400, 'var(--text-icon-normal)', { whiteSpace: 'nowrap' })}>
+          {lastFour}*
         </span>
       </div>
     </div>
