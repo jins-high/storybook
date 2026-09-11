@@ -2176,8 +2176,8 @@ function LocationControls({ c, onChange }) {
       </ControlGroup>
       <TextInput label="STORE NAME" value={c.storeName} onChange={v => onChange({ ...c, storeName: v })} />
       <ControlGroup label="BADGES">
-        <ToggleSwitch label="포장전용"      value={!!c.hasTakeoutOnly}       onChange={v => onChange({ ...c, hasTakeoutOnly: v })} />
-        <ToggleSwitch label="매장이용불가"  value={!!c.hasDineInUnavailable} onChange={v => onChange({ ...c, hasDineInUnavailable: v })} />
+        <ToggleSwitch label="테이크아웃 전용" value={!!c.hasTakeoutOnly}       onChange={v => onChange({ ...c, hasTakeoutOnly: v })} />
+        <ToggleSwitch label="준비중"        value={!!c.hasDineInUnavailable} onChange={v => onChange({ ...c, hasDineInUnavailable: v })} />
       </ControlGroup>
     </>
   )

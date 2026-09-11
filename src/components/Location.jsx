@@ -68,7 +68,7 @@ export function Location({
           {storeName}
         </span>
 
-        {/* 포장전용 뱃지 */}
+        {/* 테이크아웃 전용 뱃지 */}
         {hasTakeoutOnly && (
           <div style={{
             height:          18,
@@ -80,24 +80,24 @@ export function Location({
             flexShrink:      0,
           }}>
             <span style={{ ...textBase, fontSize: 11, fontWeight: 500, color: 'var(--text-icon-success)', whiteSpace: 'nowrap' }}>
-              포장전용
+              테이크아웃 전용
             </span>
           </div>
         )}
 
-        {/* 매장이용불가 뱃지 */}
+        {/* 준비중 뱃지 */}
         {hasDineInUnavailable && (
           <div style={{
             height:          18,
             padding:         '0 var(--spacing-200)',
             borderRadius:    '9999px',
-            backgroundColor: 'var(--surface-error-subtle)',
+            backgroundColor: 'var(--surface-normal-subtle)',
             display:         'flex',
             alignItems:      'center',
             flexShrink:      0,
           }}>
-            <span style={{ ...textBase, fontSize: 11, fontWeight: 500, color: 'var(--text-icon-error)', whiteSpace: 'nowrap' }}>
-              매장이용불가
+            <span style={{ ...textBase, fontSize: 11, fontWeight: 500, color: 'var(--text-icon-alternative)', whiteSpace: 'nowrap' }}>
+              준비중
             </span>
           </div>
         )}
