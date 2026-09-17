@@ -44,6 +44,7 @@ import { CouponList }          from '../components/CouponList.jsx'
 import { CardList }            from '../components/CardList.jsx'
 import { GiftCoupon }          from '../components/GiftCoupon.jsx'
 import { MyPageButton }        from '../components/MyPageButton.jsx'
+import { OptionProduct }       from '../components/OptionProduct.jsx'
 import { Modal }               from '../components/Modal.jsx'
 import { DotIndicator }        from '../components/DotIndicator.jsx'
 import { Indicator }           from '../components/Indicator.jsx'
@@ -347,6 +348,7 @@ export function CenterPanel({ selectedItem, controls, onInspect, onChange }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'CardList'            && <CardListPreview             c={controls.CardList} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'GiftCoupon'          && <GiftCouponPreview           c={controls.GiftCoupon} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'MyPageButton'        && <MyPageButtonPreview          c={controls.MyPageButton} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'OptionProduct'       && <OptionProductPreview         c={controls.OptionProduct} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Modal'               && <ModalPreview                  c={controls.Modal} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'DotIndicator'        && <DotIndicatorPreview           c={controls.DotIndicator} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Indicator'           && <IndicatorPreview              c={controls.Indicator} />}
@@ -2238,6 +2240,54 @@ function MyPageButtonPreview({ c }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
           {DEMO_BUTTONS.map(btn => (
             <MyPageButton key={btn.iconName} display="Vertical" buttonName={btn.buttonName} iconName={btn.iconName} />
+          ))}
+        </div>
+      </Section>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// OPTION PRODUCT PREVIEW
+// ═══════════════════════════════════════════════════════════
+function OptionProductPreview({ c }) {
+  return (
+    <div>
+      <Section title="Current State" subtitle="우측 패널에서 속성을 변경하세요">
+        <OptionProduct
+          state={c.state}
+          optionName={c.optionName}
+          price={c.price}
+          totalPrice={c.totalPrice}
+          imageSrc={c.imageSrc}
+          hasTemperature={c.hasTemperature}
+          temperature={c.temperature}
+          option1={c.option1} option1Name={c.option1Name} option1Price={c.option1Price}
+          option2={c.option2} option2Name={c.option2Name} option2Price={c.option2Price}
+          option3={c.option3} option3Name={c.option3Name} option3Price={c.option3Price}
+        />
+      </Section>
+
+      <Section title="All States" subtitle="Default · Active · Disabled">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+          {OptionProduct.states.map(st => (
+            <div key={st}>
+              <div style={{ fontSize: '11px', color: 'var(--text-icon-assistive)', marginBottom: '10px' }}>
+                {st}{st === 'Disabled' ? ' — 품절' : st === 'Active' ? ' — 선택됨 (상세 펼침)' : ''}
+              </div>
+              <OptionProduct
+                state={st}
+                optionName={c.optionName}
+                price={c.price}
+                totalPrice={c.totalPrice}
+                imageSrc={c.imageSrc}
+                hasTemperature={c.hasTemperature}
+                temperature={c.temperature}
+                option1={c.option1} option1Name={c.option1Name} option1Price={c.option1Price}
+                option2={c.option2} option2Name={c.option2Name} option2Price={c.option2Price}
+                option3={c.option3} option3Name={c.option3Name} option3Price={c.option3Price}
+              />
+            </div>
           ))}
         </div>
       </Section>

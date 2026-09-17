@@ -311,6 +311,24 @@ const defaultControls = {
     hasHelperText:  false,
     helperText:     '도움말 텍스트입니다.',
   },
+  OptionProduct: {
+    state:        'Default',
+    optionName:   '딸기라떼',
+    price:        '+4,000원',
+    totalPrice:   '4,000원',
+    imageSrc:     'berry-full-strawberry-juice.png',
+    hasTemperature: true,
+    temperature:  'ICED',
+    option1:      true,
+    option1Name:  '얼음 추가',
+    option1Price: '무료',
+    option2:      true,
+    option2Name:  '휘핑 크림 추가x2',
+    option2Price: '2,000원',
+    option3:      true,
+    option3Name:  '우유 추가x1',
+    option3Price: '500원',
+  },
 }
 
 const STORAGE_PAGE  = 'ds-selected-item'

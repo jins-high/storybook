@@ -54,6 +54,7 @@ const COMPOSE_COMPONENTS = [
   { id: 'CardList',           label: 'Card List'           },
   { id: 'GiftCoupon',         label: 'Gift Coupon'         },
   { id: 'MyPageButton',       label: 'My Page Button'      },
+  { id: 'OptionProduct',      label: 'Option Product'      },
 ]
 
 const COMPOSE_GRAPHICS = [
