@@ -2273,39 +2273,43 @@ function PullToRefreshPreview() {
   const [btnDown, setBtnDown] = useState(false)
   const pushRef  = useRef({ startTime: 0, active: false, autoFired: false, rafId: null, mouseHandled: false })
 
-  const lottieContainerRef = useRef(null)
-  const lottieRef          = useRef(null)
+  const lottieContainerRef     = useRef(null)
+  const lottieRef              = useRef(null)
+  const lottieFoldContainerRef = useRef(null)
+  const lottieFoldRef          = useRef(null)
 
-  useEffect(() => {
+  function loadLottieInto(containerRef, animRef) {
     let destroyed = false
     let anim = null
     import('lottie-web').then(({ default: lottie }) => {
-      if (destroyed || !lottieContainerRef.current) return
-      lottieContainerRef.current.innerHTML = ''
+      if (destroyed || !containerRef.current) return
+      containerRef.current.innerHTML = ''
       anim = lottie.loadAnimation({
-        container:  lottieContainerRef.current,
-        renderer:   'svg',
-        loop:       true,
-        autoplay:   false,
-        path:       BASE_PTR + 'assets/pullToRefresh/indicator-lottie.json',
+        container: containerRef.current,
+        renderer:  'svg',
+        loop:      true,
+        autoplay:  false,
+        path:      BASE_PTR + 'assets/pullToRefresh/indicator-lottie.json',
       })
-      lottieRef.current = anim
+      animRef.current = anim
     })
     return () => {
       destroyed = true
       if (anim) { anim.destroy() }
-      lottieRef.current = null
+      animRef.current = null
     }
-  }, [])
+  }
+
+  useEffect(() => loadLottieInto(lottieContainerRef,     lottieRef),     [])
+  useEffect(() => loadLottieInto(lottieFoldContainerRef, lottieFoldRef), [])
 
   useEffect(() => {
-    const anim = lottieRef.current
-    if (!anim) return
-    if (phase === 'loading') {
-      anim.goToAndPlay(0, true)
-    } else {
-      anim.stop()
-    }
+    const anims = [lottieRef.current, lottieFoldRef.current]
+    anims.forEach(anim => {
+      if (!anim) return
+      if (phase === 'loading') anim.goToAndPlay(0, true)
+      else                     anim.stop()
+    })
   }, [phase])
 
   // 로딩 트리거 (push/drag 공용)
@@ -2607,6 +2611,54 @@ function PullToRefreshPreview() {
               <span style={{ fontSize: 14, lineHeight: 1 }}>↓</span>
               push
             </button>
+          </div>
+
+          {/* Fold mockup column */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center' }}>
+            {/* spacer matching mode toggle height */}
+            <div style={{ height: 29 }} />
+
+            {/* Fold device */}
+            <div
+              onMouseDown={onMouseDown}
+              style={{
+                position: 'relative', width: 360,
+                borderRadius: 12, overflow: 'hidden',
+                border: '1px solid var(--border-light)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+                cursor: isPulling ? 'grabbing' : 'grab',
+                userSelect: 'none',
+              }}
+            >
+              <img
+                src={BASE_PTR + `assets/pullToRefresh/fold-${screenMode}.webp`}
+                alt={`fold ${screenMode}`}
+                style={{ width: '100%', display: 'block' }}
+                draggable={false}
+              />
+
+              {/* Indicator — Lottie animation (fold) */}
+              <div style={{
+                position:     'absolute',
+                top:          0,
+                left:         '50%',
+                width:        56,
+                height:       56,
+                pointerEvents:'none',
+                opacity:      isCompleting ? 0 : 1,
+                transform:    `translateX(-50%) translateY(${yOffset}px) scale(${isVisible ? scale : 0})`,
+                transition,
+              }}>
+                <div ref={lottieFoldContainerRef} style={{ width: '100%', height: '100%' }} />
+              </div>
+            </div>
+
+            {/* Fold label */}
+            <div style={{
+              fontFamily: 'var(--font-family)', fontSize: 11, fontWeight: 500,
+              color: 'var(--text-icon-assistive)',
+              letterSpacing: '-0.25px',
+            }}>Fold</div>
           </div>
 
           {/* Spec cards */}
