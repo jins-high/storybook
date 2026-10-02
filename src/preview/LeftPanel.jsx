@@ -55,6 +55,7 @@ const COMPOSE_COMPONENTS = [
   { id: 'GiftCoupon',         label: 'Gift Coupon'         },
   { id: 'MyPageButton',       label: 'My Page Button'      },
   { id: 'OptionProduct',      label: 'Option Product'      },
+  { id: 'PullToRefresh',      label: 'Pull to Refresh'     },
 ]
 
 const COMPOSE_GRAPHICS = [

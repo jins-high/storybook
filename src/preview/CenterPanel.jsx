@@ -349,6 +349,7 @@ export function CenterPanel({ selectedItem, controls, onInspect, onChange }) {
         {selectedItem.type === 'component'  && selectedItem.name === 'GiftCoupon'          && <GiftCouponPreview           c={controls.GiftCoupon} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'MyPageButton'        && <MyPageButtonPreview          c={controls.MyPageButton} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'OptionProduct'       && <OptionProductPreview         c={controls.OptionProduct} />}
+        {selectedItem.type === 'component'  && selectedItem.name === 'PullToRefresh'       && <PullToRefreshPreview />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Modal'               && <ModalPreview                  c={controls.Modal} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'DotIndicator'        && <DotIndicatorPreview           c={controls.DotIndicator} />}
         {selectedItem.type === 'component'  && selectedItem.name === 'Indicator'           && <IndicatorPreview              c={controls.Indicator} />}
@@ -2240,6 +2241,79 @@ function MyPageButtonPreview({ c }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
           {DEMO_BUTTONS.map(btn => (
             <MyPageButton key={btn.iconName} display="Vertical" buttonName={btn.buttonName} iconName={btn.iconName} />
+          ))}
+        </div>
+      </Section>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// PULL TO REFRESH PREVIEW
+// ═══════════════════════════════════════════════════════════
+const BASE_PTR = import.meta.env.BASE_URL
+
+function PhoneMockup({ src, label }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+      <div style={{
+        width:        200,
+        borderRadius: 28,
+        overflow:     'hidden',
+        border:       '1px solid var(--border-light)',
+        boxShadow:    '0 4px 20px rgba(0,0,0,0.12)',
+        flexShrink:   0,
+      }}>
+        <img
+          src={BASE_PTR + 'assets/pullToRefresh/' + src}
+          alt={label}
+          style={{ width: '100%', display: 'block' }}
+        />
+      </div>
+      <span style={{
+        fontFamily:    'var(--font-family)',
+        fontSize:      11,
+        fontWeight:    500,
+        color:         'var(--text-icon-assistive)',
+        letterSpacing: '-0.25px',
+      }}>{label}</span>
+    </div>
+  )
+}
+
+function PullToRefreshPreview() {
+  return (
+    <div>
+      <Section title="Reference Screens" subtitle="Pull to Refresh 애니메이션 적용 대상 화면">
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+          <PhoneMockup src="home-light.webp" label="Light" />
+          <PhoneMockup src="home-dark.webp"  label="Dark"  />
+        </div>
+      </Section>
+
+      <Section title="구현 계획" subtitle="아래 내용을 기반으로 애니메이션이 추가될 예정입니다">
+        <div style={{
+          fontFamily:    'var(--font-family)',
+          fontSize:      13,
+          lineHeight:    1.7,
+          color:         'var(--text-icon-alternative)',
+          letterSpacing: '-0.2px',
+          display:       'flex',
+          flexDirection: 'column',
+          gap:           6,
+        }}>
+          {[
+            '당겨서 새로고침 제스처 시작 → 인디케이터 등장',
+            '드래그 진행 → 인디케이터 회전 / 스케일 변화',
+            '임계값 초과 → 햅틱 피드백 + 로딩 애니메이션',
+            '로딩 완료 → 인디케이터 사라짐 + 콘텐츠 복귀',
+          ].map((item, i) => (
+            <div key={i} style={{ display: 'flex', gap: 8 }}>
+              <span style={{ color: 'var(--text-icon-primary)', fontWeight: 600, flexShrink: 0 }}>
+                {i + 1}.
+              </span>
+              <span>{item}</span>
+            </div>
           ))}
         </div>
       </Section>

@@ -311,6 +311,7 @@ const defaultControls = {
     hasHelperText:  false,
     helperText:     '도움말 텍스트입니다.',
   },
+  PullToRefresh: {},
   OptionProduct: {
     state:        'Default',
     optionName:   '딸기라떼',
