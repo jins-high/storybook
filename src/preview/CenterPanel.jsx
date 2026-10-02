@@ -2253,68 +2253,385 @@ function MyPageButtonPreview({ c }) {
 // ═══════════════════════════════════════════════════════════
 const BASE_PTR = import.meta.env.BASE_URL
 
-function PhoneMockup({ src, label }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-      <div style={{
-        width:        200,
-        borderRadius: 28,
-        overflow:     'hidden',
-        border:       '1px solid var(--border-light)',
-        boxShadow:    '0 4px 20px rgba(0,0,0,0.12)',
-        flexShrink:   0,
-      }}>
-        <img
-          src={BASE_PTR + 'assets/pullToRefresh/' + src}
-          alt={label}
-          style={{ width: '100%', display: 'block' }}
-        />
-      </div>
-      <span style={{
-        fontFamily:    'var(--font-family)',
-        fontSize:      11,
-        fontWeight:    500,
-        color:         'var(--text-icon-assistive)',
-        letterSpacing: '-0.25px',
-      }}>{label}</span>
-    </div>
-  )
+// Pull to Refresh — rubber-band formula: y = max × (1 - e^(-raw/max))
+const PTR_MAX_Y   = 90   // px asymptote (display)
+const PTR_SETTLE  = 42   // px where indicator settles (≈80px real px @ 0.51 scale)
+const PTR_TRIGGER = 55   // raw drag px needed to trigger loading
+
+function rubberBand(raw) {
+  return PTR_MAX_Y * (1 - Math.exp(-raw / PTR_MAX_Y))
 }
 
 function PullToRefreshPreview() {
+  const [phase,      setPhase]      = useState('idle')
+  const [indicatorY, setIndicatorY] = useState(0)
+  const [screenMode, setScreenMode] = useState('light')
+  const [snapBack,   setSnapBack]   = useState(false)
+
+  const drag     = useRef({ active: false, startY: 0, rawDrag: 0, phase: 'idle' })
+  const timerRef = useRef(null)
+  const [btnDown, setBtnDown] = useState(false)
+  const pushRef  = useRef({ startTime: 0, active: false, autoFired: false, rafId: null, mouseHandled: false })
+
+  const lottieContainerRef = useRef(null)
+  const lottieRef          = useRef(null)
+
+  useEffect(() => {
+    let destroyed = false
+    let anim = null
+    import('lottie-web').then(({ default: lottie }) => {
+      if (destroyed || !lottieContainerRef.current) return
+      lottieContainerRef.current.innerHTML = ''
+      anim = lottie.loadAnimation({
+        container:  lottieContainerRef.current,
+        renderer:   'svg',
+        loop:       true,
+        autoplay:   false,
+        path:       BASE_PTR + 'assets/pullToRefresh/indicator-lottie.json',
+      })
+      lottieRef.current = anim
+    })
+    return () => {
+      destroyed = true
+      if (anim) { anim.destroy() }
+      lottieRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    const anim = lottieRef.current
+    if (!anim) return
+    if (phase === 'loading') {
+      anim.goToAndPlay(0, true)
+    } else {
+      anim.stop()
+    }
+  }, [phase])
+
+  // 로딩 트리거 (push/drag 공용)
+  function triggerLoading() {
+    if (drag.current.phase !== 'pulling') return
+    drag.current.phase = 'loading'
+    setPhase('loading')
+    setIndicatorY(PTR_SETTLE)
+    clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      drag.current.phase = 'completing'
+      setPhase('completing')
+      if (navigator.vibrate) navigator.vibrate([5, 30, 10])
+      setTimeout(() => {
+        drag.current.phase = 'idle'
+        setPhase('idle')
+        setIndicatorY(0)
+      }, 350)
+    }, 1800)
+  }
+
+  // 클릭 시 자동 pull 애니메이션 — 현재 위치에서 PTR_TRIGGER까지 천천히 이동
+  // AUTO_TARGET = PTR_TRIGGER + 1 → rubberBand(56) ≈ PTR_SETTLE(42) → 점프 없음
+  function runPullAnimation() {
+    if (drag.current.phase !== 'pulling') {
+      drag.current = { active: false, startY: 0, rawDrag: 0, phase: 'pulling' }
+      setPhase('pulling')
+    }
+    const AUTO_TARGET = PTR_TRIGGER + 1
+    function anim() {
+      drag.current.rawDrag = Math.min(drag.current.rawDrag + 2, AUTO_TARGET)
+      setIndicatorY(rubberBand(drag.current.rawDrag))
+      if (drag.current.rawDrag < AUTO_TARGET) {
+        pushRef.current.rafId = requestAnimationFrame(anim)
+      } else {
+        triggerLoading()
+      }
+    }
+    pushRef.current.rafId = requestAnimationFrame(anim)
+  }
+
+  useEffect(() => {
+    function onMove(e) {
+      if (!drag.current.active) return
+      const raw = Math.max(0, e.clientY - drag.current.startY)
+      drag.current.rawDrag = raw
+      setIndicatorY(rubberBand(raw))
+    }
+
+    function onUp() {
+      if (!drag.current.active) return
+      drag.current.active = false
+      if (drag.current.phase !== 'pulling') return
+      if (drag.current.rawDrag >= PTR_TRIGGER) {
+        triggerLoading()
+      } else {
+        drag.current.phase = 'idle'
+        setPhase('idle')
+        setIndicatorY(0)
+      }
+    }
+
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup',   onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup',   onUp)
+      clearTimeout(timerRef.current)
+      cancelAnimationFrame(pushRef.current.rafId)
+    }
+  }, [])
+
+  function onMouseDown(e) {
+    if (drag.current.phase !== 'idle') return
+    e.preventDefault()
+    drag.current = { active: true, startY: e.clientY, rawDrag: 0, phase: 'pulling' }
+    setPhase('pulling')
+    setIndicatorY(0)
+  }
+
+  function doSnapBack() {
+    setSnapBack(true)
+    drag.current.phase = 'idle'
+    setPhase('idle')
+    setIndicatorY(0)
+    clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => setSnapBack(false), 350)
+  }
+
+  function onPushMouseDown() {
+    setBtnDown(true)
+    if (drag.current.phase !== 'idle') return
+    cancelAnimationFrame(pushRef.current.rafId)
+    pushRef.current.startTime    = Date.now()
+    pushRef.current.active       = true
+    pushRef.current.autoFired    = false
+    pushRef.current.mouseHandled = false
+
+    drag.current = { active: false, startY: 0, rawDrag: 0, phase: 'pulling' }
+    setPhase('pulling')
+    setIndicatorY(0)
+
+    const TAU = 800  // ms time constant — speed starts fast, converges to 0
+    function tick() {
+      if (!pushRef.current.active) return
+      const elapsed = Date.now() - pushRef.current.startTime
+      const y = PTR_MAX_Y * (1 - Math.exp(-elapsed / TAU))
+      drag.current.rawDrag = y
+      setIndicatorY(y)
+      if (y >= PTR_TRIGGER) {
+        pushRef.current.active    = false
+        pushRef.current.autoFired = true
+        triggerLoading()
+        return
+      }
+      pushRef.current.rafId = requestAnimationFrame(tick)
+    }
+    pushRef.current.rafId = requestAnimationFrame(tick)
+  }
+
+  // mouseUp: 짧은 클릭 → 자동 애니메이션, 충분히 당김 → 로딩, 미달 → 스냅백
+  function onPushMouseUp() {
+    setBtnDown(false)
+    pushRef.current.mouseHandled = true
+    if (pushRef.current.autoFired) { pushRef.current.autoFired = false; return }
+    if (!pushRef.current.active) return
+    pushRef.current.active = false
+    cancelAnimationFrame(pushRef.current.rafId)
+
+    const elapsed = Date.now() - pushRef.current.startTime
+    const rawDrag = drag.current.rawDrag
+
+    if (elapsed < 200) {
+      runPullAnimation()
+    } else if (rawDrag >= PTR_TRIGGER) {
+      triggerLoading()
+    } else {
+      doSnapBack()
+    }
+  }
+
+  // mouseLeave: 이탈 시 스냅백
+  function onPushMouseLeave() {
+    setBtnDown(false)
+    if (pushRef.current.autoFired) { pushRef.current.autoFired = false; return }
+    if (!pushRef.current.active) return
+    pushRef.current.active = false
+    cancelAnimationFrame(pushRef.current.rafId)
+    const rawDrag = drag.current.rawDrag
+    if (rawDrag >= PTR_TRIGGER) {
+      triggerLoading()
+    } else {
+      doSnapBack()
+    }
+  }
+
+  // onClick: mousedown/mouseup 없이 click만 온 경우 (접근성, 브라우저 도구 등)
+  function onPushClick() {
+    if (pushRef.current.mouseHandled) { pushRef.current.mouseHandled = false; return }
+    if (drag.current.phase !== 'idle') return
+    runPullAnimation()
+  }
+
+  const isPulling    = phase === 'pulling'
+  const isLoading    = phase === 'loading'
+  const isCompleting = phase === 'completing'
+  const isVisible    = phase !== 'idle'
+
+  // Scale: grow from 0 as user pulls (reaches 1 when indicatorY = PTR_SETTLE)
+  const scale     = isPulling ? Math.min(indicatorY / PTR_SETTLE, 1) : 1
+  // Y: maps indicatorY so center lands at SETTLE_Y=80 when loading starts
+  // container height=56, halfH=28 → yOffset_settle = SETTLE_Y - halfH = 52
+  const SETTLE_Y  = 80
+  const halfH     = 28
+  const yOffset   = isCompleting
+    ? -(SETTLE_Y + 80)        // fly up above phone (-80px center)
+    : -halfH + indicatorY * (SETTLE_Y / PTR_SETTLE)
+  const transition = snapBack
+    ? 'transform 0.3s cubic-bezier(0.55,0,1,0.45)'
+    : isPulling
+    ? 'none'
+    : isCompleting
+    ? 'transform 0.25s cubic-bezier(0.55,0,1,0.45), opacity 0.2s ease'
+    : 'transform 0.38s cubic-bezier(0.34,1.56,0.64,1)'
+
+  const SPEC = [
+    { id: 'pulling',    label: '① 제스쳐 시작', desc: 'scale 0 → 1\n아래로 이동 (rubber-band)\n콘텐츠는 고정' },
+    { id: 'loading',    label: '② 로딩 시작',   desc: '상단 기준 80px에 고정\n스핀 애니메이션 시작\n콘텐츠 움직이지 않음' },
+    { id: 'completing', label: '③ 로딩 완료',   desc: '햅틱 피드백 발생\nscale 0 + 위로 빠르게 사라짐' },
+  ]
+
   return (
     <div>
-      <Section title="Reference Screens" subtitle="Pull to Refresh 애니메이션 적용 대상 화면">
-        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-          <PhoneMockup src="home-light.webp" label="Light" />
-          <PhoneMockup src="home-dark.webp"  label="Dark"  />
-        </div>
-      </Section>
+      <Section title="Interactive Demo" subtitle="폰 상단을 아래로 드래그 → Pull to Refresh 시뮬레이션">
+        <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
-      <Section title="구현 계획" subtitle="아래 내용을 기반으로 애니메이션이 추가될 예정입니다">
-        <div style={{
-          fontFamily:    'var(--font-family)',
-          fontSize:      13,
-          lineHeight:    1.7,
-          color:         'var(--text-icon-alternative)',
-          letterSpacing: '-0.2px',
-          display:       'flex',
-          flexDirection: 'column',
-          gap:           6,
-        }}>
-          {[
-            '당겨서 새로고침 제스처 시작 → 인디케이터 등장',
-            '드래그 진행 → 인디케이터 회전 / 스케일 변화',
-            '임계값 초과 → 햅틱 피드백 + 로딩 애니메이션',
-            '로딩 완료 → 인디케이터 사라짐 + 콘텐츠 복귀',
-          ].map((item, i) => (
-            <div key={i} style={{ display: 'flex', gap: 8 }}>
-              <span style={{ color: 'var(--text-icon-primary)', fontWeight: 600, flexShrink: 0 }}>
-                {i + 1}.
-              </span>
-              <span>{item}</span>
+          {/* Phone mockup column */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center' }}>
+            {/* Mode toggle */}
+            <div style={{ display: 'flex', gap: 4, alignSelf: 'stretch', justifyContent: 'center' }}>
+              {['light', 'dark'].map(m => (
+                <button
+                  key={m}
+                  onClick={() => setScreenMode(m)}
+                  style={{
+                    flex: 1, padding: '4px 0', borderRadius: 6, cursor: 'pointer',
+                    fontFamily: 'var(--font-family)', fontSize: 11, fontWeight: 500,
+                    border: '1px solid var(--border-light)',
+                    background: screenMode === m ? 'var(--surface-heavy-subtle)' : 'transparent',
+                    color: screenMode === m ? 'var(--text-icon-normal)' : 'var(--text-icon-assistive)',
+                  }}
+                >{m === 'light' ? 'Light' : 'Dark'}</button>
+              ))}
             </div>
-          ))}
+
+            {/* Phone */}
+            <div
+              onMouseDown={onMouseDown}
+              style={{
+                position: 'relative', width: 200,
+                borderRadius: 28, overflow: 'hidden',
+                border: '1px solid var(--border-light)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+                cursor: isPulling ? 'grabbing' : 'grab',
+                userSelect: 'none',
+              }}
+            >
+              <img
+                src={BASE_PTR + `assets/pullToRefresh/home-${screenMode}.webp`}
+                alt={`home ${screenMode}`}
+                style={{ width: '100%', display: 'block' }}
+                draggable={false}
+              />
+
+              {/* Indicator — Lottie animation */}
+              <div style={{
+                position:     'absolute',
+                top:          0,
+                left:         '50%',
+                width:        56,
+                height:       56,
+                pointerEvents:'none',
+                opacity:      isCompleting ? 0 : 1,
+                transform:    `translateX(-50%) translateY(${yOffset}px) scale(${isVisible ? scale : 0})`,
+                transition,
+              }}>
+                <div ref={lottieContainerRef} style={{ width: '100%', height: '100%' }} />
+              </div>
+
+            </div>
+
+            {/* Phase badge */}
+            <div style={{
+              fontFamily: 'var(--font-family)', fontSize: 11, fontWeight: 500,
+              padding: '3px 10px', borderRadius: 20,
+              background: phase === 'loading'
+                ? 'var(--surface-primary-subtle)'
+                : phase === 'completing'
+                ? 'var(--surface-success-subtle)'
+                : 'var(--surface-normal-subtle)',
+              color: phase === 'loading'
+                ? 'var(--text-icon-primary)'
+                : phase === 'completing'
+                ? 'var(--text-icon-success)'
+                : 'var(--text-icon-assistive)',
+              transition: 'all 0.2s',
+            }}>
+              {phase === 'idle'       && '위에서 아래로 드래그'}
+              {phase === 'pulling'    && `당기는 중 · ${Math.round(indicatorY)}px`}
+              {phase === 'loading'    && '새로고침 중...'}
+              {phase === 'completing' && '완료!'}
+            </div>
+
+            {/* Push button */}
+            <button
+              onMouseDown={onPushMouseDown}
+              onMouseUp={onPushMouseUp}
+              onMouseLeave={onPushMouseLeave}
+              onClick={onPushClick}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                padding: '7px 18px', borderRadius: 20,
+                border: '1.5px solid var(--border-normal)',
+                background: btnDown
+                  ? 'var(--surface-heavy-subtle)'
+                  : phase !== 'idle'
+                  ? 'var(--surface-normal-subtle)'
+                  : 'var(--surface-light-subtle)',
+                color: phase !== 'idle'
+                  ? 'var(--text-icon-assistive)'
+                  : 'var(--text-icon-normal)',
+                fontFamily: 'var(--font-family)', fontSize: 12, fontWeight: 600,
+                cursor: phase !== 'idle' ? 'not-allowed' : 'pointer',
+                userSelect: 'none', transition: 'background 0.1s',
+                letterSpacing: '-0.1px',
+                transform: btnDown ? 'scale(0.97)' : 'scale(1)',
+              }}
+            >
+              <span style={{ fontSize: 14, lineHeight: 1 }}>↓</span>
+              push
+            </button>
+          </div>
+
+          {/* Spec cards */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1, minWidth: 160 }}>
+            {SPEC.map(({ id, label, desc }) => (
+              <div key={id} style={{
+                padding: '10px 12px', borderRadius: 10,
+                background: phase === id
+                  ? 'var(--surface-primary-subtle)'
+                  : 'var(--surface-light-subtle)',
+                border: `1px solid ${phase === id ? 'var(--border-primary-subtle)' : 'transparent'}`,
+                transition: 'all 0.2s ease',
+              }}>
+                <div style={{
+                  fontFamily: 'var(--font-family)', fontSize: 12, fontWeight: 600,
+                  color: phase === id ? 'var(--text-icon-primary)' : 'var(--text-icon-normal)',
+                  marginBottom: 4,
+                }}>{label}</div>
+                <div style={{
+                  fontFamily: 'var(--font-family)', fontSize: 11, lineHeight: 1.7,
+                  color: 'var(--text-icon-alternative)', whiteSpace: 'pre-line',
+                }}>{desc}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </Section>
     </div>
